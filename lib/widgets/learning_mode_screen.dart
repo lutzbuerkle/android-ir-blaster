@@ -30,6 +30,7 @@ class _LearningModeScreenState extends State<LearningModeScreen>
   static const Set<int> _elkSmartPids = <int>{
     0x0131,
     0x0132,
+    0x0134,
     0x014A,
     0x0184,
     0x0195,

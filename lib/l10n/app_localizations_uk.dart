@@ -27,7 +27,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get quickTilePower => 'Живлення';
 
   @override
-  String get quickTileMute => 'Без звуку';
+  String get quickTileMute => 'Вимкнути звук';
 
   @override
   String get quickTileVolumeUp => 'Гучн. +';
@@ -37,31 +37,31 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get homeUsbPermissionRequiredMessage =>
-      'У цьому телефоні немає вбудованого ІЧ-передавача. USB ІЧ-адаптер знайдено, але дозвіл ще не надано.\n\nНадайте USB-дозвіл, щоб надсилати ІЧ.';
+      'Цей телефон не має вбудованого ІЧ-випромінювача. USB ІЧ-адаптер виявлено, але дозвіл ще не надано.\n\nПідтвердьте системний запит дозволу USB, щоб увімкнути надсилання ІЧ-команд.';
 
   @override
   String get homeUsbPermissionDeniedMessage =>
-      'У цьому телефоні немає вбудованого ІЧ-передавача. USB ІЧ-адаптер знайдено, але в USB-дозволі відмовлено.\n\nЗапитайте дозвіл знову і підтвердьте запит, щоб надсилати ІЧ.';
+      'Цей телефон не має вбудованого ІЧ-випромінювача. USB ІЧ-адаптер виявлено, але в дозволі USB відмовлено.\n\nЗнову запитайте дозвіл і підтвердьте запит, щоб увімкнути надсилання ІЧ-команд.';
 
   @override
   String get homeUsbPermissionGrantedMessage =>
-      'У цьому телефоні немає вбудованого ІЧ-передавача. USB ІЧ-адаптер дозволено, але його ще не ініціалізовано.';
+      'Цей телефон не має вбудованого ІЧ-випромінювача. USB ІЧ-адаптер авторизовано, але він ще не ініціалізований.';
 
   @override
   String get homeUsbOpenFailedMessage =>
-      'У цьому телефоні немає вбудованого ІЧ-передавача. USB ІЧ-адаптер знайдено та дозволено, але його не вдалося ініціалізувати.\n\nПерепідключіть адаптер і спробуйте знову.';
+      'Цей телефон не має вбудованого ІЧ-випромінювача. USB ІЧ-адаптер виявлено та авторизовано, але його не вдалося ініціалізувати.\n\nПовторно підключіть ключ і спробуйте ще раз.';
 
   @override
   String get homeUsbReadyMessage =>
-      'У цьому телефоні немає вбудованого ІЧ-передавача.';
+      'Цей телефон не має вбудованого ІЧ-випромінювача.';
 
   @override
   String get homeUsbNoDeviceMessage =>
-      'У цьому телефоні немає вбудованого ІЧ-передавача, і зараз не підключено жодного підтримуваного USB ІЧ-адаптера.\n\nВи все ще можете створювати, імпортувати й керувати пультами, але для передавання ІЧ-сигналів потрібен один із варіантів нижче.';
+      'Цей телефон не містить вбудованого ІЧ-випромінювача, і наразі не підключено жодного підтримуваного USB ІЧ-адаптера.\n\nВи все ще можете створювати, імпортувати та керувати пультами, але для надсилання ІЧ-команд вам потрібен один із наведених нижче варіантів.';
 
   @override
   String get homeUsbOptionPlugIn =>
-      'Підключіть підтримуваний USB ІЧ-адаптер, а потім надайте дозвіл.';
+      'Підключіть підтримуваний USB ІЧ-адаптер, а потім підтвердьте дозвіл.';
 
   @override
   String get homeUsbOptionReady => 'Готово до використання.';
@@ -79,44 +79,44 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get homeUsbOptionOpenFailed =>
-      'Авторизовано, але инициализация не удалась.';
+      'Авторизовано, але не вдалося ініціалізувати.';
 
   @override
   String get homeHardwareBannerNoInternal =>
-      'В телефоні немає встроенного ІЧ. Підключіть USB ІЧ-адаптер або включите режим Аудіо в настройках.';
+      'Цей телефон не має вбудованого ІЧ-порту. Підключіть USB ІЧ-адаптер або ввімкніть режим аудіо в налаштуваннях.';
 
   @override
   String get homeHardwareBannerPermissionRequired =>
-      'USB-адаптер знайдено. Для отправки ІЧ потрібен дозвіл.';
+      'Виявлено USB-адаптер. Для надсилання ІЧ-команд потрібен дозвіл.';
 
   @override
   String get homeHardwareBannerPermissionDenied =>
-      'Дозвіл USB відхилено. Запитайте його знову для отправки ІЧ.';
+      'У дозволі USB відмовлено. Запитуйте його ще раз, щоб надіслати ІЧ.';
 
   @override
   String get homeHardwareBannerPermissionGranted =>
-      'USB-адаптер авторизован. Ожидание инициализации.';
+      'USB-адаптер авторизовано. Очікування ініціалізації.';
 
   @override
   String get homeHardwareBannerOpenFailed =>
-      'USB-адаптер авторизован, але инициализация не удалась.';
+      'USB-адаптер авторизовано, але не вдалося ініціалізувати.';
 
   @override
-  String get homeHardwareBannerReady => 'USB готов.';
+  String get homeHardwareBannerReady => 'USB готовий.';
 
   @override
   String get homeHardwareRequiredTitle =>
-      'Для отправки команд потрібно ІЧ-обладнання';
+      'Для надсилання команд потрібне ІЧ-обладнання';
 
   @override
-  String get homeUsbDongleRecommended => 'USB ІЧ-адаптер, рекомендуется';
+  String get homeUsbDongleRecommended => 'USB ІЧ-адаптер (рекомендовано)';
 
   @override
-  String get homeAudioAdapterAlternative => 'Аудіо ІЧ-адаптер, альтернатива';
+  String get homeAudioAdapterAlternative => 'Аудіо ІЧ-адаптер (альтернатива)';
 
   @override
   String get homeAudioAdapterDescription =>
-      'Налаштування → ІЧ-передавач → Аудіо (1 LED / 2 LED). Потрібен аудіо-ІЧ адаптер.';
+      'Налаштування → ІЧ-передавач → Аудіо (1 LED / 2 LED). Потрібен аудіо ІЧ-адаптер.';
 
   @override
   String get close => 'Закрити';
@@ -129,46 +129,46 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get homeUsbPermissionSentApprove =>
-      'Запит дозволу USB отправлен. Підтвердьте його, щоб увімкнути USB.';
+      'Запит на дозвіл USB надіслано. Підтвердьте системний запит, щоб увімкнути USB.';
 
   @override
   String get homeUsbDongleNotDetected =>
-      'Підтримуваний USB ІЧ-адаптер не знайдено. Підключіть його і попробуйте знову.';
+      'Не виявлено підтримуваного USB ІЧ-адаптера. Підключіть його та повторіть спробу.';
 
   @override
   String get homeUsbPermissionRequestFailed =>
-      'Не вдалося запросить дозвіл USB.';
+      'Не вдалося запитати дозвіл USB.';
 
   @override
   String get working => 'Виконується…';
 
   @override
-  String get requestUsbPermission => 'Запросить дозвіл USB';
+  String get requestUsbPermission => 'Запросити дозвіл USB';
 
   @override
   String get homeHardwareTip =>
-      'Підказка: ви вже можете створювати і упорядковувати пульти. Обладнання потрібно лише для передавання.';
+      'Порада. Зараз ви все ще можете створювати й організовувати пульти. Апаратне забезпечення потрібне лише під час передачі.';
 
   @override
-  String get homeNoIrTransmitterTitle => 'Немає ІЧ-передавача';
+  String get homeNoIrTransmitterTitle => 'ІЧ-передавач недоступний';
 
   @override
   String get homeHardwareRequiredBody =>
-      'IR Blaster може створювати й керувати пультами на будь-якому телефоні. Але для фактичного надсилання інфрачервоних команд пристрою потрібен один із наведених нижче варіантів обладнання.';
+      'IR Blaster може створювати та керувати пультами на будь-якому телефоні. Щоб фактично надсилати команди через ІЧ-порт, вашому пристрою потрібен один із наведених нижче параметрів обладнання.';
 
   @override
   String get homeCanStillUseWithoutHardware =>
-      'Ви вже можете створювати, імпортувати й упорядковувати пульти просто зараз.';
+      'Ви все ще можете створювати, імпортувати та впорядковувати пульти прямо зараз.';
 
   @override
-  String get homeWaysToUseIrBlaster => 'Як користуватися IR Blaster';
+  String get homeWaysToUseIrBlaster => 'Способи використання IR Blaster';
 
   @override
-  String get homeBuiltInIrOptionTitle => 'Телефон із вбудованим IR';
+  String get homeBuiltInIrOptionTitle => 'Телефон із вбудованим ІЧ-передавачем';
 
   @override
   String get homeBuiltInIrOptionSubtitle =>
-      'Працює на підтримуваних телефонах із вбудованим IR-передавачем. У цьому телефоні його немає.';
+      'Працює на підтримуваних телефонах із вбудованим ІЧ-передавачем. У цьому телефоні його немає.';
 
   @override
   String get homeBuiltInIrUnavailable => 'Недоступно на цьому телефоні';
@@ -201,21 +201,20 @@ class AppLocalizationsUk extends AppLocalizations {
   String get macrosNavLabel => 'Макроси';
 
   @override
-  String get signalTesterNavLabel => 'Тестер сигнала';
+  String get signalTesterNavLabel => 'Тестер сигналу';
 
   @override
   String get settingsTitle => 'Налаштування';
 
   @override
-  String get remoteNoIrEmitterTitle => 'Немає ІЧ-передавача';
+  String get remoteNoIrEmitterTitle => 'Без ІЧ випромінювача';
 
   @override
-  String get remoteNoIrEmitterMessage =>
-      'На цьому пристрої немає ІЧ-передавача';
+  String get remoteNoIrEmitterMessage => 'Цей пристрій не має ІЧ-випромінювача';
 
   @override
   String get remoteNoIrEmitterNeedsEmitter =>
-      'Для роботи застосунку потрібен ІЧ-передавач';
+      'Для роботи цієї програми потрібен ІЧ-випромінювач';
 
   @override
   String get remoteDismiss => 'Закрити';
@@ -235,12 +234,12 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String remoteLoopStoppedFailed(Object error) {
-    return 'Цикл зупинено (надсилання не вдалося): $error';
+    return 'Цикл зупинено (не вдалося надіслати): $error';
   }
 
   @override
   String remoteLoopingHint(Object title) {
-    return 'Цикл \"$title\". Натисніть Стоп зверху, щоб зупинити.';
+    return 'Цикл \"$title\". Натисніть «Зупинити» на верхній панелі, щоб зупинити.';
   }
 
   @override
@@ -248,7 +247,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get remoteUpdatedNotFound =>
-      'Пульт оновлено на екрані. В збереженому списку он не знайдено.';
+      'Пульт оновлено на екрані. Його не знайдено в збереженому списку.';
 
   @override
   String remoteUpdatedNamed(Object name) {
@@ -273,10 +272,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get buttonFallbackTitle => 'Кнопка';
 
   @override
-  String get imageFallbackTitle => 'Изобр.';
+  String get imageFallbackTitle => 'Зображення';
 
   @override
-  String get noBrowserAvailable => 'Браузер недоступен';
+  String get noBrowserAvailable => 'Браузер недоступний';
 
   @override
   String failedToOpen(Object error) {
@@ -284,33 +283,33 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get cancel => 'Скасування';
+  String get cancel => 'Скасувати';
 
   @override
-  String get settingsRestoreDemoTitle => 'Відновити демо-пульти?';
+  String get settingsRestoreDemoTitle => 'Відновити демонстраційні пульти?';
 
   @override
   String get settingsRestoreDemoMessage =>
-      'Це замінить поточні пульти вбудованими демо-пультами. Якщо хочете зберегти текущий список, краще спочатку зробити копію.';
+      'Це замінить ваші поточні пульти на вбудовані демонстраційні пульти. Рекомендується створити резервну копію, якщо ви хочете зберегти поточний список.';
 
   @override
   String get settingsRestoreDemoConfirm => 'Відновити демо';
 
   @override
-  String get settingsDemoRemotesRestored => 'Демо-пульти відновлено.';
+  String get settingsDemoRemotesRestored => 'Демо пульти відновлені.';
 
   @override
-  String get settingsDeleteAllRemotesTitle => 'Видалити все пульти?';
+  String get settingsDeleteAllRemotesTitle => 'Видалити всі пульти?';
 
   @override
   String get settingsDeleteAllRemotesMessage =>
-      'Це видалить все пульти з пристрою. Дію не можна скасувати.';
+      'Усі пульти буде видалено з цього пристрою. Цю дію не можна скасувати.';
 
   @override
-  String get settingsDeleteAllConfirm => 'Видалити усе';
+  String get settingsDeleteAllConfirm => 'Видалити все';
 
   @override
-  String get settingsAllRemotesDeleted => 'Все пульти видалено.';
+  String get settingsAllRemotesDeleted => 'Усі пульти видалено.';
 
   @override
   String get themeAuto => 'Автотема';
@@ -322,42 +321,42 @@ class AppLocalizationsUk extends AppLocalizations {
   String get themeDark => 'Темна тема';
 
   @override
-  String get themeDescAuto => 'Слідує настройкам пристрою';
+  String get themeDescAuto => 'Дотримується налаштувань вашого пристрою';
 
   @override
-  String get themeDescLight => 'Завжди светло і ясно';
+  String get themeDescLight => 'Завжди яскраво і чітко';
 
   @override
-  String get themeDescDark => 'Комфортно для глаз';
+  String get themeDescDark => 'Легкий для очей';
 
   @override
   String get themeHintAuto =>
-      'Тема автоматично змінюється при перемиканні пристрою між світлим і темним режимом';
+      'Тема автоматично перемикається, коли ви змінюєте налаштування пристрою між світлим і темним режимами';
 
   @override
   String get themeHintLight =>
-      'Идеально для денного світла і добре освітлених місць';
+      'Ідеально підходить для денного використання та добре освітлених місць';
 
   @override
   String get themeHintDark =>
-      'Снижает навантаження на очі при слабкому свете і економить батарею на OLED';
+      'Зменшує напругу очей в умовах слабкого освітлення та економить батарею на OLED-екранах';
 
   @override
-  String get supportDevelopmentTitle => 'Поддержать разработку';
+  String get supportDevelopmentTitle => 'Підтримати розробку';
 
   @override
   String get supportDevelopmentSubtitle =>
-      'Помогите поддерживать IR Blaster і сумісність з обладнанням';
+      'Допоможіть підтримувати IR Blaster і сумісність з обладнанням';
 
   @override
   String get supportDevelopmentBody =>
-      'Без реклами, Без трекинга, Без закритих функцій. Ваша підтримка йде на роботу з протоколами, підтримку USB-адаптерів і кращу сумісність пристроїв.';
+      'Ні реклами, ні відстеження, ні заблокованих функцій. Ваша підтримка фінансує роботу протоколу, підтримку USB-адаптера та кращу сумісність між пристроями.';
 
   @override
-  String get donate => 'Поддержать';
+  String get donate => 'Підтримати';
 
   @override
-  String get starRepo => 'Поставить звезду';
+  String get starRepo => 'Позначити репозиторій зіркою';
 
   @override
   String get repositoryLinkCopied => 'Посилання на репозиторій скопійовано';
@@ -366,25 +365,25 @@ class AppLocalizationsUk extends AppLocalizations {
   String get supportPillLocalOnly => 'Лише локально';
 
   @override
-  String get supportPillNoTracking => 'Без трекинга';
+  String get supportPillNoTracking => 'Немає відстеження';
 
   @override
-  String get supportPillHardwareAware => 'З урахуванням железа';
+  String get supportPillHardwareAware => 'З урахуванням обладнання';
 
   @override
-  String get supportPillOpenSource => 'Open source';
+  String get supportPillOpenSource => 'Відкритий код';
 
   @override
-  String get appearanceTitle => 'Внешний вид';
+  String get appearanceTitle => 'Зовнішній вигляд';
 
   @override
-  String get appearanceSubtitle => 'Настройте внешний вид приложения';
+  String get appearanceSubtitle => 'Налаштуйте свій візуальний досвід';
 
   @override
-  String get localizationTitle => 'Локализация';
+  String get localizationTitle => 'Локалізація';
 
   @override
-  String get localizationSubtitle => 'Мова приложения і поведение перекладу';
+  String get localizationSubtitle => 'Мова програми та поведінка перекладу';
 
   @override
   String localizationAutoUsing(Object language) {
@@ -393,65 +392,67 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get localizationAutoDescription =>
-      'Застосунок використовує мова пристрою, якщо можливо.';
+      'Застосунок використовує мову пристрою, якщо це можливо.';
 
   @override
-  String get localizationManualDescription => 'Мова приложения задан вручную.';
+  String get localizationManualDescription => 'Мову застосунку вибрано вручну.';
 
   @override
-  String get useSystemLanguageTitle => 'Мова системи';
+  String get useSystemLanguageTitle => 'Використовувати системну мову';
 
   @override
   String useSystemLanguageEnabled(Object language) {
-    return 'Використовується мова пристрою: $language';
+    return 'Мова вашого пристрою: $language';
   }
 
   @override
   String get useSystemLanguageDisabled =>
-      'Використовувати мова, вибраний нижче, замість мови пристрою.';
+      'Використовуйте мову, вибрану нижче, замість стандартної для пристрою.';
 
   @override
-  String get chooseAppLanguage => 'Виберіть мова';
+  String get chooseAppLanguage => 'Виберіть мову програми';
 
   @override
   String get languagePickerDisabledHint =>
-      'Отключите системна мова, щоб вибрати мова вручную.';
+      'Вимкніть системну мову, щоб вибрати мову вручну.';
 
   @override
   String get searchLanguages => 'Пошук мов';
 
   @override
-  String get noLanguagesFound => 'Немає совпадений';
+  String get noLanguagesFound => 'Немає відповідних мов';
 
   @override
   String get localizationHint =>
-      'Коли увімкнено системна мова, приложение слідує локалі пристрою і відкочується к англійської, якщо перекладу немає. Вимкніть це, щоб зафіксувати конкретну мова.';
+      'Коли системну мову ввімкнено, застосунок використовує локаль пристрою та повертається до англійської, якщо переклад недоступний. Вимкніть цю опцію, щоб вибрати конкретну мову.';
 
   @override
-  String get appLanguageTitle => 'Мова приложения';
+  String get appLanguageTitle => 'Мова програми';
 
   @override
   String get appLanguageHint =>
-      'За умолчанию використовується мова пристрою. Здесь можна принудительно вибрати лише English або Français для приложения.';
+      'Автоматично відповідає мові вашого пристрою. Виберіть тут англійську або французьку, щоб замінити її лише для програми.';
 
   @override
   String get languageAuto => 'Авто (система)';
 
   @override
   String get languageAutoDescription =>
-      'Автоматично використовувати мова пристрою';
+      'Автоматично використовувати мову пристрою';
 
   @override
   String get languageEnglish => 'English';
 
   @override
-  String get languageEnglishDescription => 'Завжди використовувати English';
+  String get languageEnglishDescription =>
+      'Завжди використовувати англійську мову';
 
   @override
   String get languageFrench => 'Français';
 
   @override
-  String get languageFrenchDescription => 'Завжди використовувати Français';
+  String get languageFrenchDescription =>
+      'Завжди використовувати французьку мову';
 
   @override
   String get languageAutoShort => 'Авто';
@@ -463,7 +464,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get languageFrenchShort => 'Français';
 
   @override
-  String get useDynamicColors => 'Динамические цвета';
+  String get useDynamicColors => 'Використовуйте динамічні кольори';
 
   @override
   String get themeChoiceAuto => 'Авто';
@@ -486,17 +487,17 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeEntrySubtitle =>
-      'Крок за кроком зніміть кнопку з фізичного пульта дистанційного керування';
+      'Крок за кроком зніміть кнопку з фізичного пульта';
 
   @override
   String get learningModeTitle => 'Режим навчання';
 
   @override
-  String get learningModeHeroTitle => 'Вивчіть кнопку дистанційного керування';
+  String get learningModeHeroTitle => 'Навчити кнопку пульта';
 
   @override
   String get learningModeHeroSubtitle =>
-      'Налаштуйте приймач, підготуйте оригінальний пульт дистанційного керування, запишіть одну команду, а потім перегляньте її, перш ніж зберегти на пульті дистанційного керування.';
+      'Налаштуйте приймач, підготуйте оригінальний пульт, запишіть одну команду, а потім перегляньте її, перш ніж зберегти на пульті.';
 
   @override
   String get learningModeReadyBadge => 'Приймач готовий';
@@ -505,7 +506,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get learningModeNeedsPermissionBadge => 'Потрібен дозвіл USB';
 
   @override
-  String get learningModeSetupBadge => 'Необхідно налаштувати приймач';
+  String get learningModeSetupBadge => 'Потрібне налаштування приймача';
 
   @override
   String get learningModeNoReceiverBadge => 'Немає приймача навчання';
@@ -521,7 +522,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeGuideTitle =>
-      'Підніміть там, де має відбутися захоплення';
+      'Підберіть там, де має відбутися захоплення';
 
   @override
   String get learningModeStepHardwareShort => 'Обладнання';
@@ -554,11 +555,11 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeHardwareReadyBody =>
-      'ІЧ-ключ USB під’єднано та ініціалізовано. Це правильне місце для початку процесу навчання після підключення проводки захоплення.';
+      'USB ІЧ-адаптер під’єднано та ініціалізовано. Це правильне місце для початку процесу навчання після підключення проводки захоплення.';
 
   @override
   String get learningModeHardwarePermissionBody =>
-      'USB-ключ є, але дозвіл Android усе ще блокує його. Надайте дозвіл USB у розділі передавача перед навчанням.';
+      'USB-адаптер є, але дозвіл Android усе ще блокує його. Надайте дозвіл USB у розділі передавача перед навчанням.';
 
   @override
   String get learningModeHardwareSetupBody =>
@@ -576,14 +577,14 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeHardwareTipBody =>
-      'Режим навчання живе під ІЧ-передавачем, оскільки він залежить від доступності обладнання та використовується рідше, ніж надсилання пультів.';
+      'Режим навчання живе під ІЧ-передавачем, оскільки він залежить від доступності апаратного забезпечення та використовується рідше, ніж надсилання пультів.';
 
   @override
   String get learningModeStepPrepareTitle => 'Підготуйте оригінальний пульт';
 
   @override
   String get learningModeStepPrepareSubtitle =>
-      'Вирішіть, що ви вивчаєте, а потім тримайте оригінальний пульт дистанційного керування непорушно та близько до приймача.';
+      'Вирішіть, що ви вивчаєте, а потім тримайте оригінальний пульт непорушно та близько до приймача.';
 
   @override
   String get learningModeButtonNameLabel => 'Назва кнопки';
@@ -602,7 +603,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModePreparationItemDistance =>
-      'Тримайте оригінальний пульт дистанційного керування на відстані приблизно 2–5 см від приймача.';
+      'Тримайте оригінальний пульт на відстані приблизно 2–5 см від приймача.';
 
   @override
   String get learningModePreparationItemOneButton =>
@@ -613,7 +614,7 @@ class AppLocalizationsUk extends AppLocalizations {
       'Тримайте обидва пристрої нерухомо, щоб уникнути шумних або часткових зйомок.';
 
   @override
-  String get learningModeStepCaptureTitle => 'Захоплення сигналу';
+  String get learningModeStepCaptureTitle => 'Захопити сигнал';
 
   @override
   String get learningModeStepCaptureSubtitle =>
@@ -624,7 +625,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeCaptureReadyBody =>
-      'Ваш апаратний стан виглядає добре. Сервер захоплення буде підключено до цього кроку.';
+      'Обладнання готове. Тепер можна розпочати захоплення ІЧ-сигналу.';
 
   @override
   String get learningModeCaptureBlockedTitle => 'Обладнання ще не готове';
@@ -641,14 +642,14 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeCaptureStubBody =>
-      'Цей екран спочатку повністю створено, тому остаточний процес захоплення може підключатися до реальних апаратних станів, а не прикручуватися пізніше.';
+      'Цей екран спочатку повністю створено, тому остаточний потік захоплення може підключитися до реальних станів апаратного забезпечення, а не прикручуватися пізніше.';
 
   @override
   String get learningModeCaptureStubMessage =>
       'Навчальний запис ще не підключено. Цей екран спочатку створює весь потік.';
 
   @override
-  String get learningModeUnnamedCapture => 'Зйомка без назви';
+  String get learningModeUnnamedCapture => 'Захоплення без назви';
 
   @override
   String get learningModeStatusCheckingTitle => 'Перевірка приймача';
@@ -677,7 +678,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeStatusListeningBody =>
-      'Натисніть оригінальну кнопку дистанційного керування. Після підключення зйомки цей стан зафіксує наступний чистий сигнал.';
+      'Натисніть кнопку на оригінальному пульті. Наступний чистий сигнал буде захоплено.';
 
   @override
   String learningModeStatusCapturedBody(Object buttonName) {
@@ -690,28 +691,28 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeConnectReceiverBody =>
-      'Режим навчання залежить від зовнішнього обладнання, яке може приймати ІЧ-протоки. Після виявлення та авторизації одержувача ця сторінка стає потоком прямого прослуховування, тестування та збереження.';
+      'Режим навчання залежить від зовнішнього обладнання, яке може приймати інфрачервоне випромінювання. Після виявлення та авторизації одержувача ця сторінка стає потоком прямого прослуховування, тестування та збереження.';
 
   @override
   String get learningModeListenCardTitle => 'Слухайте одну кнопку';
 
   @override
   String get learningModeListenCardBody =>
-      'Спершу встановіть мітку, якщо хочете, потім почніть слухати й натисніть кнопку на оригінальному пульті.';
+      'Якщо хочете, спочатку встановіть мітку, а потім почніть слухати й натисніть кнопку на оригінальному пульті.';
 
   @override
   String get learningModeReadyToListenTitle => 'Готовий слухати';
 
   @override
   String get learningModeReadyToListenBody =>
-      'Це основна поверхня захоплення. Починайте прослуховувати лише тоді, коли оригінальний пульт дистанційного керування спрямований і стабільний.';
+      'Це основна поверхня захоплення. Починайте прослуховувати лише тоді, коли оригінальний пульт спрямований і стабільний.';
 
   @override
   String get learningModeListeningNowTitle => 'Зараз слухаю';
 
   @override
   String get learningModeListeningNowBody =>
-      'Натисніть оригінальну кнопку дистанційного керування один раз. Використовуйте захоплення попереднього перегляду, щоб перейти до решти каркаса перед тим, як буде підключено справжній сервер захоплення.';
+      'Один раз натисніть кнопку на оригінальному пульті та тримайте його спрямованим на приймач.';
 
   @override
   String get learningModePreviewCaptureAction =>
@@ -737,7 +738,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeSaveStubMessage =>
-      'Збереження ще не підключено. Наступним кроком буде підключення цього екрана до кнопки «Створити» та наявних пультів дистанційного керування.';
+      'Зберегти ще не підключено. Наступним кроком буде підключення цього екрана до кнопки «Створити» та наявних пультів.';
 
   @override
   String get learningModeLearnAnotherAction => 'Дізнайтеся іншу кнопку';
@@ -747,7 +748,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeStepReviewSubtitle =>
-      'Підтвердьте те, що було вивчено, а потім виберіть, де воно має зберігатися у вашій віддаленій бібліотеці.';
+      'Підтвердьте те, що було вивчено, а потім виберіть, де воно має зберігатися у вашій бібліотеці пультів.';
 
   @override
   String get learningModeSaveToExistingRemote => 'Наявний пульт';
@@ -778,123 +779,124 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get learningModeReviewTipBody =>
-      'На наступному етапі впровадження слід підключити цю панель перегляду до кнопки «Створити» та наявних пультів дистанційного керування, щоб отриманий сигнал потрапляв безпосередньо у вашу бібліотеку.';
+      'На наступному етапі впровадження слід підключити цю панель перегляду до кнопки «Створити» та наявних пультів, щоб отриманий сигнал потрапляв безпосередньо у вашу бібліотеку.';
 
   @override
   String get learningModeFinishPreview => 'Завершити попередній перегляд';
 
   @override
-  String get backAction => 'Back';
+  String get backAction => 'Назад';
 
   @override
-  String get interactionTitle => 'Взаимодействие';
+  String get interactionTitle => 'Взаємодія';
 
   @override
-  String get interactionSubtitle => 'Отклик на касания і раскладка пульта';
+  String get interactionSubtitle => 'Тактильний відгук і компонування пульта';
 
   @override
-  String get hapticFeedbackTitle => 'Тактильний відгук';
+  String get hapticFeedbackTitle => 'Тактильний зворотний зв\'язок';
 
   @override
-  String get hapticFeedbackSubtitle => 'Вибрация при нажатиях і действиях';
+  String get hapticFeedbackSubtitle => 'Вібрувати під час натискань і дій';
 
   @override
-  String get forceInAppVibrationTitle => 'Force in-app vibration';
+  String get forceInAppVibrationTitle => 'Примусова вібрація в програмі';
 
   @override
   String get forceInAppVibrationSubtitle =>
-      'Use the vibrator directly even if system touch feedback is off';
+      'Використовуйте вібратор безпосередньо, навіть якщо зворотний зв’язок системи від дотику вимкнено';
 
   @override
   String get forceInAppVibrationWarning =>
-      'Advanced option. This can make the app vibrate even when Android touch feedback is disabled globally.';
+      'Розширений варіант. Це може змусити програму вібрувати, навіть якщо сенсорний зворотній зв’язок Android вимкнено глобально.';
 
   @override
   String get forceInAppVibrationBlockedMasterWarning =>
-      'Android system vibration is disabled. Force in-app vibration cannot override it on this device.';
+      'Вібрація системи Android вимкнена. Примусова вібрація в програмі не може замінити її на цьому пристрої.';
 
   @override
   String get forceInAppVibrationNoVibratorWarning =>
-      'This device reports no vibrator hardware, so in-app vibration cannot work.';
+      'Цей пристрій повідомляє про відсутність апаратного вібратора, тому вібрація в програмі не працює.';
 
   @override
-  String get intensity => 'Интенсивность';
+  String get intensity => 'Інтенсивність';
 
   @override
-  String get intensityLight => 'Світла';
+  String get intensityLight => 'Низька';
 
   @override
-  String get intensityMedium => 'Средняя';
+  String get intensityMedium => 'Середня';
 
   @override
-  String get intensityStrong => 'Сильная';
+  String get intensityStrong => 'Висока';
 
   @override
-  String get flipRemoteDefaultTitle => 'За умолчанию переворачивать пульт';
+  String get flipRemoteDefaultTitle => 'Перевертати пульт за замовчуванням';
 
   @override
   String get flipRemoteDefaultSubtitle =>
-      'Відкривати екран пульта, повернув його на 180°, для USB-адаптерів снизу.';
+      'Відкривати екран пульта повернутим на 180° для USB-адаптерів, підключених знизу.';
 
   @override
-  String get remoteViewFlipped => 'Екран пульта буде відкрито перевернутим.';
+  String get remoteViewFlipped => 'Пульт відкриватиметься перевернутим.';
 
   @override
-  String get remoteViewNormal => 'Екран пульта буде відкрито звичайно.';
+  String get remoteViewNormal =>
+      'Пульт відкриватиметься у звичайній орієнтації.';
 
   @override
-  String get backupTitle => 'Резервна копія';
+  String get backupTitle => 'Резервне копіювання';
 
   @override
-  String get backupSubtitle => 'Імпорт і експорт пультів і макросів';
+  String get backupSubtitle => 'Імпорт/експорт пультів і макросів';
 
   @override
-  String get importBackup => 'Імпорт копии';
+  String get importBackup => 'Імпорт резервної копії';
 
   @override
   String get importBackupSubtitle =>
-      'Импортируйте копію пультів і макросів або файли Flipper Zero, LIRC або IRPLUS';
+      'Імпортуйте резервні копії пультів/макросів або файли Flipper Zero, LIRC або IRPLUS';
 
   @override
-  String get bulkImportFolder => 'Масовий імпорт папки';
+  String get bulkImportFolder => 'Папка масового імпорту';
 
   @override
-  String get bulkImportFolderSubtitle =>
-      'Імпортувати несколько пультів з папки';
+  String get bulkImportFolderSubtitle => 'Імпорт кількох пультів з папки';
 
   @override
-  String get exportBackup => 'Експорт копии';
+  String get exportBackup => 'Експорт резервної копії';
 
   @override
   String get exportBackupSubtitle =>
-      'Зберегти пульти і макроси як один JSON-файл в Downloads';
+      'Збережіть пульти та макроси як один файл JSON у завантаженнях';
 
   @override
-  String get restoreDemoRemotes => 'Віднов. демо-пульти';
+  String get restoreDemoRemotes => 'Відновити демонстраційні пульти';
 
   @override
   String get restoreDemoRemotesSubtitle =>
-      'Заменить поточні пульти вбудованими демо';
+      'Замініть поточні пульти на вбудовану демонстрацію';
 
   @override
-  String get deleteAllRemotes => 'Видалити все пульти';
+  String get deleteAllRemotes => 'Видалити всі пульти';
 
   @override
-  String get deleteAllRemotesSubtitle => 'Видалити все пульти з пристрою';
+  String get deleteAllRemotesSubtitle => 'Видаліть усі пульти з цього пристрою';
 
   @override
   String get backupTip =>
-      'Підказка: Експортуйте копію перед великими змінами. Імпорт підтримує повні копии, старі JSON-копии лише з пультами і файли Flipper Zero .ir.';
+      'Порада: експортуйте резервну копію перед значними змінами. Імпорт підтримує повні резервні копії, застарілі резервні копії JSON лише з пультами, а також файли Flipper Zero .ir.';
 
   @override
-  String get aboutTitle => 'О програму';
+  String get aboutTitle => 'про';
 
   @override
-  String get aboutSubtitle => 'Информация о програму і деталях open source';
+  String get aboutSubtitle =>
+      'Інформація про програму та деталі з відкритого коду';
 
   @override
   String aboutAppNameWithCreator(Object creator) {
-    return 'IR Blaster - $creator';
+    return 'ІЧ-бластер - $creator';
   }
 
   @override
@@ -906,43 +908,43 @@ class AppLocalizationsUk extends AppLocalizations {
   String get sourceCode => 'Вихідний код';
 
   @override
-  String get viewOnGitHub => 'Відкрити на GitHub';
+  String get viewOnGitHub => 'Переглянути на GitHub';
 
   @override
-  String get repositoryUrlCopied => 'URL репозитория скопирован';
+  String get repositoryUrlCopied => 'URL-адресу сховища скопійовано';
 
   @override
-  String get reportIssue => 'Сообщить о проблеме';
+  String get reportIssue => 'Повідомити про проблему';
 
   @override
-  String get reportIssueSubtitle => 'Баг-репорти і запити функцій';
+  String get reportIssueSubtitle => 'Звіти про помилки та запити щодо функцій';
 
   @override
-  String get issuesUrlCopied => 'URL задач скопирован';
+  String get issuesUrlCopied => 'URL-адресу проблеми скопійовано';
 
   @override
-  String get license => 'Лицензия';
+  String get license => 'Ліцензія';
 
   @override
-  String get openSourceLicense => 'Лицензия open source';
+  String get openSourceLicense => 'Ліцензія з відкритим кодом';
 
   @override
-  String get licenseUrlCopied => 'URL лицензии скопирован';
+  String get licenseUrlCopied => 'URL-адресу ліцензії скопійовано';
 
   @override
   String get companyName => 'KaijinLab Inc.';
 
   @override
-  String get visitWebsite => 'Відкрити сайт';
+  String get visitWebsite => 'Відвідайте наш сайт';
 
   @override
-  String get companyUrlCopied => 'URL компании скопирован';
+  String get companyUrlCopied => 'URL-адресу компанії скопійовано';
 
   @override
-  String get licenses => 'Лицензии';
+  String get licenses => 'Ліцензії';
 
   @override
-  String get openSourceLicenses => 'Лицензии open source';
+  String get openSourceLicenses => 'Ліцензії з відкритим кодом';
 
   @override
   String byCreator(Object creator) {
@@ -950,156 +952,161 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get deviceControlsTitle => 'Упр. пристроєм';
+  String get deviceControlsTitle => 'Елементи керування пристроєм';
 
   @override
   String get deviceControlsSubtitle =>
-      'Показувати обрані кнопки на сторінці системного керування пристроєм';
+      'Показати улюблені кнопки на сторінці елементів керування системою';
 
   @override
-  String get manageFavorites => 'Избранное';
+  String get manageFavorites => 'Керуйте вибраним';
 
   @override
   String get manageFavoritesSubtitle =>
-      'Виберіть кнопки, які будуть покизані в керуванні пристроєм';
+      'Виберіть, які кнопки відображатимуться в елементах керування пристроєм';
 
   @override
   String get quickSettingsTitle => 'Швидкі налаштування';
 
   @override
-  String get quickSettingsSubtitle => 'Додати плитки для живлення і громкости';
+  String get quickSettingsSubtitle =>
+      'Додайте плитки для ярликів живлення та гучності';
 
   @override
-  String get configureTiles => 'Настроить плитки';
+  String get configureTiles => 'Налаштувати плитки';
 
   @override
-  String get configureTilesSubtitle => 'Привязать плитки к кнопкам пульта';
+  String get configureTilesSubtitle =>
+      'Призначте кнопки пульта плиткам швидких налаштувань';
 
   @override
   String get tvKillTitle => 'TVKill';
 
   @override
   String get tvKillSubtitle =>
-      'Перебір універсальних кодів живлення для своїх пристроїв';
+      'Універсальне відключення живлення для власних пристроїв';
 
   @override
-  String get openTvKill => 'Відкрити TVKill';
+  String get openTvKill => 'Відкрийте TVKill';
 
   @override
   String get openTvKillSubtitle =>
-      'Перебір кодів живлення, лише для своїх пристроїв';
+      'Перемикайте коди живлення (використовуйте лише на своїх пристроях)';
 
   @override
   String get failedToLoadTransmitterSettings =>
       'Не вдалося завантажити налаштування передавача.';
 
   @override
-  String get usbStatusReady => 'USB-адаптер підключено і готов надсилати ІЧ.';
+  String get usbStatusReady =>
+      'USB-адаптер підключено та готовий до надсилання ІЧ-команд.';
 
   @override
   String get usbStatusPermissionRequired =>
-      'USB-адаптер знайдено. Запитайте дозвіл USB і підтвердьте системное вікно.';
+      'Виявлено USB-адаптер. Надішліть запит на дозвіл USB і підтвердьте системний запит.';
 
   @override
   String get usbStatusPermissionDenied =>
-      'Дозвіл USB для підключеного адаптера відхилено. Запитайте знову і підтвердьте вікно.';
+      'Відмовлено в дозволі USB для під’єднаного ключа. Надішліть запит ще раз і підтвердьте запит.';
 
   @override
   String get usbStatusPermissionGranted =>
-      'Дозвіл USB надано. Перед надсиланням ІЧ адаптер ще потрібно ініціалізувати.';
+      'Дозвіл USB надано. Ключ все ще потрібно ініціалізувати, перш ніж він зможе надсилати ІЧ-команди.';
 
   @override
   String get usbStatusOpenFailed =>
-      'Дозвіл USB надано, але адаптер не удалось ініціалізувати. Перепідключіть його і попробуйте знову.';
+      'Дозвіл USB надано, але ключ не вдалося ініціалізувати. Повторно підключіть його та повторіть спробу.';
 
   @override
-  String get usbStatusNoDevice => 'Підтримуваний USB ІЧ-адаптер не знайдено.';
+  String get usbStatusNoDevice => 'Не виявлено підтримуваного USB ІЧ-адаптера.';
 
   @override
   String get usbSelectPermissionRequired =>
-      'USB-адаптер знайдено, але не авторизован. Натисніть \"Запросить дозвіл USB\".';
+      'USB-адаптер виявлено, але не авторизовано. Натисніть «Запросити дозвіл USB».';
 
   @override
   String get usbSelectPermissionDenied =>
-      'Дозвіл USB відхилено. Натисніть \"Запросить дозвіл USB\" і підтвердьте вікно.';
+      'У дозволі USB відмовлено. Торкніться «Запитувати дозвіл USB» і підтвердьте запит.';
 
   @override
   String get usbSelectPermissionGranted =>
-      'Дозвіл USB надано, але адаптер ще не инициализирован. Попробуйте переподключить його.';
+      'Дозвіл USB надано, але ключ ще не ініціалізовано. Спробуйте повторно підключити його.';
 
   @override
   String get usbSelectOpenFailed =>
-      'Дозвіл USB надано, але адаптер не удалось ініціалізувати. Перепідключіть його і попробуйте знову.';
+      'Дозвіл USB надано, але ключ не вдалося ініціалізувати. Повторно підключіть його та повторіть спробу.';
 
   @override
   String get usbSelectNoDevice =>
-      'Підтримуваний USB ІЧ-адаптер не знайдено. Підключіть його, затем Натисніть \"Запросить дозвіл USB\".';
+      'Не виявлено підтримуваного USB ІЧ-адаптера. Підключіть його, а потім натисніть «Запитувати дозвіл USB».';
 
   @override
-  String get usbSelectReady => 'USB-адаптер готов.';
+  String get usbSelectReady => 'USB ключ готовий.';
 
   @override
   String get autoSwitchEnabledMessage =>
-      'Автоперемикання увімкнено: використовує USB при підключенні, інакше вбудований.';
+      'Автоматичне перемикання ввімкнено: під час підключення використовується USB, інакше внутрішній.';
 
   @override
   String get autoSwitchDisabledMessage =>
-      'Автоперемикання вимкнено: вибір передавача тепер ручний.';
+      'Автоматичне перемикання вимкнено: вибір передавача тепер ручний.';
 
   @override
-  String get failedToUpdateAutoSwitch => 'Не вдалося оновити автоперемикання.';
+  String get failedToUpdateAutoSwitch =>
+      'Не вдалося оновити налаштування автоматичного перемикання.';
 
   @override
   String get failedToSwitchTransmitter => 'Не вдалося перемкнути передавач.';
 
   @override
   String get deviceHasNoInternalIr =>
-      'На цьому пристрої немає встроенного ІЧ-передавача.';
+      'Цей пристрій не має вбудованого ІЧ-випромінювача.';
 
   @override
   String get audioModeEnabledMessage =>
-      'Режим Аудіо увімкнено. Використовуйте максимальну гучність медіа і аудіо-ІЧ LED адаптер.';
+      'Аудіорежим увімкнено. Використовуйте максимальний об’єм медіа та світлодіодний адаптер аудіо-ІЧ.';
 
   @override
-  String get usbPermissionRequestSent => 'Запит дозволу USB отправлен.';
+  String get usbPermissionRequestSent => 'Запит на дозвіл USB надіслано.';
 
   @override
   String get usbPermissionRequestSentApprove =>
-      'Запит дозволу USB отправлен. Підтвердьте його, щоб увімкнути USB.';
+      'Запит на дозвіл USB надіслано. Підтвердьте системний запит, щоб увімкнути USB.';
 
   @override
-  String get usbAlreadyReady => 'USB-адаптер вже инициализирован і готов.';
+  String get usbAlreadyReady =>
+      'USB-адаптер уже ініціалізовано й готово до роботи.';
 
   @override
-  String get failedToRequestUsbPermission => 'Не вдалося запросить дозвіл USB.';
+  String get failedToRequestUsbPermission => 'Не вдалося запитати дозвіл USB.';
 
   @override
   String get transmitterHelpInternal =>
-      'Використовуйте вбудований ІЧ-передавач телефону для отправки команд.';
+      'Використовуйте вбудований ІЧ-випромінювач телефону для надсилання команд.';
 
   @override
   String get transmitterHelpUsb =>
-      'Використовуйте USB ІЧ-адаптер, щоб надсилати команди. Потрібен разрешение.';
+      'Для надсилання команд використовуйте USB ІЧ-адаптер (потрібен дозвіл).';
 
   @override
   String get transmitterHelpAudio1 =>
-      'Використовуйте аудіовихід, mono. Потрібен аудіо-ІЧ LED адаптер і висока гучність медіа.';
+      'Використовуйте аудіовихід (моно). Потрібен світлодіодний адаптер аудіо-інфрачервоний світлодіод і велика гучність медіа.';
 
   @override
   String get transmitterHelpAudio2 =>
-      'Використовуйте аудіовихід, stereo. Два канали дають краще управление LED на сумісних адаптерах.';
+      'Використовуйте аудіовихід (стерео). Використовує два канали для покращеного керування світлодіодами за допомогою сумісних адаптерів.';
 
   @override
-  String get transmitterInternal => 'Вбудований ІЧ';
+  String get transmitterInternal => 'Внутрішній ІЧ';
 
   @override
   String get transmitterUsb => 'USB ІЧ-адаптер';
 
   @override
-  String get transmitterAudio1 => 'Аудіо (1 LED)';
+  String get transmitterAudio1 => 'Аудіо (1 світлодіод)';
 
   @override
-  String get transmitterAudio2 => 'Аудіо (2 LED)';
+  String get transmitterAudio2 => 'Аудіо (2 світлодіоди)';
 
   @override
   String get failedToLoadTransmitterCapabilities =>
@@ -1121,78 +1128,88 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get autoSwitchDisabledWhileAudio =>
-      'Отключено при использовании режима Аудіо';
+      'Вимкнено під час використання режиму аудіо';
 
   @override
   String get autoSwitchUsesUsbOtherwiseInternal =>
-      'Использует USB при підключенні, інакше вбудований';
+      'Використовує USB під час підключення, інакше внутрішній';
 
   @override
   String get unavailableOnThisDevice => 'Недоступно на цьому пристрої';
 
   @override
-  String get openOnUsbAttachTitle => 'Відкривати при підключенні USB';
+  String get openOnUsbAttachTitle => 'Відкрити на USB-приєднанні';
 
   @override
   String get openOnUsbAttachSubtitle =>
-      'Android может предложить відкрити приложение при підключенні поддерживаемого USB ІЧ-адаптера.';
+      'Android може запропонувати відкрити програму, коли під’єднано підтримуваний USB ІЧ-адаптер.';
 
   @override
   String get openOnUsbAttachEnabledMessage =>
-      'При подключении поддерживаемого USB-адаптера буде предлагаться відкрити IR Blaster.';
+      'Буде запропоновано відкрити IR Blaster, коли під’єднано підтримуваний USB-адаптер.';
 
   @override
   String get openOnUsbAttachDisabledMessage =>
-      'Предложение відкрити приложение при підключенні USB отключено.';
+      'Не пропонуватиму відкривати через USB-під’єднання.';
 
   @override
-  String get failedToUpdateSetting => 'Не вдалося оновити настройку.';
+  String get failedToUpdateSetting => 'Не вдалося оновити налаштування.';
 
   @override
-  String get unnamedButton => 'Безіменна кнопка';
+  String get unnamedButton => 'Кнопка без назви';
 
   @override
-  String get iconFallback => 'Иконка';
+  String get iconFallback => 'значок';
 
   @override
   String get remoteListReorderHint =>
-      'Режим сортировки: зажмите і перетащите карточку.';
+      'Режим зміни порядку: натисніть і перетягніть картку, щоб перемістити її.';
 
   @override
   String get deleteRemoteTitle => 'Видалити пульт?';
 
   @override
   String deleteRemoteMessage(Object name) {
-    return '\"$name\" буде видалено назавжди. Дію не можна скасувати.';
+    return '\"$name\" буде остаточно видалено. Цю дію не можна скасувати.';
   }
 
   @override
   String get delete => 'Видалити';
 
   @override
-  String get addToDeviceControlsTitle => 'Додати в управление пристроєм?';
+  String get addToDeviceControlsTitle =>
+      'Додати до елементів керування пристроєм?';
 
   @override
   String get addToDeviceControlsDescription =>
-      'Швидкий дозвіл в системному керуванні пристроєм.';
+      'Швидкий доступ до елементів управління пристроєм системи.';
 
   @override
-  String get skip => 'Пропустить';
+  String get skip => 'Пропустити';
 
   @override
-  String get add => 'Додати';
+  String get add => 'додати';
 
   @override
-  String get addedToDeviceControls => 'Додано в управление пристроєм.';
+  String get addedToDeviceControls =>
+      'Додано до елементів керування пристроєм.';
 
   @override
   String deletedRemoteUndoUnavailable(Object name) {
-    return 'Видалено \"$name\". Дію не можна скасувати.';
+    return 'Видалено \"$name\". Цю дію не можна скасувати.';
   }
 
   @override
   String remoteLayoutSummary(int count, Object layout) {
-    return '$count кнопок · $layout';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count кнопки',
+      many: '$count кнопок',
+      few: '$count кнопки',
+      one: '$count кнопка',
+    );
+    return '$_temp0 · $layout';
   }
 
   @override
@@ -1202,154 +1219,159 @@ class AppLocalizationsUk extends AppLocalizations {
   String get layoutCompact => 'Компактний';
 
   @override
-  String get open => 'Відкрити';
+  String get open => 'відкритий';
 
   @override
-  String get useThisRemote => 'Використовувати пульт';
+  String get useThisRemote => 'Використовуйте цей пульт';
 
   @override
-  String get edit => 'Изменить';
+  String get edit => 'Редагувати';
 
   @override
-  String get editRemoteSubtitle => 'Переименовать і змінити кнопки';
+  String get editRemoteSubtitle => 'Кнопки перейменування та редагування';
 
   @override
-  String get thisCannotBeUndone => 'Це не можна скасувати';
+  String get thisCannotBeUndone => 'Це неможливо скасувати';
 
   @override
   String get searchRemotes => 'Пошук пультів';
 
   @override
-  String get reorderRemotes => 'Изменить порядок пультів';
+  String get reorderRemotes => 'Змінити замовлення пультів';
 
   @override
   String get addRemote => 'Додати пульт';
 
   @override
-  String get more => 'Ще';
+  String get more => 'більше';
 
   @override
-  String get reorderMode => 'Режим сортировки';
+  String get reorderMode => 'Режим зміни порядку';
 
   @override
   String remoteButtonCountLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count buttons',
-      one: '$count button',
+      other: '$count кнопки',
+      many: '$count кнопок',
+      few: '$count кнопки',
+      one: '$count кнопка',
     );
     return '$_temp0';
   }
 
   @override
-  String get noRemotesYet => 'Пультів поки немає';
+  String get noRemotesYet => 'Пультів ще немає';
 
   @override
   String get noRemotesDescription =>
-      'Створіть пульт, щоб почати надсилати ІЧ-коди.';
+      'Створіть пульт, щоб розпочати надсилання ІЧ-кодів.';
 
   @override
   String get noRemotesNextStep =>
-      'Что дальше: Натисніть Додати пульт, затем добавьте перші кнопки.';
+      'Що далі: торкніться «Додати пульт», а потім додайте перші кнопки.';
 
   @override
-  String get actions => 'Actions';
+  String get actions => 'Дії';
 
   @override
   String get macrosTitle => 'Макроси';
 
   @override
-  String get help => 'Помощь';
+  String get help => 'Довідка';
 
   @override
   String get createMacro => 'Створити макрос';
 
   @override
-  String get timedMacrosTitle => 'Макроси з таймингом';
+  String get timedMacrosTitle => 'Тимчасові макроси';
 
   @override
   String get timedMacrosSubtitle =>
-      'Автоматизируйте последовательности ІЧ-команд з точним таймингом';
+      'Автоматизуйте послідовності ІЧ-команд із точним синхронізацією';
 
   @override
   String get timedMacrosNextStep =>
-      'Что дальше: Натисніть \"Створити перший макрос\", Виберіть пульт, затем добавьте команди і затримки.';
+      'Що далі: натисніть «Створити свій перший макрос», виберіть пульт, а потім додайте команди та затримки.';
 
   @override
-  String get macroFeatureToysTitle => 'Идеально для інтерактивних игрушек';
+  String get macroFeatureToysTitle =>
+      'Ідеально підходить для інтерактивних іграшок';
 
   @override
   String get macroFeatureToysDescription =>
-      'Управляйте устройствами вроде робособак i-cybie, роботов i-sobot і других игрушек, яким потрібно час між командами для обработки действий.';
+      'Керуйте такими пристроями, як собаки-роботи i-cybie, роботи i-sobot та іншими іграшками, яким потрібен час між командами для обробки дій.';
 
   @override
-  String get macroFeatureTimingTitle => 'Точний контроль таймінгу';
+  String get macroFeatureTimingTitle => 'Точний контроль часу';
 
   @override
   String get macroFeatureTimingDescription =>
-      'Добавляйте затримки між командами, від 250 мс до довільної довжини, щоб пристрій встигало відповістьь перед наступним шагом.';
+      'Додайте затримки між командами (від 250 мс до спеціальної тривалості), щоб ваш пристрій мав час відповісти до наступної дії.';
 
   @override
-  String get macroFeatureManualTitle => 'Шаги з ручним продолжением';
+  String get macroFeatureManualTitle => 'Продовжити кроки вручну';
 
   @override
   String get macroFeatureManualDescription =>
-      'Приостанавливает виконання і чекає подтверждения, коли длина анимации змінюється або потрібен візуальний контроль.';
+      'Призупиніть виконання та дочекайтеся вашого підтвердження, коли тривалість анімації змінюється або вам потрібен візуальний зворотний зв’язок.';
 
   @override
-  String get exampleUseCase => 'Пример использования';
+  String get exampleUseCase => 'Приклад використання';
 
   @override
   String get macroExampleText =>
-      'Режим i-cybie Advanced:\n1. Надіслати команду \"Mode\"\n2. Ждать 1000 мс, игрушка обробляє\n3. Надіслати \"Action 1\"\n4. Ждать 1000 мс\n5. Надіслати \"Action 2\"\n…і так далее автоматично!';
+      'Розширений режим i-cybie:\n1. Надіслати команду «Режим».\n2. Зачекайте 1000 мс (іграшкові процеси)\n3. Надіслати \"Дію 1\"\n4. Зачекайте 1000 мс\n5. Надіслати «Дію 2»\n…і так далі автоматично!';
 
   @override
-  String get createFirstMacro => 'Створити перший макрос';
+  String get createFirstMacro => 'Створіть свій перший макрос';
 
   @override
-  String get noRemote => 'Немає пульта';
+  String get noRemote => 'Без пульта';
 
   @override
   String macroStepCountLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count steps',
-      one: '$count step',
+      other: '$count кроку',
+      many: '$count кроків',
+      few: '$count кроки',
+      one: '$count крок',
     );
     return '$_temp0';
   }
 
   @override
-  String get aboutTimedMacros => 'О макросах з таймингом';
+  String get aboutTimedMacros => 'Про тимчасові макроси';
 
   @override
   String get aboutTimedMacrosDescription =>
-      'Макроси з таймингом позволяют автоматизировать последовательности ІЧ-команд з точними задержками між шагами.';
+      'Тимчасові макроси дозволяють автоматизувати послідовності ІЧ-команд із точними затримками між кожним кроком.';
 
   @override
   String get sendCommand => 'Надіслати команду';
 
   @override
-  String get sendCommandDescription => 'Отправляет ІЧ-команду з вашого пульта.';
+  String get sendCommandDescription => 'Передає ІЧ-команду з пульта.';
 
   @override
-  String get delay => 'Задержка';
+  String get delay => 'Затримка';
 
   @override
   String get delayDescription =>
-      'Чекає вказаний час, наприклад 1000 мс, перед наступним шагом.';
+      'Очікує певний час (наприклад, 1000 мс) перед наступним кроком.';
 
   @override
-  String get manualContinue => 'Ручное продолжение';
+  String get manualContinue => 'Продовжити вручну';
 
   @override
   String get manualContinueDescription =>
-      'Приостанавливает виконання до нажатия Продолжить. Полезно для анимаций переменной довжини.';
+      'Призупиняє виконання, доки ви не торкнете Продовжити (корисно для анімації змінної довжини).';
 
   @override
-  String get gotIt => 'Понятно';
+  String get gotIt => 'зрозумів';
 
   @override
   String get failedToSaveMacros => 'Не вдалося зберегти макроси.';
@@ -1370,50 +1392,58 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get deleteMacroMessage =>
-      'Це можна скасувати з следующего уведомления.';
+      'Ви можете скасувати це на наступній панелі закусочних.';
 
   @override
   String get noRemotesAvailable => 'Немає доступних пультів.';
 
   @override
   String remoteButtonCountSummary(int count) {
-    return '$count кнопок';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count кнопки',
+      many: '$count кнопок',
+      few: '$count кнопки',
+      one: '$count кнопка',
+    );
+    return '$_temp0';
   }
 
   @override
   String get remoteOrientationFlippedTooltip =>
-      'Ориентация: перевернута, Натисніть для норм.';
+      'Орієнтація: перевернуто (натисніть до нормального)';
 
   @override
   String get remoteOrientationNormalTooltip =>
-      'Ориентация: звичайна, Натисніть для переворота';
+      'Орієнтація: нормальна (торкніться, щоб перевернути)';
 
   @override
   String get stopLoop => 'Зупинити цикл';
 
   @override
-  String get reorderButtons => 'Изменить порядок кнопок';
+  String get reorderButtons => 'Змінити порядок кнопок';
 
   @override
   String get remoteReorderHint =>
-      'Режим сортировки: зажмите і перетащите кнопку.';
+      'Режим зміни порядку: утримуйте та перетягуйте кнопку, щоб перемістити її.';
 
   @override
-  String get manageRemote => 'Управление пультом';
+  String get manageRemote => 'Керувати пультом';
 
   @override
-  String get remoteNoButtons => 'В цьому пульте немає кнопок';
+  String get remoteNoButtons => 'У цьому пульті немає кнопок';
 
   @override
   String get remoteNoButtonsDescription =>
-      'Використовуйте \"Изм. пульт\", щоб додати або настроить кнопки.';
+      'Використовуйте «Редагувати пульт», щоб додати або налаштувати кнопки.';
 
   @override
-  String get editRemote => 'Изм. пульт';
+  String get editRemote => 'Редагувати пульт';
 
   @override
   String get editRemoteActionsSubtitle =>
-      'Переименовать, сортировать і змінити кнопки';
+      'Кнопки перейменування, зміни порядку та редагування';
 
   @override
   String remoteUpdatedNamedButton(Object name) {
@@ -1426,100 +1456,102 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get buttonDuplicated => 'Кнопка продублирована.';
+  String get buttonDuplicated => 'Кнопка дублюється.';
 
   @override
-  String get loopRunningForButton => 'Для цій кнопки запущен цикл.';
+  String get loopRunningForButton => 'Для цієї кнопки виконується цикл.';
 
   @override
   String get loopTip =>
-      'Підказка: використовуйте Цикл для повторения до остановки.';
+      'Порада: використовуйте цикл, щоб повторювати, доки ви не зупините його.';
 
   @override
-  String get loopingBadge => 'Looping';
+  String get loopingBadge => 'Зациклення';
 
   @override
-  String get codeCopied => 'Код скопирован.';
+  String get codeCopied => 'Код скопійовано.';
 
   @override
-  String get copyCode => 'Копіювати код';
+  String get copyCode => 'Скопіюйте код';
 
   @override
-  String get startLoop => 'Запустити цикл';
+  String get startLoop => 'Почати цикл';
 
   @override
-  String get editButtonSubtitle => 'Изменить метку, код, протокол, частоту';
+  String get editButtonSubtitle => 'Змінити мітку, код, протокол, частоту';
 
   @override
-  String get newButton => 'Новая кнопка';
+  String get newButton => 'Нова кнопка';
 
   @override
-  String get newButtonSubtitle => 'Створити новую кнопку после цій';
+  String get newButtonSubtitle => 'Створіть нову кнопку після цієї';
 
   @override
-  String get duplicate => 'Дублировать';
+  String get duplicate => 'дублікат';
 
   @override
-  String get duplicateButtonSubtitle => 'Створити копію цій кнопки';
+  String get duplicateButtonSubtitle => 'Створіть копію цієї кнопки';
 
   @override
-  String get removeFromDeviceControls => 'Убрать з керування';
+  String get removeFromDeviceControls =>
+      'Видалити з елементів керування пристроєм';
 
   @override
-  String get addToDeviceControls => 'Додати в управление';
+  String get addToDeviceControls => 'Додати до елементів керування пристроєм';
 
   @override
   String get deviceControlsButtonSubtitle =>
-      'Показує цю кнопку в системному керуванні пристроєм';
+      'Показує цю кнопку в елементах керування системним пристроєм';
 
   @override
-  String get removedFromDeviceControls => 'Видалено з керування пристроєм.';
+  String get removedFromDeviceControls =>
+      'Видалено з елементів керування пристроєм.';
 
   @override
-  String get pinQuickTile => 'Закрепить в швидких плитках';
+  String get pinQuickTile => 'Закріпити у вибраному Quick Tile';
 
   @override
-  String get unpinQuickTile => 'Открепить з швидких плиток';
+  String get unpinQuickTile => 'Відкріпити від вибраного Quick Tile';
 
   @override
   String get quickTileButtonSubtitle =>
-      'Показує цю кнопку вгорі вибору швидких плиток';
+      'Показує цю кнопку у верхній частині швидкого вибору плитки';
 
   @override
   String get removedFromQuickTileFavorites =>
-      'Видалено з обраних швидких плиток.';
+      'Видалено з вибраного Quick Tile.';
 
   @override
-  String get pinnedToQuickTileFavorites =>
-      'Закреплено в обраних швидких плитках.';
+  String get pinnedToQuickTileFavorites => 'Закріплено у вибраному Quick Tile.';
 
   @override
-  String get duplicateAndEdit => 'Дублировать і изм.';
+  String get duplicateAndEdit => 'Скопіюйте та відредагуйте';
 
   @override
-  String get duplicateAndEditSubtitle => 'Створити копію і відразу змінити';
+  String get duplicateAndEditSubtitle =>
+      'Створіть копію та негайно відредагуйте її';
 
   @override
   String get done => 'Готово';
 
   @override
-  String get run => 'Запуск';
+  String get run => 'бігти';
 
   @override
-  String get untitledRemote => 'Пульт Без названия';
+  String get untitledRemote => 'Пульт без назви';
 
   @override
   String get createRemoteTitle => 'Створити пульт';
 
   @override
-  String get editRemoteTitle => 'Изменить пульт';
+  String get editRemoteTitle => 'Редагувати пульт';
 
   @override
   String get removeButtonTitle => 'Видалити кнопку?';
 
   @override
   String get imageButtonRemovedMessage =>
-      'Ця кнопка з изображением буде видалено.';
+      'Ця кнопка із зображенням буде видалена.';
 
   @override
   String namedButtonRemovedMessage(Object name) {
@@ -1527,61 +1559,78 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get remove => 'Видалити';
+  String get remove => 'видалити';
 
   @override
   String importedButtonCount(int count) {
-    return 'Імпортовано $count кнопок.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Імпортовано $count кнопки.',
+      many: 'Імпортовано $count кнопок.',
+      few: 'Імпортовано $count кнопки.',
+      one: 'Імпортовано $count кнопку.',
+    );
+    return '$_temp0';
   }
 
   @override
   String importedButtonsFromExistingRemotes(int count) {
-    return 'Імпортовано $count кнопок з наявних пультів.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Імпортовано $count кнопки з наявних пультів.',
+      many: 'Імпортовано $count кнопок з наявних пультів.',
+      few: 'Імпортовано $count кнопки з наявних пультів.',
+      one: 'Імпортовано $count кнопку з наявних пультів.',
+    );
+    return '$_temp0';
   }
 
   @override
   String get editButtonSettingsSubtitle =>
-      'Изменить метку, сигнал і доп. налаштування';
+      'Змініть мітку, сигнал і розширені налаштування';
 
   @override
-  String get createButtonCopySubtitle => 'Створити копію цій кнопки';
+  String get createButtonCopySubtitle => 'Створіть копію цієї кнопки';
 
   @override
   String get duplicateAndEditButtonSubtitle =>
-      'Створити копію і відразу змінити';
+      'Створіть копію та негайно відредагуйте її';
 
   @override
   String get undoAvailableInNextSnackbar =>
-      'Можна скасувати з следующего уведомления';
+      'Ви можете скасувати з наступної панелі завантажень';
 
   @override
-  String get buttonRemoved => 'Кнопка видалено.';
+  String get buttonRemoved => 'Кнопка знята.';
 
   @override
-  String get remoteNameCannotBeEmpty => 'Ім\'я пульта не может бть порожнім.';
+  String get remoteNameCannotBeEmpty => 'Назва пульта не може бути порожньою.';
 
   @override
   String get saveRemote => 'Зберегти пульт';
 
   @override
-  String get remoteName => 'Ім\'я пульта';
+  String get remoteName => 'Назва пульта';
 
   @override
-  String get remoteNameHint => 'напр., TV, кондиционер, LED лента';
+  String get remoteNameHint =>
+      'наприклад, телевізор, кондиціонер, світлодіодна стрічка';
 
   @override
-  String get remoteNameHelper => 'Це ім\'я отображается в списку пультів.';
+  String get remoteNameHelper => 'Ця назва відображатиметься у списку пультів.';
 
   @override
-  String get layoutStyle => 'Стиль раскладки';
+  String get layoutStyle => 'Стиль оформлення';
 
   @override
   String get layoutWideDescription =>
-      'Широкий: кнопки в 2 колонки з доп. деталями, рекомендуется.';
+      'Широкий: 2-колонкові кнопки з додатковими деталями (рекомендовано).';
 
   @override
   String get layoutCompactDescription =>
-      'Компактний: классическая сітка 4×, лише иконки або текст.';
+      'Компактний: класична сітка 4× (лише значки/текст).';
 
   @override
   String get importFromRemotes => 'Імпорт з пультів';
@@ -1593,17 +1642,17 @@ class AppLocalizationsUk extends AppLocalizations {
   String get addButton => 'Додати кнопку';
 
   @override
-  String get noButtonsYet => 'Кнопок поки немає';
+  String get noButtonsYet => 'Ще немає кнопок';
 
   @override
   String get createRemoteEmptyStateDescription =>
-      'Добавьте первую кнопку, затем зажмите її для изменения або удаления.';
+      'Додайте свою першу кнопку, а потім утримуйте її, щоб переглянути параметри редагування/видалення.';
 
   @override
   String get createButtonTitle => 'Створити кнопку';
 
   @override
-  String get editButtonTitle => 'Изменить кнопку';
+  String get editButtonTitle => 'Кнопка редагування';
 
   @override
   String failedToLoadProtocols(Object error) {
@@ -1619,33 +1668,33 @@ class AppLocalizationsUk extends AppLocalizations {
   String get presetPower => 'Живлення';
 
   @override
-  String get presetVolume => 'Гучність';
+  String get presetVolume => 'Обсяг';
 
   @override
   String get presetChannel => 'Канал';
 
   @override
-  String get presetNavigation => 'Навигация';
+  String get presetNavigation => 'Навігація';
 
   @override
-  String get all => 'Все';
+  String get all => 'все';
 
   @override
   String get completeRequiredFieldsToSave =>
-      'Заполните обов\'язкові поля для сохранения';
+      'Заповніть необхідні поля для збереження';
 
   @override
   String get buttonLabelStepTitle => 'Мітка кнопки';
 
   @override
   String get buttonLabelStepSubtitle =>
-      'Виберіть зображення, иконку або введите текстовую метку.';
+      'Виберіть зображення, значок або введіть текстову мітку.';
 
   @override
   String get buttonColorStepTitle => 'Колір кнопки';
 
   @override
-  String get buttonColorStepSubtitle => 'Виберіть колір фона для цій кнопки.';
+  String get buttonColorStepSubtitle => 'Виберіть колір фону для цієї кнопки.';
 
   @override
   String get selectColor => 'Виберіть колір:';
@@ -1664,42 +1713,42 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get requiredSelectImageOrSwitch =>
-      'Обязательно: Виберіть зображення, иконку або переключитесь на Текст.';
+      'Необхідно: виберіть зображення, виберіть піктограму або перейдіть до Тексту.';
 
   @override
-  String get iconSelected => 'Иконка вибрана';
+  String get iconSelected => 'Значок вибрано';
 
   @override
-  String get noIconSelected => 'Иконка не вибрана';
+  String get noIconSelected => 'Значок не вибрано';
 
   @override
-  String get chooseIcon => 'Вибрати иконку';
+  String get chooseIcon => 'Виберіть значок';
 
   @override
-  String get removeIcon => 'Видалити иконку';
+  String get removeIcon => 'Видалити значок';
 
   @override
   String get requiredSelectIconOrSwitch =>
-      'Обязательно: Виберіть иконку або переключитесь на Зображення або Текст.';
+      'Необхідно: виберіть піктограму або перейдіть до зображення/тексту.';
 
   @override
   String get buttonText => 'Текст кнопки';
 
   @override
-  String get buttonTextHint => 'напр., Живлення, Гучність +, HDMI 1';
+  String get buttonTextHint => 'наприклад, живлення, гучність +, HDMI 1';
 
   @override
-  String get buttonTextHelper => 'Цей текст буде покизан на кнопке.';
+  String get buttonTextHelper => 'Цей текст з’явиться на кнопці.';
 
   @override
-  String get requiredEnterButtonLabel => 'Обязательно: введите метку кнопки.';
+  String get requiredEnterButtonLabel => 'Обов’язково: введіть назву кнопки.';
 
   @override
-  String get defaultColorName => 'Типовий';
+  String get defaultColorName => 'За замовчуванням';
 
   @override
   String get newRemoteCreatedFromLastHit =>
-      'Створено новий пульт з одной кнопкой з последнего попадания.';
+      'Новий пульт, створений однією кнопкою з останнього удару.';
 
   @override
   String get selectRemote => 'Виберіть пульт';
@@ -1710,7 +1759,7 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get newRemoteCreated => 'Новий пульт створено.';
+  String get newRemoteCreated => 'Створено новий пульт.';
 
   @override
   String get failedToCreateRemote => 'Не вдалося створити пульт.';
@@ -1724,14 +1773,14 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get failedToAddToRemote => 'Не вдалося додати в пульт.';
+  String get failedToAddToRemote => 'Не вдалося додати на пульт.';
 
   @override
   String get newRemoteDefaultName => 'Новий пульт';
 
   @override
   String jumpedToOffsetPaused(int offset) {
-    return 'Переход к смещению $offset. Пауза, Натисніть Продолжить.';
+    return 'Перейшов до зсуву $offset. Призупинено - натисніть Відновити, щоб продовжити.';
   }
 
   @override
@@ -1743,44 +1792,44 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get copiedProtocolCode => 'Скопійовано, протокол:код.';
+  String get copiedProtocolCode => 'Скопійовано (протокол:код).';
 
   @override
-  String get savedToResults => 'Збережено в результати.';
+  String get savedToResults => 'Збережено в результатах.';
 
   @override
   String invalidCodeForProtocol(Object error) {
-    return 'Недійсний код для протокола: $error';
+    return 'Недійсний код для протоколу: $error';
   }
 
   @override
-  String get copiedCurrentCandidate => 'Текущий кандидат скопирован.';
+  String get copiedCurrentCandidate => 'Скопійовано поточного кандидата.';
 
   @override
-  String get jumpToOffset => 'Перейти к смещению';
+  String get jumpToOffset => 'Перейти до зміщення';
 
   @override
-  String get jumpToBruteCursor => 'Перейти к brute курсору';
+  String get jumpToBruteCursor => 'Перехід до грубого курсору';
 
   @override
-  String get jump => 'Переход';
+  String get jump => 'Стрибок';
 
   @override
   String jumpedToCursorPaused(Object cursor) {
-    return 'Переход к курсору 0x$cursor. Пауза, Натисніть Продолжить.';
+    return 'Перейшов до курсору 0x$cursor. Призупинено - натисніть Відновити, щоб продовжити.';
   }
 
   @override
-  String get irSignalTester => 'Тестер ІЧ-сигнала';
+  String get irSignalTester => 'Тестер ІЧ-сигналу';
 
   @override
   String get stop => 'Стоп';
 
   @override
-  String get selectButton => 'Виберіть кнопку';
+  String get selectButton => 'Кнопка вибору';
 
   @override
-  String get buttonNotFoundInRemotes => 'Кнопка не знайдено в пультах.';
+  String get buttonNotFoundInRemotes => 'Кнопка не знайдена в пультах.';
 
   @override
   String sentNamed(Object name) {
@@ -1789,25 +1838,25 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String sendFailed(Object error) {
-    return 'Помилка отправки: $error';
+    return 'Не вдалося надіслати: $error';
   }
 
   @override
-  String get noFavoritesYet => 'Избранного поки немає';
+  String get noFavoritesYet => 'Вибраних ще немає';
 
   @override
   String get deviceControlsEmptyHint =>
-      'Зажмите кнопку пульта і Виберіть \"Додати в управление пристроєм\".';
+      'Утримуйте кнопку пульта та виберіть «Додати до елементів керування пристроєм».';
 
   @override
   String get sendTest => 'Надіслати тест';
 
   @override
-  String get testSendCompleted => 'Тестовая надсилання завершена.';
+  String get testSendCompleted => 'Тестове надсилання завершено.';
 
   @override
   String testSendFailed(Object error) {
-    return 'Тестовая надсилання не удалась: $error';
+    return 'Помилка тестового надсилання: $error';
   }
 
   @override
@@ -1825,48 +1874,49 @@ class AppLocalizationsUk extends AppLocalizations {
   String get selectBrand => 'Виберіть бренд';
 
   @override
-  String get searchBrand => 'Пошук бренда…';
+  String get searchBrand => 'Шукати бренд…';
 
   @override
   String get selectModel => 'Виберіть модель';
 
   @override
-  String get searchModel => 'Пошук модели…';
+  String get searchModel => 'Пошук моделі…';
 
   @override
   String get unnamedKey => 'Безіменний ключ';
 
   @override
-  String get unknown => 'Неизвестно';
+  String get unknown => 'Невідомий';
 
   @override
-  String get emDash => '—';
+  String get emDash => '-';
 
   @override
-  String get searchCommands => 'Пошук команд';
+  String get searchCommands => 'Команди пошуку';
 
   @override
-  String get noMatchingCommands => 'Совпадающих команд немає';
+  String get noMatchingCommands => 'Немає відповідних команд';
 
   @override
-  String get quickTileFavoritesTitle => 'Избр. швидких плиток';
+  String get quickTileFavoritesTitle => 'Швидкі вибрані плитки';
 
   @override
   String changeMappingForTile(Object tileLabel) {
-    return 'Изменить назначение для плитки $tileLabel';
+    return 'Змінити відображення для плитки $tileLabel';
   }
 
   @override
-  String get pickDifferentButton => 'Виберіть другую кнопку';
+  String get pickDifferentButton => 'Виберіть іншу кнопку';
 
   @override
-  String get browseAllRemotesEllipsis => 'Переглянути все пульти…';
+  String get browseAllRemotesEllipsis => 'Переглянути всі пульти…';
 
   @override
-  String get invalidMacroFileFormat => 'Недійсний формат файла макроса.';
+  String get invalidMacroFileFormat => 'Недійсний формат файлу макросу.';
 
   @override
-  String get failedToParseMacroFile => 'Не вдалося разобрать файл макроса.';
+  String get failedToParseMacroFile =>
+      'Не вдалося проаналізувати файл макросу.';
 
   @override
   String get deviceCodeLabel => 'Код пристрою';
@@ -1875,164 +1925,165 @@ class AppLocalizationsUk extends AppLocalizations {
   String get commandLabel => 'Команда';
 
   @override
-  String get editButtonCodeTitle => 'Изменить код кнопки';
+  String get editButtonCodeTitle => 'Редагувати код кнопки';
 
   @override
-  String get thisRemoteHasNoButtons => 'В цьому пульте немає кнопок.';
+  String get thisRemoteHasNoButtons => 'Цей пульт не має кнопок.';
 
   @override
   String get selectCommand => 'Виберіть команду';
 
   @override
   String get databaseModeAutofillHint =>
-      'Режим База автоматично заполняет крок 2, бренд, модель і протокол. После импорта ключа можна донастроить усе вручную.';
+      'Режим бази даних автоматично заповнює крок 2 для вас (бренд + модель + протокол). Після імпортування ключа ви можете вдосконалити будь-що вручну.';
 
   @override
   String get test => 'Тест';
 
   @override
   String get allSelectedButtonsWereDuplicates =>
-      'Все вибрані кнопки були дублікатами.';
+      'Усі вибрані кнопки були дублікатами.';
 
   @override
   String get noButtonsImported => 'Кнопки не імпортовано.';
 
   @override
   String importedButtonsSkippedDuplicates(int addedCount, int skippedCount) {
-    return 'Імпортовано кнопок: $addedCount. Пропущено дубликатов: $skippedCount.';
+    return 'Імпортовані кнопки $addedCount. Пропущений дублікат(и) $skippedCount.';
   }
 
   @override
-  String get importAllMatchingTitle => 'Імпортувати все відповідні кнопки?';
+  String get importAllMatchingTitle => 'Імпортувати всі відповідні кнопки?';
 
   @override
-  String get noMatchingKeysFound => 'Подходящие ключи не знайдено.';
+  String get noMatchingKeysFound => 'Не знайдено відповідних ключів.';
 
   @override
   String importAllMatchingMessage(int count) {
-    return 'Буде імпортовано до $count подходящих ключей з текущего вибору бази.';
+    return 'Це імпортує до $count відповідних ключів із поточного вибору бази даних.';
   }
 
   @override
-  String get importAll => 'Імпортувати усе';
+  String get importAll => 'Імпортувати все';
 
   @override
   String get importingButtons => 'Імпорт кнопок…';
 
   @override
   String get allMatchingButtonsWereDuplicates =>
-      'Все відповідні кнопки були дублікатами.';
+      'Усі відповідні кнопки були дублікатами.';
 
   @override
-  String get quickPresets => 'Швидкі пресети';
+  String get quickPresets => 'Швидкі налаштування';
 
   @override
-  String get selectDeviceFirst => 'Сначала Виберіть пристрій';
+  String get selectDeviceFirst => 'Спочатку виберіть пристрій';
 
   @override
-  String get searchByLabelOrHex => 'Пошук за метке або hex';
+  String get searchByLabelOrHex => 'Пошук за міткою або шістнадцятковим';
 
   @override
   String optionalRefinePresetKeys(Object preset) {
-    return 'Необяз.: уточните ключи пресета $preset';
+    return 'Додатково: уточніть попередньо встановлені клавіші $preset';
   }
 
   @override
   String get selectBrandModelProtocolFirst =>
-      'Сначала Виберіть бренд, модель і протокол.';
+      'Спочатку виберіть бренд, модель і протокол.';
 
   @override
-  String get importFromDatabaseTitle => 'Імпорт з бази';
+  String get importFromDatabaseTitle => 'Імпорт з бази даних';
 
   @override
   String get importFromDatabaseSubtitle =>
-      'Виберіть пристрій, загрузите відповідні ключи і импортируйте вибрані кнопки.';
+      'Виберіть пристрій, завантажте відповідні ключі, а потім імпортуйте вибрані кнопки.';
 
   @override
   String get deviceAndFilters => 'Пристрій і фільтри';
 
   @override
   String loadedCount(int count) {
-    return 'Загружено: $count';
+    return '$count завантажено';
   }
 
   @override
-  String get hideFilters => 'Приховати фільтри';
+  String get hideFilters => 'Сховати фільтри';
 
   @override
   String get showFilters => 'Показати фільтри';
 
   @override
   String get noProtocolFoundForBrandModel =>
-      'Для цього бренда і модели протокол не знайдено.';
+      'Для цієї марки та моделі протокол не знайдено.';
 
   @override
   String get protocolAutoDetected => 'Протокол';
 
   @override
   String get protocolAutoDetectedHelper =>
-      'Автоматично визначено з бази. Його можна змінити перед импортом.';
+      'Автоматично визначено з бази даних. Ви можете змінити його перед імпортом.';
 
   @override
   String get selectBrandModelToLoadKeys =>
-      'Виберіть бренд, модель і протокол, щоб завантажити ключи.';
+      'Виберіть бренд, модель і протокол для завантаження ключів.';
 
   @override
-  String get noKeysFound => 'Ключи не знайдено.';
+  String get noKeysFound => 'Ключі не знайдено.';
 
   @override
   String noKeysFoundForSearch(Object query) {
-    return 'Ключи для “$query” не знайдено.';
+    return 'Не знайдено ключів для “$query”.';
   }
 
   @override
-  String get skipDuplicates => 'Пропускать дублікати';
+  String get skipDuplicates => 'Пропустити дублікати';
 
   @override
   String get skipDuplicatesSubtitle =>
-      'Не імпортувати кнопки, які вже есть в цьому пульте.';
+      'Не імпортуйте кнопки, які вже існують на цьому пульті.';
 
   @override
-  String get importSelected => 'Імпортувати вибране';
+  String get importSelected => 'Вибрано імпорт';
 
   @override
   String get noMacrosToExport => 'Немає макросів для експорту.';
 
   @override
-  String get macrosExportedToDownloads => 'Макроси експортовано в Downloads.';
+  String get macrosExportedToDownloads =>
+      'Макроси експортовано до завантажень.';
 
   @override
   String get failedToExportMacros => 'Не вдалося експортувати макроси.';
 
   @override
-  String get failedToReadFile => 'Не вдалося прочитать файл.';
+  String get failedToReadFile => 'Не вдалося прочитати файл.';
 
   @override
-  String get importFromExistingRemotesTitle => 'Імпорт з существующих пультів';
+  String get importFromExistingRemotesTitle => 'Імпортувати з наявних пультів';
 
   @override
   String selectedCount(int count) {
-    return 'Вибрано: $count';
+    return 'Вибрано $count';
   }
 
   @override
   String get noOtherRemotesWithButtons =>
-      'Другие пульти з кнопками не знайдено.';
+      'Інших пультів з кнопками не знайдено.';
 
   @override
-  String get sourceRemote => 'Вихідний пульт';
+  String get sourceRemote => 'Пульт-джерело';
 
   @override
-  String get searchButtons => 'Пошук кнопок';
+  String get searchButtons => 'Кнопки пошуку';
 
   @override
-  String get searchButtonsHint => 'Живлення, Гучність, Без звуку...';
+  String get searchButtonsHint => 'Живлення, гучність, вимкнення звуку...';
 
   @override
-  String get selectVisible => 'Вибрати видимое';
+  String get selectVisible => 'Виберіть видимий';
 
   @override
-  String get clearVisible => 'Очистить видимое';
+  String get clearVisible => 'Ясно видно';
 
   @override
   String protocolNamed(Object name) {
@@ -2043,19 +2094,20 @@ class AppLocalizationsUk extends AppLocalizations {
   String get rawSignal => 'Сирий';
 
   @override
-  String get legacyCode => 'Старий код';
+  String get legacyCode => 'Застарілий код';
 
   @override
   String importCount(int count) {
-    return 'Імпорт $count';
+    return 'Імпортувати $count';
   }
 
   @override
   String get storagePermissionDeniedLegacy =>
-      'Дозвіл к хранилищу відхилено, потрібен на деяких старих Android-пристроях.';
+      'У дозволі на зберігання відмовлено (потрібен на деяких старіших пристроях Android).';
 
   @override
-  String get backupExportedToDownloads => 'Копія експортовано в Downloads.';
+  String get backupExportedToDownloads =>
+      'Резервну копію експортовано до завантажень.';
 
   @override
   String failedToExport(Object error) {
@@ -2064,103 +2116,143 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String importedLegacyJsonBackup(int count) {
-    return 'Імпортовано пультів з старой JSON-копии: $count. Макроси не менялись.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          'Імпортовано $count пульта із застарілої резервної копії JSON. Макроси не змінено.',
+      many:
+          'Імпортовано $count пультів із застарілої резервної копії JSON. Макроси не змінено.',
+      few:
+          'Імпортовано $count пульти із застарілої резервної копії JSON. Макроси не змінено.',
+      one:
+          'Імпортовано $count пульт із застарілої резервної копії JSON. Макроси не змінено.',
+    );
+    return '$_temp0';
   }
 
   @override
   String get importFailedRemotesMustBeList =>
-      'Імпорт не вдався: backup \"remotes\" должен бть JSON-списком, якщо он присутствует.';
+      'Помилка імпорту: резервні \"пульти\" мають бути списком JSON, якщо вони присутні.';
 
   @override
   String get importFailedMacrosMustBeList =>
-      'Імпорт не вдався: backup \"macros\" должен бть JSON-списком, якщо он присутствует.';
+      'Помилка імпорту: резервні «макроси» мають бути списком JSON, якщо вони присутні.';
 
   @override
   String get importFailedInvalidBackupFormat =>
-      'Імпорт не вдався: недійсний формат backup, ожидался старий List або Map з remotes/macros.';
+      'Помилка імпорту: недійсний формат резервної копії (очікується застарілий список або карта з пультами/макросами).';
 
   @override
   String importedBackupRemotesOnly(int remoteCount) {
-    return 'Імпортовано пультів з копии: $remoteCount. Макроси не менялись.';
+    String _temp0 = intl.Intl.pluralLogic(
+      remoteCount,
+      locale: localeName,
+      other:
+          'Імпортовано $remoteCount пульта з резервної копії. Макроси не змінено.',
+      many:
+          'Імпортовано $remoteCount пультів із резервної копії. Макроси не змінено.',
+      few:
+          'Імпортовано $remoteCount пульти з резервної копії. Макроси не змінено.',
+      one:
+          'Імпортовано $remoteCount пульт із резервної копії. Макроси не змінено.',
+    );
+    return '$_temp0';
   }
 
   @override
   String importedBackupRemotesAndMacros(int remoteCount, int macroCount) {
-    return 'Імпортовано пультів: $remoteCount і макросів: $macroCount.';
+    String _temp0 = intl.Intl.pluralLogic(
+      remoteCount,
+      locale: localeName,
+      other: '$remoteCount пульта',
+      many: '$remoteCount пультів',
+      few: '$remoteCount пульти',
+      one: '$remoteCount пульт',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      macroCount,
+      locale: localeName,
+      other: '$macroCount макросу імпортовано',
+      many: '$macroCount макросів імпортовано',
+      few: '$macroCount макроси імпортовано',
+      one: '$macroCount макрос імпортовано',
+    );
+    return '$_temp0 і $_temp1 з резервної копії.';
   }
 
   @override
   String get importFailedNoValidButtonsInIr =>
-      'Імпорт не вдався: в файле .ir не знайдено коректних кнопок.';
+      'Помилка імпорту: у файлі .ir не знайдено дійсних кнопок.';
 
   @override
   String get importedOneRemoteFromFlipper =>
-      'Импортирован 1 пульт з Flipper .ir. Макроси не менялись.';
+      'Імпортовано 1 пульт від Flipper .ir. Макроси не змінено.';
 
   @override
   String get importFailedInvalidIrplus =>
-      'Імпорт не вдався: недійсний файл irplus, коректні кнопки не знайдено.';
+      'Помилка імпорту: недійсний файл irplus (дійсних кнопок не знайдено).';
 
   @override
   String get importedOneRemoteFromIrplus =>
-      'Импортирован 1 пульт з irplus. Макроси не менялись.';
+      'Імпортовано 1 пульт з irplus. Макроси не змінено.';
 
   @override
   String get importFailedInvalidLirc =>
-      'Імпорт не вдався: недійсний файл LIRC, коректні коди або raw-коди не знайдено.';
+      'Помилка імпорту: недійсний файл LIRC (дійсних кодів/необроблених кодів не знайдено).';
 
   @override
   String get importedOneRemoteFromLirc =>
-      'Импортирован 1 пульт з конфигурации LIRC. Макроси не менялись.';
+      'Імпортовано 1 пульт із конфігурації LIRC. Макроси не змінено.';
 
   @override
   String get unsupportedFileTypeSelected =>
-      'Вибрано непідтримуваний тип файла.';
+      'Вибрано непідтримуваний тип файлу.';
 
   @override
   String get importFailedInvalidUnreadableFile =>
-      'Імпорт не вдався: файл пошкоджено або нечитаем.';
+      'Помилка імпорту: недійсний або нечитабельний файл.';
 
   @override
   String get bulkImportNoSupportedFilesInFolder =>
-      'Масовий імпорт завершено: підтримуваних файлів в папке не знайдено.';
+      'Масовий імпорт завершено: у папці не знайдено підтримуваних файлів.';
 
   @override
   String bulkImportNoRemotesImported(int skippedCount) {
-    return 'Масовий імпорт завершено: пульти не імпортовано. Пропущено файлів: $skippedCount.';
+    return 'Масовий імпорт завершено: пульти не імпортовано. Пропущено файл(и) $skippedCount.';
   }
 
   @override
   String bulkImportComplete(
       int importedCount, int supportedCount, int skippedCount) {
-    return 'Масовий імпорт завершено: імпортовано пультів: $importedCount з підтримуваних файлів: $supportedCount. Пропущено файлів: $skippedCount.';
+    return 'Масове імпортування завершено: імпортовано пульт(и) $importedCount із підтримуваних файлів(ів) $supportedCount. Пропущено файл(и) $skippedCount.';
   }
 
   @override
-  String get storagePermissionDenied => 'Дозвіл к хранилищу відхилено.';
+  String get storagePermissionDenied => 'У дозволі на зберігання відмовлено.';
 
   @override
   String get bulkImportFailedReadFolder =>
-      'Масовий імпорт не вдався: не удалось прочитать содержимое папки.';
+      'Помилка масового імпорту: неможливо прочитати вміст папки.';
 
   @override
   String bulkImportNoSupportedFilesSource(Object sourceLabel) {
-    return 'Масовий імпорт завершено: підтримуваних файлів не знайдено, $sourceLabel.';
+    return 'Масове імпортування завершено: підтримуваних файлів не знайдено ($sourceLabel).';
   }
 
   @override
-  String get clearAction => 'Очистить';
+  String get clearAction => 'ясно';
 
   @override
-  String get saveAction => 'Зберегти';
+  String get saveAction => 'зберегти';
 
   @override
   String buttonsTitleCount(int count) {
-    return 'Кнопки, $count';
+    return 'Кнопки ($count)';
   }
 
   @override
-  String get invalidStepEncountered => 'Знайдено недійсний крок';
+  String get invalidStepEncountered => 'Виявлено недійсний крок';
 
   @override
   String failedToSendNamed(Object name) {
@@ -2168,11 +2260,11 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get buttonNotFound => 'Кнопка не знайдено';
+  String get buttonNotFound => 'Кнопку не знайдено';
 
   @override
   String buttonNotFoundNamed(Object name) {
-    return 'Кнопка не знайдено: $name';
+    return 'Кнопку не знайдено: $name';
   }
 
   @override
@@ -2180,29 +2272,29 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String durationSecondsShort(int seconds) {
-    return '$secondsз';
+    return '$seconds с';
   }
 
   @override
   String durationMinutesSecondsShort(int minutes, int seconds) {
-    return '$minutesм $secondsз';
+    return '$minutes хв $seconds с';
   }
 
   @override
   String durationHoursMinutesShort(int hours, int minutes) {
-    return '$hoursч $minutesм';
+    return '$hours год $minutes хв';
   }
 
   @override
   String get orientationFlippedTooltip =>
-      'Ориентация: перевернута, Натисніть для норм.';
+      'Орієнтація: перевернуто (натисніть до нормального)';
 
   @override
   String get orientationNormalTooltip =>
-      'Ориентация: звичайна, Натисніть для переворота';
+      'Орієнтація: нормальна (торкніться, щоб перевернути)';
 
   @override
-  String get noSteps => 'Немає кроків';
+  String get noSteps => 'Без кроків';
 
   @override
   String stepProgress(int current, int total) {
@@ -2210,38 +2302,38 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get completed => 'Готово';
+  String get completed => 'Виконано';
 
   @override
-  String get paused => 'Пауза';
+  String get paused => 'Призупинено';
 
   @override
-  String get running => 'Виконується';
+  String get running => 'Біг';
 
   @override
-  String get ready => 'Готово';
+  String get ready => 'Готовий';
 
   @override
   String stepsProgress(int current, int total) {
-    return '$current / $total кроків';
+    return 'Кроки $current / $total';
   }
 
   @override
-  String get waiting => 'Ожидание';
+  String get waiting => 'Очікування';
 
   @override
   String secondsRemaining(Object seconds) {
-    return 'Осталось $secondsз';
+    return 'Залишилося ${seconds}s';
   }
 
   @override
   String millisecondsShort(int ms) {
-    return '$msмс';
+    return '$ms мс';
   }
 
   @override
   String get tapContinueWhenReady =>
-      'Натисніть Продолжить, коли будете готові к следующему шагу';
+      'Торкніться «Продовжити», коли будете готові до наступного кроку';
 
   @override
   String get error => 'Помилка';
@@ -2251,37 +2343,37 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String finishedIn(Object duration) {
-    return 'Завершено за $duration';
+    return 'Завершено в $duration';
   }
 
   @override
-  String get sequence => 'Последовательность';
+  String get sequence => 'Послідовність';
 
   @override
   String waitMilliseconds(int ms) {
-    return 'Ждать $msмс';
+    return 'Зачекайте ${ms}ms';
   }
 
   @override
-  String get runAgain => 'Запустити знову';
+  String get runAgain => 'Бігти знову';
 
   @override
   String get startMacro => 'Запустити макрос';
 
   @override
-  String get continueAction => 'Продолжить';
+  String get continueAction => 'Продовжити';
 
   @override
-  String get unnamedRemote => 'Безіменний пульт';
+  String get unnamedRemote => 'Пульт без назви';
 
   @override
-  String get enterMacroName => 'Введите ім\'я макроса';
+  String get enterMacroName => 'Введіть назву макросу';
 
   @override
-  String get addAtLeastOneStep => 'Добавьте хотя б один крок';
+  String get addAtLeastOneStep => 'Додайте хоча б один крок';
 
   @override
-  String get fixInvalidSteps => 'Исправьте недійсні шаги';
+  String get fixInvalidSteps => 'Виправте недійсні кроки';
 
   @override
   String get unknownCommand => 'Невідома команда';
@@ -2290,88 +2382,88 @@ class AppLocalizationsUk extends AppLocalizations {
   String get unnamedCommand => 'Безіменна команда';
 
   @override
-  String get iconCommand => 'Иконка Команда';
+  String get iconCommand => 'Команда значка';
 
   @override
-  String get selectDelay => 'Вибрати задержку';
+  String get selectDelay => 'Виберіть Затримка';
 
   @override
   String keepMilliseconds(int ms) {
-    return 'Оставить: $msмс';
+    return 'Зберегти: ${ms}ms';
   }
 
   @override
-  String get custom => 'Свое';
+  String get custom => 'Власний';
 
   @override
-  String get enterCustomDelayDuration => 'Введите свою длительность затримки';
+  String get enterCustomDelayDuration =>
+      'Введіть спеціальну тривалість затримки';
 
   @override
   String millisecondsLong(int ms) {
-    return '$ms миллисек.';
+    return '$ms мілісекунд';
   }
 
   @override
   String secondsLong(Object seconds, Object plural) {
-    return '$seconds сек$plural';
+    return '$seconds секунда$plural';
   }
 
   @override
-  String get customDelay => 'Своя задержка';
+  String get customDelay => 'Спеціальна затримка';
 
   @override
-  String get delayMillisecondsLabel => 'Задержка, мс';
+  String get delayMillisecondsLabel => 'Затримка (мілісекунди)';
 
   @override
-  String get delayMillisecondsHint => 'напр., 3000';
+  String get delayMillisecondsHint => 'наприклад, 3000';
 
   @override
   String get recommendedDelayRange =>
-      'Рекомендуется: 250-5000 мс для большинства пристроїв';
+      'Рекомендовано: 250-5000 мс для більшості пристроїв';
 
   @override
-  String get enterValidPositiveNumber =>
-      'Введите корректное положительное число';
+  String get enterValidPositiveNumber => 'Введіть дійсне позитивне число';
 
   @override
-  String get ok => 'OK';
+  String get ok => 'добре';
 
   @override
   String get remote => 'Пульт';
 
   @override
-  String get macroName => 'Ім\'я макроса';
+  String get macroName => 'Назва макросу';
 
   @override
-  String get macroNameHint => 'напр., i-cybie Advanced Mode';
+  String get macroNameHint => 'наприклад, розширений режим i-cybie';
 
   @override
   String stepsTitleCount(int count) {
-    return 'Шаги, $count';
+    return 'Кроки ($count)';
   }
 
   @override
-  String get noStepsYet => 'Кроків поки немає';
+  String get noStepsYet => 'Ще немає кроків';
 
   @override
   String get addCommandsAndDelaysHint =>
-      'Нижче добавьте команди і затримки, щоб зібрати последовательность';
+      'Додайте команди та затримки нижче, щоб створити послідовність';
 
   @override
   String get addStep => 'Додати крок';
 
   @override
   String get reorderStepsHint =>
-      'Підказка: перетаскивайте ручку, щоб менять порядок кроків. Натисніть на крок, щоб змінити його.';
+      'Порада: перетягніть маркер, щоб змінити порядок кроків. Торкніться кроку, щоб відредагувати його.';
 
   @override
   String reorderStep(int index) {
-    return 'Переставить крок $index';
+    return 'Змініть порядок кроку $index';
   }
 
   @override
   String get pressAndDragToChangeStepOrder =>
-      'Зажмите і перетащите, щоб змінити порядок кроків';
+      'Натисніть і перетягніть, щоб змінити порядок кроків';
 
   @override
   String deleteStep(int index) {
@@ -2379,16 +2471,17 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get invalidStepTapToFix => 'Недійсний крок, Натисніть для исправления';
+  String get invalidStepTapToFix =>
+      'Недійсний крок – торкніться, щоб виправити';
 
   @override
   String get sendIrCommand => 'Надіслати ІЧ-команду';
 
   @override
-  String get waitForUserConfirmation => 'Ждать подтверждения пользователя';
+  String get waitForUserConfirmation => 'Дочекайтеся підтвердження користувача';
 
   @override
-  String get notImplemented => 'Не реализовано';
+  String get notImplemented => 'Не реалізовано';
 
   @override
   String frequencyKhz(int value) {
@@ -2405,52 +2498,52 @@ class AppLocalizationsUk extends AppLocalizations {
   String get layoutWide => 'Широкий';
 
   @override
-  String get iconButton => 'Иконка кнопка';
+  String get iconButton => 'Значок кнопки';
 
   @override
-  String get imageButton => 'Кнопка з изображением';
+  String get imageButton => 'Кнопка зображення';
 
   @override
-  String get noSignalInfo => 'Немає даних сигнала';
+  String get noSignalInfo => 'Немає інформації про сигнал';
 
   @override
-  String get proceed => 'Продолжить';
+  String get proceed => 'Продовжуйте';
 
   @override
-  String get discard => 'Скасувати';
+  String get discard => 'Відкинути';
 
   @override
-  String get continueEditing => 'Continue editing';
+  String get continueEditing => 'Продовжити редагування';
 
   @override
-  String get unsavedChangesTitle => 'Unsaved changes';
+  String get unsavedChangesTitle => 'Незбережені зміни';
 
   @override
   String get unsavedMacroChangesMessage =>
-      'Discard your macro changes and leave this screen?';
+      'Скасувати зміни макросу та залишити цей екран?';
 
   @override
   String get stopMacroBeforeLeaving =>
-      'Stop the macro before leaving this screen.';
+      'Зупиніть макрос, перш ніж залишити цей екран.';
 
   @override
   String get stopTestingBeforeLeaving =>
-      'Stop testing before leaving this screen.';
+      'Припиніть тестування, перш ніж залишити цей екран.';
 
   @override
-  String get idle => 'Ожидание';
+  String get idle => 'Бездіяльність';
 
   @override
-  String get start => 'Старт';
+  String get start => 'старт';
 
   @override
-  String get resume => 'Продолжить';
+  String get resume => 'Резюме';
 
   @override
   String get pause => 'Пауза';
 
   @override
-  String get stopped => 'Зупинено';
+  String get stopped => 'Зупинився';
 
   @override
   String get copy => 'Копіювати';
@@ -2462,27 +2555,28 @@ class AppLocalizationsUk extends AppLocalizations {
   String get step => 'Крок';
 
   @override
-  String get addToRemote => 'Додати в пульт';
+  String get addToRemote => 'Додати на пульт';
 
   @override
-  String get noDescriptionAvailable => 'Описание недоступно.';
+  String get noDescriptionAvailable => 'Немає опису.';
 
   @override
-  String get notAvailableSymbol => '—';
+  String get notAvailableSymbol => '-';
 
   @override
   String get irFinderKaseikyoVendorInvalid =>
-      'Vendor Kaseikyo должен состоять ровно з 4 hex-цифр.';
+      'Постачальник Kaseikyo має містити рівно 4 шістнадцяткові цифри.';
 
   @override
   String get irFinderDatabaseNotReady => 'База даних ще не готова.';
 
   @override
-  String get irFinderSelectBrandFirst => 'Сначала Виберіть бренд в настройке.';
+  String get irFinderSelectBrandFirst =>
+      'Спочатку виберіть бренд у налаштуваннях.';
 
   @override
   String get irFinderBruteforceUnavailable =>
-      'Brute-force для цього протокола поки недоступен.';
+      'Brute-force ще не доступний для цього протоколу.';
 
   @override
   String get irFinderInvalidPrefix => 'Недійсний префікс.';
@@ -2499,7 +2593,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String irFinderKeyValue(Object value) {
-    return 'Клавиша: $value';
+    return 'Ключ: $value';
   }
 
   @override
@@ -2509,14 +2603,14 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get irFinderJumpOffsetHelper =>
-      'Введите индекс з 0 в відфільтрованих і відсортованих результатах бази.';
+      'Введіть індекс на основі 0 у відфільтрованих упорядкованих результатах бази даних.';
 
   @override
   String get irFinderJumpCursorHelper =>
-      'Введите hex-курсор з 0 в пространстве brute-force.';
+      'Введіть шістнадцятковий курсор від нуля в область підбору.';
 
   @override
-  String get irFinderSetupTab => 'Настройка';
+  String get irFinderSetupTab => 'Налаштування';
 
   @override
   String get irFinderTestTab => 'Тест';
@@ -2525,43 +2619,44 @@ class AppLocalizationsUk extends AppLocalizations {
   String get irFinderResultsTab => 'Результати';
 
   @override
-  String get irFinderContinueToTest => 'Перейти к тесту';
+  String get irFinderContinueToTest => 'Продовжуйте тестувати';
 
   @override
-  String get irFinderKaseikyoVendorTitle => 'Vendor Kaseikyo';
+  String get irFinderKaseikyoVendorTitle => 'Продавець Kaseikyo';
 
   @override
-  String get irFinderCustomVendorLabel => 'Свой vendor, 4 hex';
+  String get irFinderCustomVendorLabel =>
+      'Спеціальний постачальник (4 шістнадцяткові)';
 
   @override
-  String get irFinderBrowseDbCandidates => 'Переглянути кандидатов БД…';
+  String get irFinderBrowseDbCandidates => 'Перегляд кандидатів БД…';
 
   @override
-  String get irFinderEditSetup => 'Изм. настройку';
+  String get irFinderEditSetup => 'Редагувати налаштування';
 
   @override
   String get irFinderNoSavedHits =>
-      'Збережених збігів поки немає. На сторінці Тест Натисніть \"Зберегти\", коли пристрій відповість.';
+      'Ще немає збережених звернень. На тестовій сторінці натисніть «Зберегти звернення», коли пристрій відповість.';
 
   @override
-  String get irFinderBackToTest => 'Назад к тесту';
+  String get irFinderBackToTest => 'Назад до тесту';
 
   @override
   String get irFinderLargeSearchSpaceTitle => 'Великий простір пошуку';
 
   @override
   String irFinderLargeSearchSpaceBody(Object human) {
-    return 'Це пространство brute-force очень велико, $human вариантов. IR Finder усе равно буде соблюдать ліміт спроб і паузу, але не спамьте ІЧ-устройства.\n\nРекомендуется: спочатку використовувати режим База і, або, ввести відомі байти префікса, щоб сузить Пошук.';
+    return 'Цей простір грубої сили дуже великий (можливості $human). ІЧ-шукач все одно поважатиме ваші максимальні спроби та час відновлення, але пам’ятайте про спам із ІЧ-пристроїв.\n\nРекомендація: спочатку використовуйте режим бази даних і/або введіть відомі байти префікса, щоб зменшити простір.';
   }
 
   @override
-  String get irFinderDatabaseSession => 'Сессия БД';
+  String get irFinderDatabaseSession => 'Сеанс бази даних';
 
   @override
-  String get irFinderBruteforceSession => 'Brute-force сессия';
+  String get irFinderBruteforceSession => 'Сеанс грубої сили';
 
   @override
-  String get irFinderResumeLastSession => 'Продолжить последнюю сессию';
+  String get irFinderResumeLastSession => 'Відновити останній сеанс';
 
   @override
   String irFinderResumeBrandModel(Object brand, Object model) {
@@ -2570,22 +2665,22 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String irFinderResumePrefix(Object value) {
-    return 'Префикс: $value';
+    return 'Префікс: $value';
   }
 
   @override
   String irFinderResumeProgress(Object progress, Object when) {
-    return 'Прогресс: $progress · Начато: $when';
+    return 'Прогрес: $progress · Розпочато: $when';
   }
 
   @override
-  String get irFinderApplyResume => 'Применить і продолжить';
+  String get irFinderApplyResume => 'Подати заявку та відновити';
 
   @override
-  String get irFinderBruteforceMode => 'Brute-force';
+  String get irFinderBruteforceMode => 'Груба сила';
 
   @override
-  String get irFinderDatabaseAssistedMode => 'З помощью БД';
+  String get irFinderDatabaseAssistedMode => 'За допомогою бази даних';
 
   @override
   String irFinderProtocolTitle(Object name) {
@@ -2597,89 +2692,91 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get irFinderProtocolHelper =>
-      'Управляет кодированием і, соответственно, пространством поиска.';
+      'Керує кодуванням і, отже, простором пошуку.';
 
   @override
-  String get irFinderKnownPrefixLabel => 'Відомий префікс, hex-байти, необов.';
+  String get irFinderKnownPrefixLabel =>
+      'Відомий префікс (шістнадцяткові байти, необов’язково)';
 
   @override
   String get irFinderKnownPrefixHint => 'A1B2, A1 B2, A1:B2, 0xA1 0xB2';
 
   @override
   String irFinderKnownPrefixHelperPayload(int digits) {
-    return 'Payload: $digits hex-цифр';
+    return 'Корисне навантаження: $digits шістнадцяткові цифри';
   }
 
   @override
   String irFinderKnownPrefixHelperPayloadExample(int digits, Object example) {
-    return 'Payload: $digits hex-цифр · Пример: $example';
+    return 'Корисне навантаження: $digits шістнадцяткові цифри · Приклад: $example';
   }
 
   @override
   String irFinderKnownPrefixHelperPayloadMax(int digits, int bytes) {
-    return 'Payload: $digits hex-цифр · Макс. префікс: $bytes байт';
+    return 'Корисне навантаження: $digits шістнадцяткова цифра(и) · Макс. префікс: $bytes байт(и)';
   }
 
   @override
   String irFinderKnownPrefixHelperPayloadExampleMax(
       int digits, Object example, int bytes) {
-    return 'Payload: $digits hex-цифр · Пример: $example · Макс. префікс: $bytes байт';
+    return 'Корисне навантаження: $digits шістнадцяткова цифра(и) · Приклад: $example · Макс. префікс: $bytes байт(и)';
   }
 
   @override
   String irFinderKnownPrefixHelperExample(Object example) {
-    return 'Пример: $example';
+    return 'Приклад: $example';
   }
 
   @override
   String get irFinderKnownPrefixHelperFallback =>
-      'Введите відомі перші байти, щоб сузить Пошук.';
+      'Введіть будь-які відомі перші байти, щоб зменшити простір пошуку.';
 
   @override
-  String get irFinderDatabaseMode => 'База';
+  String get irFinderDatabaseMode => 'База даних';
 
   @override
   String irFinderNormalizedPrefixValue(Object value) {
-    return 'Нормализ. префікс: $value';
+    return 'Нормований префікс: $value';
   }
 
   @override
-  String get irFinderNormalizedPrefix => 'Нормализ. префікс';
+  String get irFinderNormalizedPrefix => 'Нормований префікс';
 
   @override
   String get irFinderBruteforceNotConfigured =>
-      'Brute-force для цього протокола поки не настроен.';
+      'Brute-force ще не налаштовано для цього протоколу.';
 
   @override
   String irFinderAllLimit(Object value) {
-    return 'Все, $value';
+    return 'Усі ($value)';
   }
 
   @override
-  String get irFinderTestControls => 'Управление тестом';
+  String get irFinderTestControls => 'Тестовий контроль';
 
   @override
   String irFinderPayloadLength(int digits) {
-    return 'Длина payload: $digits hex-цифр.';
+    return 'Довжина корисного навантаження: $digits шістнадцяткова цифра(и).';
   }
 
   @override
   String irFinderSearchSpace(Object value) {
-    return 'Пространство поиска: $value вариантов, после ограничений префікса.';
+    return 'Простір пошуку: можливості $value (після обмежень префікса).';
   }
 
   @override
-  String get irFinderCooldownMs => 'Пауза, мс';
+  String get irFinderCooldownMs => 'Перезарядка (мс)';
 
   @override
-  String get irFinderMaxAttemptsPerRun => 'Макс. спроб за запуск';
+  String get irFinderMaxAttemptsPerRun =>
+      'Максимальна кількість спроб (за пробіжку)';
 
   @override
-  String get irFinderTestAllCombinations => 'Тестувати все комбинации';
+  String get irFinderTestAllCombinations => 'Перевірте всі комбінації';
 
   @override
   String irFinderTestAllCombinationsHint(Object value) {
-    return 'Працює, поки простір пошуку не вичерпається. Ефективний ліміт: $value';
+    return 'Працює, доки не буде вичерпано простір пошуку. Ефективний ліміт: $value';
   }
 
   @override
@@ -2687,7 +2784,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String irFinderAttemptsSliderRange(int max) {
-    return 'Диапазон ползунка: 1–$max, для больших значений введите число';
+    return 'Діапазон повзунка: 1–$max (введіть будь-яке число для більших значень)';
   }
 
   @override
@@ -2697,21 +2794,22 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String irFinderEffectiveLimitThisRun(Object value) {
-    return 'Ефективний ліміт цього запуска: $value';
+    return 'Ефективний ліміт цього запуску: $value';
   }
 
   @override
   String get irFinderBruteforceTip =>
-      'Підказка: спочатку використовуйте режим База; brute-force краще працює з відомим префіксом, наприклад першими 1–4 байтами.';
+      'Порада: спочатку використовуйте режим бази даних; brute-force найкраще з відомим префіксом (наприклад, перші 1–4 байти).';
 
   @override
-  String get irFinderDatabaseInitFailed => 'Не вдалося ініціалізувати БД.';
+  String get irFinderDatabaseInitFailed => 'Помилка ініціалізації бази даних.';
 
   @override
-  String get irFinderPreparingDatabase => 'Подготовка локальной бази ІЧ-кодів…';
+  String get irFinderPreparingDatabase =>
+      'Підготовка локальної бази даних ІЧ-кодів…';
 
   @override
-  String get irFinderDatabaseAssistedSearch => 'Пошук з помощью БД';
+  String get irFinderDatabaseAssistedSearch => 'Пошук за допомогою бази даних';
 
   @override
   String get irFinderBrand => 'Бренд';
@@ -2720,78 +2818,80 @@ class AppLocalizationsUk extends AppLocalizations {
   String get irFinderSelectBrand => 'Виберіть бренд';
 
   @override
-  String get irFinderModelOptional => 'Модель, необов.';
+  String get irFinderModelOptional => 'Модель (необов\'язково)';
 
   @override
-  String get irFinderSelectBrandFirstShort => 'Сначала Виберіть бренд';
+  String get irFinderSelectBrandFirstShort => 'Спочатку виберіть бренд';
 
   @override
-  String get irFinderSelectModelRecommended => 'Виберіть модель, рекомендуется';
+  String get irFinderSelectModelRecommended =>
+      'Виберіть модель (рекомендовано)';
 
   @override
-  String get irFinderOnlySelectedProtocol => 'Лише вибраний протокол';
+  String get irFinderOnlySelectedProtocol => 'Лише обраний протокол';
 
   @override
   String get irFinderOnlySelectedProtocolHint =>
-      'Фільтрує ключи за вибраному протоколу. Вимкніть, щоб переглядати все протоколи.';
+      'Фільтрує ключі до вибраного протоколу. Вимкніть його, щоб переглянути всі протоколи.';
 
   @override
-  String get irFinderQuickWinsFirst => 'Сначала швидкі попадания';
+  String get irFinderQuickWinsFirst => 'Швидкий перемагає першим';
 
   @override
   String get irFinderQuickWinsFirstHint =>
-      'Сначала дає пріоритет ключам типа POWER, MUTE, VOL і CH, а вже потом более глубоким.';
+      'Надає перевагу клавішам POWER, MUTE, VOL і CH перед більш глибокими клавішами.';
 
   @override
-  String get irFinderMaxKeysPerRun => 'Макс. ключей за запуск';
+  String get irFinderMaxKeysPerRun =>
+      'Максимальна кількість ключів для тестування (за запуск)';
 
   @override
-  String get irFinderTesting => 'Тестирование…';
+  String get irFinderTesting => 'Тестування…';
 
   @override
-  String get irFinderCooldown => 'Пауза';
+  String get irFinderCooldown => 'Кулдаун';
 
   @override
-  String get irFinderEta => 'Осталось';
+  String get irFinderEta => 'Залишилося';
 
   @override
   String get irFinderMode => 'Режим';
 
   @override
-  String get irFinderRetryLast => 'Повторити последний';
+  String get irFinderRetryLast => 'Повторіть останню';
 
   @override
-  String get irFinderTrigger => 'Запуск';
+  String get irFinderTrigger => 'Тригер';
 
   @override
-  String get irFinderJump => 'Переход…';
+  String get irFinderJump => 'Стрибок…';
 
   @override
-  String get irFinderSaveHit => 'Зберегти';
+  String get irFinderSaveHit => 'Зберегти удар';
 
   @override
   String irFinderEtaSeconds(int seconds) {
-    return '$secondsз';
+    return '$seconds с';
   }
 
   @override
   String irFinderEtaMinutesSeconds(int minutes, int seconds) {
-    return '$minutesм $secondsз';
+    return '$minutes хв $seconds с';
   }
 
   @override
   String irFinderEtaHoursMinutes(int hours, int minutes) {
-    return '$hoursч $minutesм';
+    return '$hours год $minutes хв';
   }
 
   @override
   String irFinderLastAttemptedCode(Object value) {
-    return 'Последний код: $value';
+    return 'Код останньої спроби: $value';
   }
 
   @override
   String get irFinderStartTestingToSeeLastCode =>
-      'Начните тест, щоб увидеть последний надісланий код.';
+      'Почніть тестування, щоб побачити останній спробований код.';
 
   @override
   String irFinderFromDb(Object value) {
@@ -2800,179 +2900,180 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get irFinderFromBruteforce =>
-      'З brute-force, сгенерировано кодировщиком протокола.';
+      'З грубої сили (генерується кодувальником протоколу).';
 
   @override
   String irFinderSendError(Object error) {
-    return 'Помилка отправки: $error';
+    return 'Помилка надсилання: $error';
   }
 
   @override
   String irFinderSourceValue(Object value) {
-    return 'Источник: $value';
+    return 'Джерело: $value';
   }
 
   @override
   String get irFinderResultsNote =>
-      'Результати можна відразу тестировать і копіювати. Прямое добавление в пульт можна расширить позже в редакторе.';
+      'Результати підтримують тестування та копіювання негайно. Інтеграцію прямого додавання до пульта можна розширити далі в процесі редактора.';
 
   @override
-  String get irFinderBrowseDbCandidatesTitle => 'Просмотр кандидатов БД';
+  String get irFinderBrowseDbCandidatesTitle => 'Перегляньте кандидати БД';
 
   @override
-  String get irFinderFilterByLabelOrHex => 'Фильтр за метке або hex…';
+  String get irFinderFilterByLabelOrHex =>
+      'Фільтрувати за міткою або шістнадцятковим…';
 
   @override
-  String get irFinderJumpHere => 'Перейти сюда';
+  String get irFinderJumpHere => 'Стрибай сюди';
 
   @override
   String get irFinderSelectModel => 'Виберіть модель';
 
   @override
-  String get irFinderSearchBrands => 'Пошук брендов…';
+  String get irFinderSearchBrands => 'Пошук брендів…';
 
   @override
   String get irFinderSearchModels => 'Пошук моделей…';
 
   @override
-  String get iconPickerTitle => 'Вибрати Иконка';
+  String get iconPickerTitle => 'Виберіть значок';
 
   @override
-  String get iconPickerSearchHint => 'Пошук иконок...';
+  String get iconPickerSearchHint => 'Значки пошуку...';
 
   @override
-  String get iconPickerNoIconsFound => 'Иконки не знайдено';
+  String get iconPickerNoIconsFound => 'Значок не знайдено';
 
   @override
   String iconPickerIconsAvailable(int count) {
-    return '$count иконок доступно';
+    return 'Доступні значки $count';
   }
 
   @override
-  String get iconPickerCategoryAll => 'Все';
+  String get iconPickerCategoryAll => 'все';
 
   @override
-  String get iconPickerCategoryMedia => 'Медиа';
+  String get iconPickerCategoryMedia => 'ЗМІ';
 
   @override
-  String get iconPickerCategoryVolume => 'Гучність';
+  String get iconPickerCategoryVolume => 'Обсяг';
 
   @override
-  String get iconPickerCategoryNavigation => 'Навигация';
+  String get iconPickerCategoryNavigation => 'Навігація';
 
   @override
   String get iconPickerCategoryPower => 'Живлення';
 
   @override
-  String get iconPickerCategoryNumbers => 'Цифри';
+  String get iconPickerCategoryNumbers => 'Числа';
 
   @override
   String get iconPickerCategorySettings => 'Налаштування';
 
   @override
-  String get iconPickerCategoryDisplay => 'Екран';
+  String get iconPickerCategoryDisplay => 'Дисплей';
 
   @override
-  String get iconPickerCategoryInput => 'Ввод';
+  String get iconPickerCategoryInput => 'Введення';
 
   @override
-  String get iconPickerCategoryFavorite => 'Избранное';
+  String get iconPickerCategoryFavorite => 'улюблений';
 
   @override
-  String get universalPowerTitle => 'Універсальне Живлення';
+  String get universalPowerTitle => 'Універсальна сила';
 
   @override
-  String get universalPowerRunTab => 'Запуск';
+  String get universalPowerRunTab => 'бігти';
 
   @override
-  String get universalPowerUseResponsibly => 'Використовуйте ответственно';
+  String get universalPowerUseResponsibly => 'Використовуйте відповідально';
 
   @override
   String get universalPowerConsentBody =>
-      'Універсальне Живлення перебирает ІЧ-коди живлення. Використовуйте його лише на пристроях, якими володієте або керуєте. Зупиніть відразу, як лише пристрій відповість.';
+      'Універсальні цикли живлення ІЧ-коди живлення. Використовуйте його лише на пристроях, якими володієте чи керуєте. Зупиніть, як тільки пристрій відреагує.';
 
   @override
-  String get universalPowerConsentCheckbox =>
-      'Я владею пристроєм або управляю им';
+  String get universalPowerConsentCheckbox => 'Я володію або керую пристроєм';
 
   @override
   String get universalPowerSetupBody =>
-      'Перебирает коди живлення для вибраного бренда. Зупиніть, як лише пристрій відповість.';
+      'Циклує коди живлення для вибраного бренду. Зупиніть, як тільки пристрій відреагує.';
 
   @override
   String universalPowerLastSent(Object value) {
-    return 'Последнее отправленное: $value';
+    return 'Востаннє надіслано: $value';
   }
 
   @override
   String get universalPowerNoCodesFound =>
-      'Коди живлення не знайдено. Попробуйте расширить Пошук.';
+      'Не знайдено кодів живлення. Спробуйте розширити пошук.';
 
   @override
-  String get universalPowerUnableToStart => 'Не вдалося запустити.';
+  String get universalPowerUnableToStart => 'Неможливо запустити.';
 
   @override
-  String get universalPowerAllBrands => 'Все бренди, Без фільтра';
+  String get universalPowerAllBrands => 'Усі марки (без фільтра)';
 
   @override
-  String get universalPowerClearBrandFilter => 'Очистить фильтр бренда';
+  String get universalPowerClearBrandFilter => 'Очистити фільтр бренду';
 
   @override
-  String get universalPowerBroadenSearch => 'При необходимости расширьте Пошук';
+  String get universalPowerBroadenSearch => 'За потреби розширте пошук';
 
   @override
   String get universalPowerBroadenSearchHint =>
-      'Якщо метки живлення не знайдено, включите другие ключи.';
+      'Якщо ярлики живлення не знайдені, додайте інші ключі.';
 
   @override
-  String get universalPowerAdditionalPatternsDepth => 'Глубина доп. паттернов';
+  String get universalPowerAdditionalPatternsDepth =>
+      'Додаткова глибина візерунків';
 
   @override
-  String get universalPowerDepth1 => 'Лише пріоритет: POWER/OFF';
+  String get universalPowerDepth1 => 'Лише пріоритет: ЖИВЛЕННЯ/ВИМК';
 
   @override
-  String get universalPowerDepth2 => 'Включить аліаси POWER';
+  String get universalPowerDepth2 => 'Додайте псевдоніми POWER';
 
   @override
-  String get universalPowerDepth3 => 'Включить вторинні метки живлення';
+  String get universalPowerDepth3 => 'Додайте вторинні мітки живлення';
 
   @override
-  String get universalPowerDepth4 => 'Включить все метки, нижчий пріоритет';
+  String get universalPowerDepth4 => 'Включити всі мітки (найнижчий пріоритет)';
 
   @override
-  String get universalPowerLoopUntilStopped => 'Цикл до остановки';
+  String get universalPowerLoopUntilStopped => 'Цикл до зупинки';
 
   @override
   String get universalPowerLoopUntilStoppedHint =>
-      'Продолжает крутить очередь, поки ви не остановите.';
+      'Продовжує чергувати чергу, доки ви її не зупините.';
 
   @override
-  String get universalPowerDelayBetweenCodes => 'Задержка між кодами';
+  String get universalPowerDelayBetweenCodes => 'Затримка між кодами';
 
   @override
-  String get universalPowerStart => 'Запустити универсальное Живлення';
+  String get universalPowerStart => 'Запустіть Universal Power';
 
   @override
-  String get universalPowerRunStatus => 'Статус запуска';
+  String get universalPowerRunStatus => 'Статус запуску';
 
   @override
   String universalPowerProgress(Object value) {
-    return 'Прогресс: $value';
+    return 'Прогрес: $value';
   }
 
   @override
   String get universalPowerPausedInBackground =>
-      'Приостановлено, так як приложение ушло в фон.';
+      'Призупинено, оскільки програма працювала у фоновому режимі.';
 
   @override
-  String get universalPowerSendOneCode => 'Надіслати один код';
+  String get universalPowerSendOneCode => 'Надішліть один код';
 
   @override
   String get universalPowerStopWhenDeviceResponds =>
-      'Зупинити, як лише пристрій відповість.';
+      'Зупиніть, як тільки пристрій відреагує.';
 
   @override
-  String get iconNamePlay => 'Пуск';
+  String get iconNamePlay => 'грати';
 
   @override
   String get iconNamePause => 'Пауза';
@@ -2981,16 +3082,16 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameStop => 'Стоп';
 
   @override
-  String get iconNameFastForward => 'Швидко вперед';
+  String get iconNameFastForward => 'Перемотування вперед';
 
   @override
-  String get iconNameRewind => 'назад';
+  String get iconNameRewind => 'Перемотати назад';
 
   @override
-  String get iconNameSkipNext => 'След.';
+  String get iconNameSkipNext => 'Пропустити далі';
 
   @override
-  String get iconNameSkipPrevious => 'Пред.';
+  String get iconNameSkipPrevious => 'Пропустити попередній';
 
   @override
   String get iconNameReplay => 'Повтор';
@@ -3002,43 +3103,43 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameForward30S => 'Вперед 30с';
 
   @override
-  String get iconNameReplay10S => 'Повтор 10с';
+  String get iconNameReplay10S => 'Повторити 10 секунд';
 
   @override
-  String get iconNameReplay30S => 'Повтор 30с';
+  String get iconNameReplay30S => 'Повтор 30-х років';
 
   @override
-  String get iconNameRecord => 'Запись';
+  String get iconNameRecord => 'запис';
 
   @override
-  String get iconNameRecordAlt => 'Запись альт.';
+  String get iconNameRecordAlt => 'Запис Alt';
 
   @override
-  String get iconNameEject => 'Извлечь';
+  String get iconNameEject => 'Витягнути';
 
   @override
-  String get iconNameShuffle => 'Случайно';
+  String get iconNameShuffle => 'Перетасувати';
 
   @override
-  String get iconNameRepeat => 'Повтор';
+  String get iconNameRepeat => 'Повторіть';
 
   @override
-  String get iconNameRepeatOne => 'Повтор один';
+  String get iconNameRepeatOne => 'Повторіть один';
 
   @override
-  String get iconNameVolumeUp => 'Гучність +';
+  String get iconNameVolumeUp => 'Збільшення гучності';
 
   @override
-  String get iconNameVolumeDown => 'Гучність -';
+  String get iconNameVolumeDown => 'Зменшення гучності';
 
   @override
-  String get iconNameVolumeOff => 'Гучність вимк';
+  String get iconNameVolumeOff => 'Вимкнення гучності';
 
   @override
-  String get iconNameMute => 'Без звуку';
+  String get iconNameMute => 'Вимкнути звук';
 
   @override
-  String get iconNameSpeaker => 'Динамик';
+  String get iconNameSpeaker => 'Спікер';
 
   @override
   String get iconNameSurroundSound => 'Об\'ємний звук';
@@ -3050,10 +3151,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameAudio => 'Аудіо';
 
   @override
-  String get iconNameMicrophone => 'Микрофон';
+  String get iconNameMicrophone => 'мікрофон';
 
   @override
-  String get iconNameMicOff => 'Микр. вимк';
+  String get iconNameMicOff => 'Мікрофон вимкнено';
 
   @override
   String get iconNameUp => 'вгору';
@@ -3062,10 +3163,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameDown => 'вниз';
 
   @override
-  String get iconNameLeft => 'ліворуч';
+  String get iconNameLeft => 'Ліворуч';
 
   @override
-  String get iconNameRight => 'праворуч';
+  String get iconNameRight => 'правильно';
 
   @override
   String get iconNameArrowUp => 'Стрілка вгору';
@@ -3074,61 +3175,61 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameArrowDown => 'Стрілка вниз';
 
   @override
-  String get iconNameArrowLeft => 'Стрілка ліворуч';
+  String get iconNameArrowLeft => 'Стрілка вліво';
 
   @override
-  String get iconNameArrowRight => 'Стрілка праворуч';
+  String get iconNameArrowRight => 'Стрілка вправо';
 
   @override
-  String get iconNameNavigation => 'Навигация';
+  String get iconNameNavigation => 'Навігація';
 
   @override
   String get iconNameChevronLeft => 'Шеврон ліворуч';
 
   @override
-  String get iconNameChevronRight => 'Шеврон праворуч';
+  String get iconNameChevronRight => 'Шеврон справа';
 
   @override
-  String get iconNameExpandLess => 'Свернуть';
+  String get iconNameExpandLess => 'Розгорнути менше';
 
   @override
-  String get iconNameExpandMore => 'Развернуть';
+  String get iconNameExpandMore => 'Розгорнути Більше';
 
   @override
-  String get iconNameCollapse => 'Свернуть';
+  String get iconNameCollapse => 'Згорнути';
 
   @override
-  String get iconNameExpand => 'Развернуть';
+  String get iconNameExpand => 'Розгорнути';
 
   @override
-  String get iconNameCircleUp => 'Коло вгору';
+  String get iconNameCircleUp => 'Круг вгору';
 
   @override
-  String get iconNameCircleDown => 'Коло вниз';
+  String get iconNameCircleDown => 'Круг вниз';
 
   @override
-  String get iconNameCircleLeft => 'Коло ліворуч';
+  String get iconNameCircleLeft => 'Круг ліворуч';
 
   @override
-  String get iconNameCircleRight => 'Коло праворуч';
+  String get iconNameCircleRight => 'Круг Праворуч';
 
   @override
-  String get iconNameOkSelect => 'OK/Вибір';
+  String get iconNameOkSelect => 'OK/Вибрати';
 
   @override
-  String get iconNameConfirm => 'Подтв.';
+  String get iconNameConfirm => 'Підтвердити';
 
   @override
-  String get iconNameCancel => 'Скасування';
+  String get iconNameCancel => 'Скасувати';
 
   @override
   String get iconNameClose => 'Закрити';
 
   @override
-  String get iconNameHome => 'Додому';
+  String get iconNameHome => 'додому';
 
   @override
-  String get iconNameReturn => 'Назад';
+  String get iconNameReturn => 'Повернення';
 
   @override
   String get iconNameExit => 'Вихід';
@@ -3143,25 +3244,25 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNamePower => 'Живлення';
 
   @override
-  String get iconNamePowerAlt => 'Живлення альт.';
+  String get iconNamePowerAlt => 'Живлення, альтернативна';
 
   @override
-  String get iconNamePowerOff => 'Живлення вимк';
+  String get iconNamePowerOff => 'Вимкнення';
 
   @override
-  String get iconNameOn => 'увімк';
+  String get iconNameOn => 'Увімкнено';
 
   @override
-  String get iconNameOff => 'вимк';
+  String get iconNameOff => 'Вимкнено';
 
   @override
-  String get iconNameToggleOn => 'Перекл. увімк';
+  String get iconNameToggleOn => 'Увімкнути';
 
   @override
-  String get iconNameToggleOff => 'Перекл. вимк';
+  String get iconNameToggleOff => 'Вимкнути';
 
   @override
-  String get iconNameRestart => 'Перезапуск';
+  String get iconNameRestart => 'Перезапустіть';
 
   @override
   String get iconNameNum1 => '1';
@@ -3197,34 +3298,34 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameNum0 => '0';
 
   @override
-  String get iconNameOne => 'один';
+  String get iconNameOne => 'Один';
 
   @override
   String get iconNameTwo => 'Два';
 
   @override
-  String get iconNameThree => 'Три';
+  String get iconNameThree => 'три';
 
   @override
-  String get iconNameFour => 'Чотири';
+  String get iconNameFour => 'чотири';
 
   @override
-  String get iconNameFive => 'Пять';
+  String get iconNameFive => 'П\'ять';
 
   @override
-  String get iconNameSix => 'Шесть';
+  String get iconNameSix => 'Шість';
 
   @override
   String get iconNamePlus => 'плюс';
 
   @override
-  String get iconNameMinus => 'минус';
+  String get iconNameMinus => 'Мінус';
 
   @override
-  String get iconNameAddCircle => 'Додати Коло';
+  String get iconNameAddCircle => 'Додати коло';
 
   @override
-  String get iconNameRemoveCircle => 'Убрать Коло';
+  String get iconNameRemoveCircle => 'Видалити коло';
 
   @override
   String get iconNameSettings => 'Налаштування';
@@ -3233,121 +3334,121 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameMenu => 'Меню';
 
   @override
-  String get iconNameMoreVertical => 'больше верт.';
+  String get iconNameMoreVertical => 'Більш вертикально';
 
   @override
-  String get iconNameMoreHorizontal => 'больше гориз.';
+  String get iconNameMoreHorizontal => 'Більше горизонтально';
 
   @override
-  String get iconNameTune => 'Настройка';
+  String get iconNameTune => 'Налаштувати';
 
   @override
-  String get iconNameRemoteSettings => 'Пульт Налаштування';
+  String get iconNameRemoteSettings => 'Налаштування пульта';
 
   @override
-  String get iconNameInfo => 'Инфо';
+  String get iconNameInfo => 'Інформація';
 
   @override
-  String get iconNameInfoOutline => 'Инфо контур';
+  String get iconNameInfoOutline => 'Конспект інформації';
 
   @override
-  String get iconNameHelp => 'Помощь';
+  String get iconNameHelp => 'Довідка';
 
   @override
-  String get iconNameHelpOutline => 'Помощь контур';
+  String get iconNameHelpOutline => 'План довідки';
 
   @override
   String get iconNameList => 'Список';
 
   @override
-  String get iconNameViewList => 'Вид Список';
+  String get iconNameViewList => 'Переглянути список';
 
   @override
-  String get iconNameViewGrid => 'Вид Сітка';
+  String get iconNameViewGrid => 'Перегляд сітки';
 
   @override
-  String get iconNameApps => 'Приложения';
+  String get iconNameApps => 'програми';
 
   @override
   String get iconNameWidgets => 'Віджети';
 
   @override
-  String get iconNameTv => 'TV';
+  String get iconNameTv => 'телевізор';
 
   @override
-  String get iconNameMonitor => 'Монитор';
+  String get iconNameMonitor => 'Монітор';
 
   @override
-  String get iconNameDesktop => 'Раб. стол';
+  String get iconNameDesktop => 'Робочий стіл';
 
   @override
-  String get iconNameBrightnessHigh => 'Висока яркость';
+  String get iconNameBrightnessHigh => 'Висока яскравість';
 
   @override
-  String get iconNameBrightnessMedium => 'Средняя яркость';
+  String get iconNameBrightnessMedium => 'Яскравість Середня';
 
   @override
-  String get iconNameBrightnessLow => 'Низкая яркость';
+  String get iconNameBrightnessLow => 'Низька яскравість';
 
   @override
-  String get iconNameAutoBrightness => 'Автояркость';
+  String get iconNameAutoBrightness => 'Автоматична яскравість';
 
   @override
-  String get iconNameLightMode => 'Світлий режим';
+  String get iconNameLightMode => 'Світловий режим';
 
   @override
-  String get iconNameDarkMode => 'Темний Режим';
+  String get iconNameDarkMode => 'Темний режим';
 
   @override
   String get iconNameContrast => 'Контраст';
 
   @override
-  String get iconNameHdrOn => 'HDR увімк';
+  String get iconNameHdrOn => 'HDR увімкнено';
 
   @override
-  String get iconNameHdrOff => 'HDR вимк';
+  String get iconNameHdrOff => 'HDR вимкнено';
 
   @override
-  String get iconNameAspectRatio => 'Соотношение сторон';
+  String get iconNameAspectRatio => 'Співвідношення сторін';
 
   @override
-  String get iconNameCrop => 'Обрезка';
+  String get iconNameCrop => 'кадрування';
 
   @override
-  String get iconNameZoomIn => 'Увеличить';
+  String get iconNameZoomIn => 'Збільшити';
 
   @override
-  String get iconNameZoomOut => 'Уменьшить';
+  String get iconNameZoomOut => 'Зменшити';
 
   @override
   String get iconNameFullscreen => 'Повний екран';
 
   @override
-  String get iconNameExitFullscreen => 'Вихід Повний екран';
+  String get iconNameExitFullscreen => 'Вийти з повноекранного режиму';
 
   @override
-  String get iconNameFitScreen => 'Вписать Екран';
+  String get iconNameFitScreen => 'За розміром екрана';
 
   @override
   String get iconNamePip => 'PiP';
 
   @override
-  String get iconNameCropFree => 'Обрезка Своб.';
+  String get iconNameCropFree => 'Обрізати безкоштовно';
 
   @override
-  String get iconNameInput => 'Ввод';
+  String get iconNameInput => 'Введення';
 
   @override
   String get iconNameCable => 'Кабель';
 
   @override
-  String get iconNameCast => 'Трансляция';
+  String get iconNameCast => 'акторський склад';
 
   @override
-  String get iconNameCastConnected => 'Трансляция подкл.';
+  String get iconNameCastConnected => 'Трансляцію підключено';
 
   @override
-  String get iconNameScreenShare => 'Екран Поделиться';
+  String get iconNameScreenShare => 'Поділитися екраном';
 
   @override
   String get iconNameBluetooth => 'Bluetooth';
@@ -3356,64 +3457,64 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameWifi => 'WiFi';
 
   @override
-  String get iconNameRouter => 'Роутер';
+  String get iconNameRouter => 'Маршрутизатор';
 
   @override
-  String get iconNameMemory => 'Память';
+  String get iconNameMemory => 'Пам\'ять';
 
   @override
-  String get iconNameGameConsole => 'Игра Консоль';
+  String get iconNameGameConsole => 'Ігрова консоль';
 
   @override
-  String get iconNameGaming => 'Игровой';
+  String get iconNameGaming => 'Ігри';
 
   @override
-  String get iconNameMedia => 'Медиа';
+  String get iconNameMedia => 'ЗМІ';
 
   @override
-  String get iconNameMusicQueue => 'Музика Черга';
+  String get iconNameMusicQueue => 'Музична черга';
 
   @override
-  String get iconNameVideoLibrary => 'Відео Библиотека';
+  String get iconNameVideoLibrary => 'Відеотека';
 
   @override
-  String get iconNamePhotoLibrary => 'Фото Библиотека';
+  String get iconNamePhotoLibrary => 'Бібліотека фотографій';
 
   @override
-  String get iconNameComponent => 'Компонент';
+  String get iconNameComponent => 'компонент';
 
   @override
   String get iconNameHdmi => 'HDMI';
 
   @override
-  String get iconNameComposite => 'Composite';
+  String get iconNameComposite => 'Композитний';
 
   @override
-  String get iconNameAntenna => 'Антенна';
+  String get iconNameAntenna => 'антена';
 
   @override
-  String get iconNameFavorite => 'Избранное';
+  String get iconNameFavorite => 'улюблений';
 
   @override
-  String get iconNameFavoriteOutline => 'Избранное контур';
+  String get iconNameFavoriteOutline => 'Улюблений план';
 
   @override
-  String get iconNameStar => 'Зірка';
+  String get iconNameStar => 'зірка';
 
   @override
-  String get iconNameStarOutline => 'Зірка контур';
+  String get iconNameStarOutline => 'Контур зірки';
 
   @override
   String get iconNameBookmark => 'Закладка';
 
   @override
-  String get iconNameBookmarkOutline => 'Закладка контур';
+  String get iconNameBookmarkOutline => 'Контур закладки';
 
   @override
-  String get iconNameFlag => 'Флаг';
+  String get iconNameFlag => 'Прапор';
 
   @override
-  String get iconNameCheck => 'Галочка';
+  String get iconNameCheck => 'Перевірте';
 
   @override
   String get iconNameDone => 'Готово';
@@ -3422,61 +3523,61 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameDoneAll => 'Готово все';
 
   @override
-  String get iconNameSchedule => 'Расписание';
+  String get iconNameSchedule => 'розклад';
 
   @override
   String get iconNameTimer => 'Таймер';
 
   @override
-  String get iconNameTime => 'Время';
+  String get iconNameTime => 'час';
 
   @override
-  String get iconNameAlarm => 'Будильник';
+  String get iconNameAlarm => 'сигналізація';
 
   @override
-  String get iconNameNotifications => 'Уведомления';
+  String get iconNameNotifications => 'Сповіщення';
 
   @override
   String get iconNameLock => 'Замок';
 
   @override
-  String get iconNameUnlock => 'Разблок.';
+  String get iconNameUnlock => 'Розблокувати';
 
   @override
-  String get iconNameLight => 'Свет';
+  String get iconNameLight => 'світло';
 
   @override
-  String get iconNameLightOutline => 'Свет контур';
+  String get iconNameLightOutline => 'Легкий контур';
 
   @override
-  String get iconNameWarmLight => 'Теплий свет';
+  String get iconNameWarmLight => 'Тепле світло';
 
   @override
-  String get iconNameSunny => 'Солнце';
+  String get iconNameSunny => 'Сонячно';
 
   @override
-  String get iconNameCloudy => 'Облачно';
+  String get iconNameCloudy => 'Хмарно';
 
   @override
-  String get iconNameNight => 'Ночь';
+  String get iconNameNight => 'ніч';
 
   @override
-  String get iconNameFlare => 'Блик';
+  String get iconNameFlare => 'Відблиск';
 
   @override
-  String get iconNameGradient => 'Градиент';
+  String get iconNameGradient => 'Градієнт';
 
   @override
-  String get iconNameInvertColors => 'Инверсия цветов';
+  String get iconNameInvertColors => 'Інвертувати кольори';
 
   @override
-  String get iconNamePalette => 'Палитра';
+  String get iconNamePalette => 'Палітра';
 
   @override
   String get iconNameColor => 'Колір';
 
   @override
-  String get iconNameTonality => 'Тональность';
+  String get iconNameTonality => 'Тональність';
 
   @override
   String get iconNameSearch => 'Пошук';
@@ -3485,19 +3586,19 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameRefresh => 'Оновити';
 
   @override
-  String get iconNameSync => 'Синхр.';
+  String get iconNameSync => 'Синхронізувати';
 
   @override
-  String get iconNameUpdate => 'Оновити';
+  String get iconNameUpdate => 'Оновлення';
 
   @override
-  String get iconNameDownload => 'Скачать';
+  String get iconNameDownload => 'Завантажити';
 
   @override
   String get iconNameUpload => 'Завантажити';
 
   @override
-  String get iconNameCloud => 'Облако';
+  String get iconNameCloud => 'Хмара';
 
   @override
   String get iconNameFolder => 'Папка';
@@ -3506,25 +3607,25 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameDelete => 'Видалити';
 
   @override
-  String get iconNameEdit => 'Изменить';
+  String get iconNameEdit => 'Редагувати';
 
   @override
-  String get iconNameSave => 'Зберегти';
+  String get iconNameSave => 'зберегти';
 
   @override
-  String get iconNameShare => 'Поделиться';
+  String get iconNameShare => 'Поділіться';
 
   @override
-  String get iconNamePrint => 'Печать';
+  String get iconNamePrint => 'Роздрукувати';
 
   @override
   String get iconNameLanguage => 'Мова';
 
   @override
-  String get iconNameTranslate => 'Перевод';
+  String get iconNameTranslate => 'Перекласти';
 
   @override
-  String get iconNameMicNone => 'Микр. немає';
+  String get iconNameMicNone => 'Мікрофон Немає';
 
   @override
   String get iconNameSubtitles => 'Субтитри';
@@ -3533,49 +3634,49 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameClosedCaption => 'Субтитри';
 
   @override
-  String get iconNameMusic => 'Музика';
+  String get iconNameMusic => 'музика';
 
   @override
-  String get iconNameMovie => 'Фильм';
+  String get iconNameMovie => 'фільм';
 
   @override
-  String get iconNameTheater => 'Кинотеатр';
+  String get iconNameTheater => 'Театр';
 
   @override
-  String get iconNameLiveTv => 'Live TV';
+  String get iconNameLiveTv => 'Пряме телебачення';
 
   @override
-  String get iconNameRadio => 'Радио';
+  String get iconNameRadio => 'радіо';
 
   @override
   String get iconNameCamera => 'Камера';
 
   @override
-  String get iconNameVideoCamera => 'Відео Камера';
+  String get iconNameVideoCamera => 'Відеокамера';
 
   @override
-  String get iconNamePhotoCamera => 'Фото Камера';
+  String get iconNamePhotoCamera => 'Фотоапарат';
 
   @override
-  String get iconNameSlowMotion => 'Замедление';
+  String get iconNameSlowMotion => 'Повільний рух';
 
   @override
-  String get iconNameSpeed => 'Скорость';
+  String get iconNameSpeed => 'швидкість';
 
   @override
-  String get iconNameVideoSettings => 'Відео Налаштування';
+  String get iconNameVideoSettings => 'Налаштування відео';
 
   @override
-  String get iconNameAudioTrack => 'Аудіотрек';
+  String get iconNameAudioTrack => 'Аудіодоріжка';
 
   @override
-  String get iconNameGraphicEq => 'Графический EQ';
+  String get iconNameGraphicEq => 'Графічний еквалайзер';
 
   @override
-  String get iconNameMusicVideo => 'Музика Відео';
+  String get iconNameMusicVideo => 'Музичне відео';
 
   @override
-  String get iconNamePlaylist => 'Плейлист';
+  String get iconNamePlaylist => 'Список відтворення';
 
   @override
   String get iconNameQueue => 'Черга';
@@ -3611,34 +3712,34 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameNum9Fa => '9 FA';
 
   @override
-  String get iconNameHashFa => 'Решітка # FA';
+  String get iconNameHashFa => 'Хеш # FA';
 
   @override
-  String get iconNamePercentFa => 'Процент % FA';
+  String get iconNamePercentFa => 'Відсоток % FA';
 
   @override
-  String get iconNameDivideFa => 'Деление ÷ FA';
+  String get iconNameDivideFa => 'Ділення ÷ FA';
 
   @override
-  String get iconNameMultiplyFa => 'Умножение × FA';
+  String get iconNameMultiplyFa => 'Множення × FA';
 
   @override
-  String get iconNameEqualsFa => 'Равно = FA';
+  String get iconNameEqualsFa => 'Дорівнює = FA';
 
   @override
-  String get iconNameNotEqualFa => 'Не равно ≠ FA';
+  String get iconNameNotEqualFa => 'Не дорівнює ≠ FA';
 
   @override
-  String get iconNameGreaterThanFa => 'Больше чем > FA';
+  String get iconNameGreaterThanFa => 'Більше ніж > FA';
 
   @override
-  String get iconNameLessThanFa => 'меньше чем < FA';
+  String get iconNameLessThanFa => 'Менше < FA';
 
   @override
   String get iconNameAsteriskFa => 'Зірочка * FA';
 
   @override
-  String get iconNameAFa => 'A FA';
+  String get iconNameAFa => 'FA';
 
   @override
   String get iconNameBFa => 'B FA';
@@ -3716,52 +3817,52 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameZFa => 'Z FA';
 
   @override
-  String get iconNamePlayFa => 'Пуск FA';
+  String get iconNamePlayFa => 'Грати в FA';
 
   @override
   String get iconNamePauseFa => 'Пауза FA';
 
   @override
-  String get iconNameStopFa => 'Стоп FA';
+  String get iconNameStopFa => 'Зупинити FA';
 
   @override
-  String get iconNamePlayFaOutline => 'Пуск FA контур';
+  String get iconNamePlayFaOutline => 'Грати в FA Outline';
 
   @override
-  String get iconNamePauseFaOutline => 'Пауза FA контур';
+  String get iconNamePauseFaOutline => 'Призупинити схему FA';
 
   @override
-  String get iconNameStopFaOutline => 'Стоп FA контур';
+  String get iconNameStopFaOutline => 'Зупинити FA Outline';
 
   @override
   String get iconNameBackwardFa => 'Назад FA';
 
   @override
-  String get iconNameForwardFa => 'вперед FA';
+  String get iconNameForwardFa => 'Нападник FA';
 
   @override
-  String get iconNamePreviousFa => 'Пред. FA';
+  String get iconNamePreviousFa => 'Попередній FA';
 
   @override
-  String get iconNameNextFa => 'След. FA';
+  String get iconNameNextFa => 'Наступний FA';
 
   @override
-  String get iconNameRewindFa => 'назад FA';
+  String get iconNameRewindFa => 'Перемотати FA';
 
   @override
-  String get iconNameFastForwardFa => 'Швидко вперед FA';
+  String get iconNameFastForwardFa => 'Перемотування вперед FA';
 
   @override
-  String get iconNameRepeatFa => 'Повтор FA';
+  String get iconNameRepeatFa => 'Повторіть FA';
 
   @override
-  String get iconNameShuffleFa => 'Случайно FA';
+  String get iconNameShuffleFa => 'Перетасувати FA';
 
   @override
-  String get iconNameEjectFa => 'Извлечь FA';
+  String get iconNameEjectFa => 'Викинути FA';
 
   @override
-  String get iconNameFilmFa => 'Фильм FA';
+  String get iconNameFilmFa => 'Фільм FA';
 
   @override
   String get iconNameVideoFa => 'Відео FA';
@@ -3770,7 +3871,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameMusicFa => 'Музика FA';
 
   @override
-  String get iconNameMicrophoneFa => 'Микрофон FA';
+  String get iconNameMicrophoneFa => 'Мікрофон FA';
 
   @override
   String get iconNameCameraFa => 'Камера FA';
@@ -3779,49 +3880,49 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameCameraRetroFa => 'Камера ретро FA';
 
   @override
-  String get iconNameVolumeHighFa => 'Гучність Висока FA';
+  String get iconNameVolumeHighFa => 'Високий об\'єм FA';
 
   @override
-  String get iconNameVolumeLowFa => 'Гучність Низкая FA';
+  String get iconNameVolumeLowFa => 'Низька гучність FA';
 
   @override
-  String get iconNameVolumeOffFa => 'Гучність вимк FA';
+  String get iconNameVolumeOffFa => 'Вимкнення гучності FA';
 
   @override
-  String get iconNameMuteFa => 'Без звуку FA';
+  String get iconNameMuteFa => 'Вимкнути FA';
 
   @override
-  String get iconNameMicMuteFa => 'Микр. Без звуку FA';
+  String get iconNameMicMuteFa => 'Вимкнення мікрофона FA';
 
   @override
-  String get iconNameHeadphonesFa => 'Наушники FA';
+  String get iconNameHeadphonesFa => 'Навушники FA';
 
   @override
-  String get iconNameSpeakerFa => 'Динамик FA';
+  String get iconNameSpeakerFa => 'Доповідач Ф.А';
 
   @override
-  String get iconNameUpFa => 'вгору FA';
+  String get iconNameUpFa => 'Вгору FA';
 
   @override
-  String get iconNameDownFa => 'вниз FA';
+  String get iconNameDownFa => 'Вниз FA';
 
   @override
-  String get iconNameLeftFa => 'ліворуч FA';
+  String get iconNameLeftFa => 'Ліворуч FA';
 
   @override
-  String get iconNameRightFa => 'праворуч FA';
+  String get iconNameRightFa => 'Справа FA';
 
   @override
-  String get iconNameUpFaOutline => 'вгору FA контур';
+  String get iconNameUpFaOutline => 'Вгору FA Схема';
 
   @override
-  String get iconNameDownFaOutline => 'вниз FA контур';
+  String get iconNameDownFaOutline => 'Вниз, контур FA';
 
   @override
-  String get iconNameLeftFaOutline => 'ліворуч FA контур';
+  String get iconNameLeftFaOutline => 'Лівий контур FA';
 
   @override
-  String get iconNameRightFaOutline => 'праворуч FA контур';
+  String get iconNameRightFaOutline => 'Правий контур FA';
 
   @override
   String get iconNameArrowUpFa => 'Стрілка вгору FA';
@@ -3830,19 +3931,19 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameArrowDownFa => 'Стрілка вниз FA';
 
   @override
-  String get iconNameArrowLeftFa => 'Стрілка ліворуч FA';
+  String get iconNameArrowLeftFa => 'Стрілка вліво FA';
 
   @override
-  String get iconNameArrowRightFa => 'Стрілка праворуч FA';
+  String get iconNameArrowRightFa => 'Стрілка вправо FA';
 
   @override
-  String get iconNameChevronUpFa => 'Шеврон вгору FA';
+  String get iconNameChevronUpFa => 'Шеврон угору FA';
 
   @override
-  String get iconNameChevronDownFa => 'Шеврон вниз FA';
+  String get iconNameChevronDownFa => 'Шеврон униз FA';
 
   @override
-  String get iconNameChevronLeftFa => 'Шеврон ліворуч FA';
+  String get iconNameChevronLeftFa => 'Chevron лівий FA';
 
   @override
   String get iconNameChevronRightFa => 'Шеврон праворуч FA';
@@ -3851,19 +3952,19 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameOkFa => 'OK FA';
 
   @override
-  String get iconNameOkFaOutline => 'OK FA контур';
+  String get iconNameOkFaOutline => 'OK FA Схема';
 
   @override
-  String get iconNameCheckFa => 'Галочка FA';
+  String get iconNameCheckFa => 'Перевірте FA';
 
   @override
   String get iconNameCloseFa => 'Закрити FA';
 
   @override
-  String get iconNameCloseCircleFa => 'Закрити Коло FA';
+  String get iconNameCloseCircleFa => 'Замкнути коло FA';
 
   @override
-  String get iconNameHomeFa => 'Додому FA';
+  String get iconNameHomeFa => 'Головна FA';
 
   @override
   String get iconNameUndoFa => 'Скасувати FA';
@@ -3872,7 +3973,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameRedoFa => 'Повторити FA';
 
   @override
-  String get iconNameRotateFa => 'Повернуть FA';
+  String get iconNameRotateFa => 'Обертати FA';
 
   @override
   String get iconNameSearchFa => 'Пошук FA';
@@ -3881,43 +3982,43 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameRefreshFa => 'Оновити FA';
 
   @override
-  String get iconNamePowerOffFa => 'Живлення вимк FA';
+  String get iconNamePowerOffFa => 'Вимкнення FA';
 
   @override
-  String get iconNamePlugFa => 'Штекер FA';
+  String get iconNamePlugFa => 'Вилка FA';
 
   @override
-  String get iconNameToggleOnFa => 'Перекл. увімк FA';
+  String get iconNameToggleOnFa => 'Увімкнути FA';
 
   @override
-  String get iconNameToggleOffFa => 'Перекл. вимк FA';
+  String get iconNameToggleOffFa => 'Вимкніть FA';
 
   @override
   String get iconNameSettingsFa => 'Налаштування FA';
 
   @override
-  String get iconNameSettingsAltFa => 'Налаштування альт. FA';
+  String get iconNameSettingsAltFa => 'Налаштування Alt FA';
 
   @override
   String get iconNameMenuFa => 'Меню FA';
 
   @override
-  String get iconNameMoreFa => 'больше FA';
+  String get iconNameMoreFa => 'Більше FA';
 
   @override
-  String get iconNameMoreVerticalFa => 'больше верт. FA';
+  String get iconNameMoreVerticalFa => 'Більш вертикальний FA';
 
   @override
-  String get iconNameInfoFa => 'Инфо FA';
+  String get iconNameInfoFa => 'Інформація FA';
 
   @override
-  String get iconNameInfoFaOutline => 'Инфо FA контур';
+  String get iconNameInfoFaOutline => 'Інформація FA Схема';
 
   @override
-  String get iconNameHelpFa => 'Помощь FA';
+  String get iconNameHelpFa => 'Довідка FA';
 
   @override
-  String get iconNameHelpFaOutline => 'Помощь FA контур';
+  String get iconNameHelpFaOutline => 'Довідка FA Схема';
 
   @override
   String get iconNameListFa => 'Список FA';
@@ -3926,58 +4027,58 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameGridFa => 'Сітка FA';
 
   @override
-  String get iconNameSlidersFa => 'Ползунки FA';
+  String get iconNameSlidersFa => 'Повзунки FA';
 
   @override
-  String get iconNameTvFa => 'TV FA';
+  String get iconNameTvFa => 'ТБ FA';
 
   @override
-  String get iconNameMonitorFa => 'Монитор FA';
+  String get iconNameMonitorFa => 'Монітор FA';
 
   @override
-  String get iconNameDesktopFa => 'Раб. стол FA';
+  String get iconNameDesktopFa => 'Настільний FA';
 
   @override
-  String get iconNameBrightnessFa => 'Яркость FA';
+  String get iconNameBrightnessFa => 'Яскравість FA';
 
   @override
-  String get iconNameNightModeFa => 'Ночь Режим FA';
+  String get iconNameNightModeFa => 'Нічний режим FA';
 
   @override
-  String get iconNameLightFa => 'Свет FA';
+  String get iconNameLightFa => 'Світло FA';
 
   @override
-  String get iconNameLightFaOutline => 'Свет FA контур';
+  String get iconNameLightFaOutline => 'Світло, контур FA';
 
   @override
   String get iconNameFlashFa => 'Спалах FA';
 
   @override
-  String get iconNameFullscreenFa => 'Повний екран FA';
+  String get iconNameFullscreenFa => 'Повноекранний FA';
 
   @override
-  String get iconNameExitFullscreenFa => 'Вихід Повний екран FA';
+  String get iconNameExitFullscreenFa => 'Вийти з повноекранного режиму FA';
 
   @override
-  String get iconNameZoomInFa => 'Увеличить FA';
+  String get iconNameZoomInFa => 'Збільшити FA';
 
   @override
-  String get iconNameZoomOutFa => 'Уменьшить FA';
+  String get iconNameZoomOutFa => 'Зменшити FA';
 
   @override
   String get iconNameSubtitlesFa => 'Субтитри FA';
 
   @override
-  String get iconNamePictureInPictureFa => 'Картинка в картинке FA';
+  String get iconNamePictureInPictureFa => 'Картинка в картинці FA';
 
   @override
   String get iconNameColorFa => 'Колір FA';
 
   @override
-  String get iconNamePaintFa => 'Краска FA';
+  String get iconNamePaintFa => 'Фарба FA';
 
   @override
-  String get iconNameInputFa => 'Ввод FA';
+  String get iconNameInputFa => 'Вхід FA';
 
   @override
   String get iconNameWifiFa => 'WiFi FA';
@@ -3995,52 +4096,52 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameGamepadFa => 'Геймпад FA';
 
   @override
-  String get iconNameBroadcastFa => 'Ефір FA';
+  String get iconNameBroadcastFa => 'Трансляція FA';
 
   @override
-  String get iconNameSatelliteFa => 'Спутник FA';
+  String get iconNameSatelliteFa => 'Супутник FA';
 
   @override
-  String get iconNameAntennaFa => 'Антенна FA';
+  String get iconNameAntennaFa => 'Антена FA';
 
   @override
-  String get iconNameNetworkFa => 'Сеть FA';
+  String get iconNameNetworkFa => 'Мережа FA';
 
   @override
-  String get iconNameCloudFa => 'Облако FA';
+  String get iconNameCloudFa => 'Хмара FA';
 
   @override
   String get iconNameStarFa => 'Зірка FA';
 
   @override
-  String get iconNameStarFaOutline => 'Зірка FA контур';
+  String get iconNameStarFaOutline => 'Контур Star FA';
 
   @override
-  String get iconNameHeartFa => 'Сердце FA';
+  String get iconNameHeartFa => 'Серце FA';
 
   @override
-  String get iconNameHeartFaOutline => 'Сердце FA контур';
+  String get iconNameHeartFaOutline => 'Серце FA контур';
 
   @override
   String get iconNameBookmarkFa => 'Закладка FA';
 
   @override
-  String get iconNameBookmarkFaOutline => 'Закладка FA контур';
+  String get iconNameBookmarkFaOutline => 'Закладка FA Outline';
 
   @override
-  String get iconNameFlagFa => 'Флаг FA';
+  String get iconNameFlagFa => 'Прапор FA';
 
   @override
   String get iconNameClockFa => 'Годинник FA';
 
   @override
-  String get iconNameClockFaOutline => 'Годинник FA контур';
+  String get iconNameClockFaOutline => 'Годинник FA Контур';
 
   @override
-  String get iconNameBellFa => 'Колокол FA';
+  String get iconNameBellFa => 'Дзвоник Ф.А';
 
   @override
-  String get iconNameBellFaOutline => 'Колокол FA контур';
+  String get iconNameBellFaOutline => 'Белл Ф.А. План';
 
   @override
   String get iconNameTimerFa => 'Таймер FA';
@@ -4049,40 +4150,40 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameLockFa => 'Замок FA';
 
   @override
-  String get iconNameUnlockFa => 'Разблок. FA';
+  String get iconNameUnlockFa => 'Розблокувати FA';
 
   @override
   String get iconNameGalleryFa => 'Галерея FA';
 
   @override
-  String get iconNameImagesFa => 'Изображения FA';
+  String get iconNameImagesFa => 'Зображення FA';
 
   @override
   String get iconNameImageFa => 'Зображення FA';
 
   @override
-  String get iconNameVideoFileFa => 'Відео Файл FA';
+  String get iconNameVideoFileFa => 'Відеофайл FA';
 
   @override
-  String get iconNameAudioFileFa => 'Аудіо Файл FA';
+  String get iconNameAudioFileFa => 'Аудіофайл FA';
 
   @override
-  String get iconNamePlayOutlineFa => 'Пуск контур FA';
+  String get iconNamePlayOutlineFa => 'Грати в Outline FA';
 
   @override
-  String get iconNamePlaySimpleFa => 'Пуск Простой FA';
+  String get iconNamePlaySimpleFa => 'Грати в Simple FA';
 
   @override
-  String get iconNamePauseSimpleFa => 'Пауза Простой FA';
+  String get iconNamePauseSimpleFa => 'Пауза Проста FA';
 
   @override
-  String get iconNameStopSimpleFa => 'Стоп Простой FA';
+  String get iconNameStopSimpleFa => 'Проста зупинка FA';
 
   @override
-  String get iconNameRecordFa => 'Запись FA';
+  String get iconNameRecordFa => 'Запис FA';
 
   @override
-  String get iconNameStopCircleFa => 'Стоп Коло FA';
+  String get iconNameStopCircleFa => 'Стоп Круг FA';
 
   @override
   String get iconNameLoadingFa => 'Завантаження FA';
@@ -4091,61 +4192,61 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameTextFa => 'Текст FA';
 
   @override
-  String get iconNameTextSizeFa => 'Размер текста FA';
+  String get iconNameTextSizeFa => 'Розмір тексту FA';
 
   @override
-  String get iconNameLanguageFa => 'Мова FA';
+  String get iconNameLanguageFa => 'Мова Ф.А';
 
   @override
-  String get iconNameGlobeFa => 'Глобус FA';
+  String get iconNameGlobeFa => 'Глобус Ф.А';
 
   @override
-  String get iconNameSubtitlesAltFa => 'Субтитри альт. FA';
+  String get iconNameSubtitlesAltFa => 'Субтитри Alt FA';
 
   @override
-  String get iconNameSubtitlesAltOutlineFa => 'Субтитри альт. контур FA';
+  String get iconNameSubtitlesAltOutlineFa => 'Субтитри Alt Outline FA';
 
   @override
-  String get iconNameChannelUpFa => 'Канал вгору FA';
+  String get iconNameChannelUpFa => 'Канал угору FA';
 
   @override
-  String get iconNameChannelDownFa => 'Канал вниз FA';
+  String get iconNameChannelDownFa => 'Канал униз FA';
 
   @override
-  String get iconNamePageUpFa => 'Страница вгору FA';
+  String get iconNamePageUpFa => 'Сторінка вгору FA';
 
   @override
-  String get iconNamePageDownFa => 'Страница вниз FA';
+  String get iconNamePageDownFa => 'Сторінка вниз FA';
 
   @override
-  String get iconNameGuideFa => 'Гид FA';
+  String get iconNameGuideFa => 'Керівництво Ф.А';
 
   @override
-  String get iconNameGridViewFa => 'Сітка Вид FA';
+  String get iconNameGridViewFa => 'Перегляд сітки FA';
 
   @override
-  String get iconNameGridAltFa => 'Сітка альт. FA';
+  String get iconNameGridAltFa => 'Сітка Alt FA';
 
   @override
-  String get iconNameScheduleFa => 'Расписание FA';
+  String get iconNameScheduleFa => 'Розклад FA';
 
   @override
-  String get iconNameCalendarFa => 'Календарь FA';
+  String get iconNameCalendarFa => 'Календар FA';
 
   @override
-  String get iconNameRedButtonFa => 'Красная Кнопка FA';
+  String get iconNameRedButtonFa => 'Червона кнопка FA';
 
   @override
-  String get iconNameButtonOutlineFa => 'Кнопка контур FA';
+  String get iconNameButtonOutlineFa => 'Контур кнопки FA';
 
   @override
-  String get iconNameSquareButtonFa => 'Квадрат Кнопка FA';
+  String get iconNameSquareButtonFa => 'Квадратна кнопка FA';
 
   @override
-  String get iconNameSquareOutlineFa => 'Квадрат контур FA';
+  String get iconNameSquareOutlineFa => 'Квадратний контур FA';
 
   @override
-  String get iconNameDotCircleFa => 'Точка коло FA';
+  String get iconNameDotCircleFa => 'Крапка Круг FA';
 
   @override
   String get iconNameToolsFa => 'Інструменти FA';
@@ -4154,190 +4255,190 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameScrewdriverFa => 'Викрутка FA';
 
   @override
-  String get iconNameHammerFa => 'Молоток FA';
+  String get iconNameHammerFa => 'Молот Ф.А';
 
   @override
-  String get iconNameToolboxFa => 'Ящик FA';
+  String get iconNameToolboxFa => 'Набір інструментів FA';
 
   @override
-  String get iconNameCogFa => 'Шестерня FA';
+  String get iconNameCogFa => 'Гвинтик FA';
 
   @override
-  String get iconNameAdjustFa => 'Настройка FA';
+  String get iconNameAdjustFa => 'Відрегулюйте FA';
 
   @override
-  String get iconNameFilterFa => 'Фильтр FA';
+  String get iconNameFilterFa => 'Фільтр FA';
 
   @override
-  String get iconNameSortDownFa => 'Сортировка вниз FA';
+  String get iconNameSortDownFa => 'Сортувати вниз FA';
 
   @override
-  String get iconNameSortUpFa => 'Сортировка вгору FA';
+  String get iconNameSortUpFa => 'Сортувати FA';
 
   @override
   String get iconNameSleepFa => 'Сон FA';
 
   @override
-  String get iconNameTimerStartFa => 'Таймер старт FA';
+  String get iconNameTimerStartFa => 'Таймер Пуск FA';
 
   @override
-  String get iconNameTimerHalfFa => 'Таймер половина FA';
+  String get iconNameTimerHalfFa => 'Таймер Half FA';
 
   @override
-  String get iconNameTimerEndFa => 'Таймер конец FA';
+  String get iconNameTimerEndFa => 'Таймер завершення FA';
 
   @override
-  String get iconNameStopwatchFa => 'Секундомер FA';
+  String get iconNameStopwatchFa => 'Секундомір FA';
 
   @override
-  String get iconNameAlarmFa => 'Будильник FA';
+  String get iconNameAlarmFa => 'Сигналізація FA';
 
   @override
-  String get iconNameCropAltFa => 'Обрезка альт. FA';
+  String get iconNameCropAltFa => 'Обрізання, альтернативна FA';
 
   @override
-  String get iconNameCropFa => 'Обрезка FA';
+  String get iconNameCropFa => 'Обробка FA';
 
   @override
-  String get iconNameSquareFullFa => 'Квадрат Полная FA';
+  String get iconNameSquareFullFa => 'Квадратний повний FA';
 
   @override
-  String get iconNameFullscreenAltFa => 'Повний екран альт. FA';
+  String get iconNameFullscreenAltFa => 'Повний екран Alt FA';
 
   @override
-  String get iconNameZoomPlusFa => 'Масштаб плюс FA';
+  String get iconNameZoomPlusFa => 'Збільшення FA';
 
   @override
-  String get iconNameZoomMinusFa => 'Масштаб минус FA';
+  String get iconNameZoomMinusFa => 'Zoom Мінус FA';
 
   @override
-  String get iconNameMusicNoteFa => 'Музика Нота FA';
+  String get iconNameMusicNoteFa => 'Нота FA';
 
   @override
   String get iconNameCdFa => 'CD FA';
 
   @override
-  String get iconNameVinylFa => 'Винил FA';
+  String get iconNameVinylFa => 'Вініл FA';
 
   @override
   String get iconNameRssFa => 'RSS FA';
 
   @override
-  String get iconNameMagicFa => 'Магия FA';
+  String get iconNameMagicFa => 'Магія FA';
 
   @override
-  String get iconNameFingerprintFa => 'Отпечаток FA';
+  String get iconNameFingerprintFa => 'Відбиток пальця FA';
 
   @override
-  String get iconNameUserFa => 'Пользователь FA';
+  String get iconNameUserFa => 'Користувач FA';
 
   @override
-  String get iconNameUsersFa => 'Пользователи FA';
+  String get iconNameUsersFa => 'Користувачі FA';
 
   @override
-  String get iconNameChildModeFa => 'Детский Режим FA';
+  String get iconNameChildModeFa => 'Дитячий режим FA';
 
   @override
-  String get iconNameCastFa => 'Трансляция FA';
+  String get iconNameCastFa => 'У ролях FA';
 
   @override
-  String get iconNameStreamFa => 'Поток FA';
+  String get iconNameStreamFa => 'Потік FA';
 
   @override
   String get iconNameSignalFa => 'Сигнал FA';
 
   @override
-  String get iconNameFeedFa => 'Лента FA';
+  String get iconNameFeedFa => 'Годувати FA';
 
   @override
-  String get iconNameCircleArrowUpFa => 'Коло Стрілка вгору FA';
+  String get iconNameCircleArrowUpFa => 'Круг зі стрілкою вгору FA';
 
   @override
-  String get iconNameCircleArrowDownFa => 'Коло Стрілка вниз FA';
+  String get iconNameCircleArrowDownFa => 'Круг зі стрілкою вниз FA';
 
   @override
-  String get iconNameCircleArrowLeftFa => 'Коло Стрілка ліворуч FA';
+  String get iconNameCircleArrowLeftFa => 'Круг зі стрілкою вліво FA';
 
   @override
-  String get iconNameCircleArrowRightFa => 'Коло Стрілка праворуч FA';
+  String get iconNameCircleArrowRightFa => 'Круг зі стрілкою вправо FA';
 
   @override
-  String get iconNameLongArrowUpFa => 'Длинная Стрілка вгору FA';
+  String get iconNameLongArrowUpFa => 'Довга стрілка вгору FA';
 
   @override
-  String get iconNameLongArrowDownFa => 'Длинная Стрілка вниз FA';
+  String get iconNameLongArrowDownFa => 'Довга стрілка вниз FA';
 
   @override
-  String get iconNameLongArrowLeftFa => 'Длинная Стрілка ліворуч FA';
+  String get iconNameLongArrowLeftFa => 'Довга стрілка вліво FA';
 
   @override
-  String get iconNameLongArrowRightFa => 'Длинная Стрілка праворуч FA';
+  String get iconNameLongArrowRightFa => 'Довга стрілка вправо FA';
 
   @override
-  String get iconNamePlusFa => 'плюс FA';
+  String get iconNamePlusFa => 'Плюс FA';
 
   @override
-  String get iconNameMinusFa => 'минус FA';
+  String get iconNameMinusFa => 'Мінус FA';
 
   @override
-  String get iconNamePlusCircleFa => 'плюс Коло FA';
+  String get iconNamePlusCircleFa => 'Плюс Круг FA';
 
   @override
-  String get iconNameMinusCircleFa => 'минус Коло FA';
+  String get iconNameMinusCircleFa => 'Мінус Круг FA';
 
   @override
-  String get iconNamePlusSquareFa => 'плюс Квадрат FA';
+  String get iconNamePlusSquareFa => 'Плюс Квадрат FA';
 
   @override
-  String get iconNameMinusSquareFa => 'минус Квадрат FA';
+  String get iconNameMinusSquareFa => 'Мінус квадрат FA';
 
   @override
-  String get iconNameTimesFa => '× FA';
+  String get iconNameTimesFa => 'Хрестик FA';
 
   @override
-  String get iconNameTimesCircleFa => '× Коло FA';
+  String get iconNameTimesCircleFa => 'Хрестик у колі FA';
 
   @override
-  String get iconNameBatteryFullFa => 'Батарея Полная FA';
+  String get iconNameBatteryFullFa => 'Акумулятор Повний FA';
 
   @override
-  String get iconNameBattery34Fa => 'Батарея 3/4 FA';
+  String get iconNameBattery34Fa => 'Акумулятор 3/4 FA';
 
   @override
-  String get iconNameBatteryHalfFa => 'Батарея Половина FA';
+  String get iconNameBatteryHalfFa => 'Акумулятор половини FA';
 
   @override
-  String get iconNameBattery14Fa => 'Батарея 1/4 FA';
+  String get iconNameBattery14Fa => 'Акумулятор 1/4 FA';
 
   @override
-  String get iconNameBatteryEmptyFa => 'Батарея Пустая FA';
+  String get iconNameBatteryEmptyFa => 'Порожня батарея FA';
 
   @override
   String get iconNameChargingFa => 'Зарядка FA';
 
   @override
-  String get iconNameCloudSunFa => 'Облако Солнце FA';
+  String get iconNameCloudSunFa => 'Сонце за хмарою FA';
 
   @override
-  String get iconNameCloudMoonFa => 'Облако Луна FA';
+  String get iconNameCloudMoonFa => 'Місяць за хмарою FA';
 
   @override
-  String get iconNameRainFa => 'Дождь FA';
+  String get iconNameRainFa => 'Дощ FA';
 
   @override
-  String get iconNameSnowflakeFa => 'Снежинка FA';
+  String get iconNameSnowflakeFa => 'Сніжинка Ф.А';
 
   @override
-  String get iconNameFireFa => 'Огонь FA';
+  String get iconNameFireFa => 'Вогонь FA';
 
   @override
   String get iconNameTemperatureFa => 'Температура FA';
 
   @override
-  String get iconNameBoxFa => 'Блок FA';
+  String get iconNameBoxFa => 'Коробка FA';
 
   @override
-  String get iconNameGiftFa => 'Подарок FA';
+  String get iconNameGiftFa => 'Подарунок FA';
 
   @override
   String get iconNameTrophyFa => 'Трофей FA';
@@ -4346,157 +4447,162 @@ class AppLocalizationsUk extends AppLocalizations {
   String get iconNameCrownFa => 'Корона FA';
 
   @override
-  String get iconNameGemFa => 'Самоцвет FA';
+  String get iconNameGemFa => 'Коштовність FA';
 
   @override
-  String get unknownLabel => 'Неизвестно';
+  String get unknownLabel => 'Невідомий';
 
   @override
-  String get selectedFilesLabel => 'вибраних файлів';
+  String get selectedFilesLabel => 'вибрані файли';
 
   @override
   String get folderNotFoundOrInaccessible =>
-      'Папка не знайдено або недоступна.';
+      'Папка не знайдена або недоступна.';
 
   @override
   String get importedRemoteDefaultName => 'Імпортований пульт';
 
   @override
-  String get demoRemoteName => 'Демо-пульт';
+  String get demoRemoteName => 'Демонстраційний пульт';
 
   @override
   String get protocolFieldsInvalid =>
-      'Заполните обов\'язкові поля протокола і убедитесь, что частота, якщо задана, находится в диапазоне 15–60 кГц.';
+      'Заповніть необхідні поля протоколу та переконайтеся, що частота становить 15–60 тисяч, якщо встановлено.';
 
   @override
   String get unknownProtocolSelected => 'Вибрано невідомий протокол.';
 
   @override
-  String get continueSectionTitle => 'Continue';
+  String get continueSectionTitle => 'Продовжити';
 
   @override
-  String get continueSectionSubtitle => 'Pick up where you left off.';
+  String get continueSectionSubtitle =>
+      'Продовжуйте з того місця, де зупинилися.';
 
   @override
-  String get continueLastRemoteTitle => 'Last remote';
+  String get continueLastRemoteTitle => 'Останній пульт';
 
   @override
-  String get continueLastMacroTitle => 'Last macro';
+  String get continueLastMacroTitle => 'Останній макрос';
 
   @override
-  String get continueLastIrFinderHitTitle => 'Last IR Finder hit';
+  String get continueLastIrFinderHitTitle =>
+      'Останнє попадання в інфрачервоний шукач';
 
   @override
-  String get continueTargetUnavailable => 'That item is no longer available.';
+  String get continueTargetUnavailable => 'Цей товар більше не доступний.';
 
   @override
-  String get continueUniversalPowerAllBrands => 'All brands';
+  String get continueUniversalPowerAllBrands => 'Всі бренди';
 
   @override
-  String get untitledMacro => 'Untitled Macro';
+  String get untitledMacro => 'Макрос без назви';
 
   @override
-  String get pinnedRemotesTitle => 'Pinned remotes';
+  String get pinnedRemotesTitle => 'Прикріплені пульти';
 
   @override
   String get pinnedRemotesSubtitle =>
-      'Keep your most important remotes one tap away.';
+      'Тримайте найважливіші пульти одним дотиком.';
 
   @override
-  String get recentlyUsedRemotesTitle => 'Recently used';
+  String get recentlyUsedRemotesTitle => 'Нещодавно використаний';
 
   @override
   String get recentlyUsedRemotesSubtitle =>
-      'Jump back into the remotes you opened most recently.';
+      'Поверніться до пультів, які ви нещодавно відкривали.';
 
   @override
-  String get pinRemote => 'Pin remote';
+  String get pinRemote => 'Прикріпити пульт';
 
   @override
-  String get unpinRemote => 'Unpin remote';
+  String get unpinRemote => 'Відкріпити пульт';
 
   @override
   String get pinRemoteSubtitle =>
-      'Keep this remote at the top for faster access.';
+      'Тримайте цей пульт угорі для швидшого доступу.';
 
   @override
-  String get remoteAddedToPinned => 'Remote pinned.';
+  String get remoteAddedToPinned => 'Пульт закріплено.';
 
   @override
-  String get remoteRemovedFromPinned => 'Remote removed from pinned.';
+  String get remoteRemovedFromPinned => 'Пульт видалено із закріпленого.';
 
   @override
-  String get homeDeviceControlsTitle => 'Quick controls';
+  String get homeDeviceControlsTitle => 'Швидке керування';
 
   @override
   String get homeDeviceControlsSubtitle =>
-      'Power, mute, and volume without opening a remote.';
+      'Живлення, вимкнення звуку та гучність без відкриття пульта.';
 
   @override
   String get homeDeviceControlsEmptySubtitle =>
-      'Set up power, mute, and volume buttons in Device Controls.';
+      'Налаштуйте кнопки живлення, вимкнення звуку та гучності в елементах керування пристроєм.';
 
   @override
-  String get showDeviceControlsOnHome => 'Show quick controls on home';
+  String get showDeviceControlsOnHome =>
+      'Показати елементи швидкого керування на дому';
 
   @override
   String get showDeviceControlsOnHomeSubtitle =>
-      'Show the compact Power, Mute, and Volume row on the main screen.';
+      'Показати компактний рядок живлення, вимкнення звуку та гучності на головному екрані.';
 
   @override
-  String get homeDeviceControlsShown => 'Quick controls shown on home.';
+  String get homeDeviceControlsShown =>
+      'Елементи швидкого керування показані на головній сторінці.';
 
   @override
-  String get homeDeviceControlsHidden => 'Quick controls hidden from home.';
+  String get homeDeviceControlsHidden =>
+      'Елементи швидкого керування приховані з дому.';
 
   @override
-  String get power => 'Power';
+  String get power => 'Живлення';
 
   @override
-  String get mute => 'Mute';
+  String get mute => 'Вимкнути звук';
 
   @override
-  String get volumeUp => 'Vol +';
+  String get volumeUp => 'Гучн. +';
 
   @override
-  String get volumeDown => 'Vol -';
+  String get volumeDown => 'Гучн. -';
 
   @override
-  String get manage => 'Manage';
+  String get manage => 'Керувати';
 
   @override
-  String get hide => 'Hide';
+  String get hide => 'Сховати';
 
   @override
-  String get lastActionTitle => 'Last action';
+  String get lastActionTitle => 'Остання дія';
 
   @override
   String lastActionSent(String title) {
-    return 'Sent $title';
+    return 'Надіслано $title';
   }
 
   @override
   String lastActionSentTo(String remoteName, String title) {
-    return 'Sent $remoteName -> $title';
+    return 'Надіслано $remoteName -> $title';
   }
 
   @override
-  String get repeatAction => 'Repeat';
+  String get repeatAction => 'Повторіть';
 
   @override
-  String get globalSearchTitle => 'Search everything';
+  String get globalSearchTitle => 'Шукайте все';
 
   @override
-  String get globalSearchNoResults => 'No results found.';
+  String get globalSearchNoResults => 'Результатів не знайдено.';
 
   @override
-  String get globalSearchTypeRemote => 'REMOTE';
+  String get globalSearchTypeRemote => 'ПУЛЬТ';
 
   @override
-  String get globalSearchTypeButton => 'BUTTON';
+  String get globalSearchTypeButton => 'КНОПКА';
 
   @override
-  String get globalSearchTypeMacro => 'MACRO';
+  String get globalSearchTypeMacro => 'МАКРОС';
 
   @override
   String get learningModeCaptureFailed => 'Помилка запису.';
@@ -4525,37 +4631,37 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get remoteSetupIntro =>
-      'Спочатку виберіть назву та макет. Кнопки можна додати пізніше.';
+      'Спочатку виберіть назву та макет. Після цього ви можете додати кнопки.';
 
   @override
-  String get startWithDefault => 'Почати з типових параметрів';
+  String get startWithDefault => 'Почніть із замовчуванням';
 
   @override
-  String get browseGithubStore => 'Відкрити GitHub Store';
+  String get browseGithubStore => 'Перегляньте GitHub Store';
 
   @override
   String get addFirstButton => 'Додати першу кнопку';
 
   @override
-  String get moreWaysToStart => 'Інші способи почати';
+  String get moreWaysToStart => 'Більше способів почати';
 
   @override
   String get unsavedRemoteSetupChangesMessage =>
-      'Відхилити налаштування нового пульта й залишити цей екран?';
+      'Відмінити це нове налаштування пульта та залишити цей екран?';
 
   @override
   String get unsavedRemoteStudioChangesMessage =>
-      'Відхилити зміни пульта й залишити цей екран?';
+      'Скасувати внесені зміни пульта та залишити цей екран?';
 
   @override
-  String get firstButtonAdded => 'Першу кнопку додано.';
+  String get firstButtonAdded => 'Додано першу кнопку.';
 
   @override
   String get iconColorTitle => 'Колір значка';
 
   @override
   String get iconColorHelper =>
-      'Виберіть колір символу, який залишатиметься помітним на тлі кнопки.';
+      'Виберіть колір символу, який залишатиметься видимим на фоні кнопки.';
 
   @override
   String get colorRed => 'Червоний';
@@ -4576,19 +4682,19 @@ class AppLocalizationsUk extends AppLocalizations {
   String get colorBlue => 'Синій';
 
   @override
-  String get colorLightBlue => 'Блакитний';
+  String get colorLightBlue => 'Світло-блакитний';
 
   @override
-  String get colorCyan => 'Ціан';
+  String get colorCyan => 'Бірюзовий';
 
   @override
-  String get colorTeal => 'Бірюзовий';
+  String get colorTeal => 'Чирок';
 
   @override
   String get colorGreen => 'Зелений';
 
   @override
-  String get colorLightGreen => 'Світло-зелений';
+  String get colorLightGreen => 'світло-зелений';
 
   @override
   String get colorLime => 'Лаймовий';
@@ -4597,7 +4703,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get colorYellow => 'Жовтий';
 
   @override
-  String get colorAmber => 'Бурштиновий';
+  String get colorAmber => 'Бурштин';
 
   @override
   String get colorOrange => 'Помаранчевий';
@@ -4612,10 +4718,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get colorGrey => 'Сірий';
 
   @override
-  String get colorBlueGrey => 'Сіро-синій';
+  String get colorBlueGrey => 'Синій сірий';
 
   @override
-  String get colorBlack => 'Чорний';
+  String get colorBlack => 'чорний';
 
   @override
   String get colorWhite => 'Білий';
@@ -4627,7 +4733,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String buttonColorSemanticsSelected(Object colorName) {
-    return 'Колір кнопки $colorName, вибрано';
+    return 'Вибраний колір кнопки $colorName';
   }
 
   @override
@@ -4637,26 +4743,28 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String iconColorSemanticsSelected(Object colorName) {
-    return 'Колір значка $colorName, вибрано';
+    return 'Вибраний колір значка $colorName';
   }
 
   @override
-  String get irWaveformTitle => 'IR waveform';
+  String get irWaveformTitle => 'ІЧ сигнал';
 
   @override
   String irWaveformPulseCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count pulses',
-      one: '$count pulse',
+      other: '$count імпульсу',
+      many: '$count імпульсів',
+      few: '$count імпульси',
+      one: '$count імпульс',
     );
     return '$_temp0';
   }
 
   @override
   String irWaveformGapLabel(String duration) {
-    return 'Gap $duration';
+    return 'Розрив $duration';
   }
 
   @override
@@ -4664,19 +4772,21 @@ class AppLocalizationsUk extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count durations',
-      one: '$count duration',
+      other: '$count тривалості',
+      many: '$count тривалостей',
+      few: '$count тривалості',
+      one: '$count тривалість',
     );
     return '$_temp0';
   }
 
   @override
   String get irWaveformActiveHint =>
-      'High means the IR LED carrier is active; low means silence.';
+      'Високий означає, що носій ІЧ-світлодіода активний; низький означає тишу.';
 
   @override
-  String get irWaveformOnLabel => 'ON';
+  String get irWaveformOnLabel => 'УВІМКНЕНО';
 
   @override
-  String get irWaveformOffLabel => 'OFF';
+  String get irWaveformOffLabel => 'ВИМКНЕНО';
 }

@@ -7,6 +7,7 @@
     <!-- ElkSmart family -->
     <usb-device vendor-id="0x045C" product-id="0x0131" />
     <usb-device vendor-id="0x045C" product-id="0x0132" />
+    <usb-device vendor-id="0x045C" product-id="0x0134" />
     <usb-device vendor-id="0x045C" product-id="0x0184" />
     <usb-device vendor-id="0x045C" product-id="0x0195" />
 
