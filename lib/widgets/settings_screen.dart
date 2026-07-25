@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:irblaster_controller/config/build_flags.dart';
 import 'package:irblaster_controller/l10n/app_localizations.dart';
 import 'package:irblaster_controller/l10n/l10n.dart';
 import 'package:irblaster_controller/state/app_locale.dart';
@@ -10,6 +11,7 @@ import 'package:irblaster_controller/state/home_surface_prefs.dart';
 import 'package:irblaster_controller/state/app_theme.dart';
 import 'package:irblaster_controller/state/dynamic_color.dart';
 import 'package:irblaster_controller/state/macros_state.dart';
+import 'package:irblaster_controller/state/remote_display_prefs.dart';
 import 'package:irblaster_controller/state/remotes_state.dart';
 import 'package:irblaster_controller/utils/ir_transmitter_platform.dart';
 import 'package:irblaster_controller/utils/macros_io.dart';
@@ -474,8 +476,10 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         children: [
           const SizedBox(height: 10),
-          _buildSupportSection(context),
-          const SizedBox(height: 10),
+          if (BuildFlags.showDonations) ...[
+            _buildSupportSection(context),
+            const SizedBox(height: 10),
+          ],
           _buildAppearanceSection(context),
           const SizedBox(height: 10),
           _buildLocalizationSection(context),
@@ -1009,6 +1013,7 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildInteractionSection(BuildContext context) {
     final orientationCtrl = RemoteOrientationController.instance;
+    final displayCtrl = RemoteDisplayController.instance;
     final cs = Theme.of(context).colorScheme;
     unawaited(HapticsController.instance.refreshDiagnostics(notify: false));
 
@@ -1187,6 +1192,32 @@ class SettingsScreen extends StatelessWidget {
                 );
               },
             ),
+            const Divider(height: 1),
+            AnimatedBuilder(
+              animation: displayCtrl,
+              builder: (context, _) {
+                return SwitchListTile.adaptive(
+                  secondary: const Icon(Icons.view_agenda_outlined),
+                  title: Text(context.l10n.remoteButtonMetadataTitle),
+                  subtitle: Text(context.l10n.remoteButtonMetadataSubtitle),
+                  value: displayCtrl.showButtonMetadata,
+                  onChanged: (v) async {
+                    final messenger = ScaffoldMessenger.of(context);
+                    final l10n = context.l10n;
+                    await displayCtrl.setShowButtonMetadata(v);
+                    messenger.showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          v
+                              ? l10n.remoteButtonMetadataShown
+                              : l10n.remoteButtonMetadataHidden,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -1284,7 +1315,8 @@ class SettingsScreen extends StatelessWidget {
                         builder: (context) => AboutScreen(
                           repoUrl: _repoUrl,
                           issuesUrl: _issuesUrl,
-                          liberapayUrl: _liberapayUrl,
+                          liberapayUrl:
+                              BuildFlags.showDonations ? _liberapayUrl : null,
                         ),
                       ),
                     );

@@ -13,9 +13,11 @@ import 'package:irblaster_controller/state/orientation_pref.dart';
 import 'package:irblaster_controller/state/device_controls_prefs.dart';
 import 'package:irblaster_controller/state/home_button_widget_prefs.dart';
 import 'package:irblaster_controller/state/quick_settings_prefs.dart';
+import 'package:irblaster_controller/state/remote_display_prefs.dart';
 import 'package:irblaster_controller/state/remotes_state.dart';
 import 'package:irblaster_controller/utils/button_color_accessibility.dart';
 import 'package:irblaster_controller/utils/ir.dart';
+import 'package:irblaster_controller/utils/ir_transmitter_platform.dart';
 import 'package:irblaster_controller/utils/remote.dart';
 import 'package:irblaster_controller/widgets/create_button.dart';
 import 'package:irblaster_controller/widgets/ir_waveform_view.dart';
@@ -53,6 +55,7 @@ class RemoteViewState extends State<RemoteView> {
 
   final RemoteOrientationController _orientation =
       RemoteOrientationController.instance;
+  final RemoteDisplayController _display = RemoteDisplayController.instance;
 
   late Remote _remote;
 
@@ -70,43 +73,58 @@ class RemoteViewState extends State<RemoteView> {
     _remote = widget.remote;
     _rotate180 = _orientation.flipped;
     _highlightButtonId = widget.initialFocusButtonId?.trim();
+    _display.addListener(_handleDisplayPrefsChanged);
     unawaited(ContinueContextsPrefs.saveLastRemote(_remote));
     unawaited(RemoteHighlightsPrefs.addRecent(_remote));
     _scheduleHighlightClear();
     _scheduleScrollToHighlightedButton();
 
-    hasIrEmitter().then((value) {
-      if (!value && mounted) {
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(context.l10n.remoteNoIrEmitterTitle),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text(context.l10n.remoteNoIrEmitterMessage),
-                    Text(context.l10n.remoteNoIrEmitterNeedsEmitter),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(context.l10n.remoteDismiss),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                TextButton(
-                  child: Text(context.l10n.remoteClose),
-                  onPressed: () => SystemChannels.platform
-                      .invokeMethod('SystemNavigator.pop'),
-                ),
+    unawaited(_maybeShowNoEmitterDialog());
+  }
+
+  Future<void> _maybeShowNoEmitterDialog() async {
+    final hasUsableOrSelectedEmitter = await _hasUsableOrSelectedEmitter();
+    if (hasUsableOrSelectedEmitter || !mounted) return;
+
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(context.l10n.remoteNoIrEmitterTitle),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(context.l10n.remoteNoIrEmitterMessage),
+                Text(context.l10n.remoteNoIrEmitterNeedsEmitter),
               ],
-            );
-          },
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(context.l10n.remoteDismiss),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            TextButton(
+              child: Text(context.l10n.remoteClose),
+              onPressed: () =>
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+            ),
+          ],
         );
-      }
-    });
+      },
+    );
+  }
+
+  Future<bool> _hasUsableOrSelectedEmitter() async {
+    try {
+      final caps = await IrTransmitterPlatform.getCapabilities();
+      final audioSelected = caps.currentType == IrTransmitterType.audio1Led ||
+          caps.currentType == IrTransmitterType.audio2Led;
+      return caps.hasInternal || caps.hasUsb || audioSelected;
+    } catch (_) {
+      return hasIrEmitter();
+    }
   }
 
   @override
@@ -126,8 +144,14 @@ class RemoteViewState extends State<RemoteView> {
   void dispose() {
     _highlightTimer?.cancel();
     _gridScrollController.dispose();
+    _display.removeListener(_handleDisplayPrefsChanged);
     _stopLoop(silent: true);
     super.dispose();
+  }
+
+  void _handleDisplayPrefsChanged() {
+    if (!mounted) return;
+    setState(() {});
   }
 
   void _scheduleHighlightClear() {
@@ -358,9 +382,46 @@ class RemoteViewState extends State<RemoteView> {
     }
   }
 
-  void _reassignIds() {
-    for (int i = 0; i < remotes.length; i++) {
-      remotes[i].id = i + 1;
+  Future<void> _refreshQuickSettingsForButton(IRButton button) async {
+    try {
+      final preview = previewIRButton(button);
+      await QuickSettingsPrefs.refreshButtonReferences(
+        buttonId: button.id,
+        title: _buttonTitle(button),
+        subtitle: _remote.name,
+        frequencyHz: preview.frequencyHz,
+        pattern: preview.pattern,
+      );
+    } catch (_) {
+      await QuickSettingsPrefs.removeButtonReferences(button.id);
+    }
+  }
+
+  Future<void> _syncQuickSettingsAfterRemoteEdit(
+    List<IRButton> before,
+    Remote after,
+  ) async {
+    final beforeIds = before.map((b) => b.id).toSet();
+    final afterIds = after.buttons.map((b) => b.id).toSet();
+
+    for (final removedId in beforeIds.difference(afterIds)) {
+      await QuickSettingsPrefs.removeButtonReferences(removedId);
+    }
+
+    for (final button in after.buttons) {
+      if (!beforeIds.contains(button.id)) continue;
+      try {
+        final preview = previewIRButton(button);
+        await QuickSettingsPrefs.refreshButtonReferences(
+          buttonId: button.id,
+          title: _buttonTitle(button),
+          subtitle: after.name,
+          frequencyHz: preview.frequencyHz,
+          pattern: preview.pattern,
+        );
+      } catch (_) {
+        await QuickSettingsPrefs.removeButtonReferences(button.id);
+      }
     }
   }
 
@@ -373,6 +434,7 @@ class RemoteViewState extends State<RemoteView> {
     }
 
     final int idx = _findRemoteIndexInGlobalList();
+    final beforeButtons = List<IRButton>.from(_remote.buttons);
 
     try {
       final Remote? edited = await Navigator.push<Remote?>(
@@ -402,6 +464,8 @@ class RemoteViewState extends State<RemoteView> {
           ),
         );
       }
+
+      await _syncQuickSettingsAfterRemoteEdit(beforeButtons, edited);
 
       Haptics.selectionClick();
     } catch (_) {}
@@ -444,9 +508,11 @@ class RemoteViewState extends State<RemoteView> {
 
     final String name = _remote.name;
     await RemoteHighlightsPrefs.removeForRemote(_remote);
+    for (final button in _remote.buttons) {
+      await QuickSettingsPrefs.removeButtonReferences(button.id);
+    }
     setState(() {
       remotes.removeAt(idx);
-      _reassignIds();
     });
 
     await writeRemotelist(remotes);
@@ -1047,6 +1113,7 @@ class RemoteViewState extends State<RemoteView> {
     });
 
     await _persistRemote(showNotFoundSnack: false);
+    await _refreshQuickSettingsForButton(updated);
 
     if (!mounted) return;
     Haptics.selectionClick();
@@ -1151,9 +1218,9 @@ class RemoteViewState extends State<RemoteView> {
       if (!mounted) return;
       if (!supported) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text(
-              'Your launcher does not support adding widgets from inside the app. Add the IR Button widget from the home screen widget picker.',
+              context.l10n.homeWidgetUnsupportedLauncher,
             ),
           ),
         );
@@ -1165,8 +1232,8 @@ class RemoteViewState extends State<RemoteView> {
       if (!mounted) return;
       if (mapping == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('This button cannot be used as a home widget.'),
+          SnackBar(
+            content: Text(context.l10n.homeWidgetButtonUnsupported),
           ),
         );
         return;
@@ -1177,15 +1244,16 @@ class RemoteViewState extends State<RemoteView> {
         SnackBar(
           content: Text(
             ok
-                ? 'Widget request sent. Confirm it on your launcher.'
-                : 'The launcher rejected the widget request.',
+                ? context.l10n.homeWidgetRequestSent
+                : context.l10n.homeWidgetRequestRejected,
           ),
         ),
       );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Home widget setup failed: $e')),
+        SnackBar(
+            content: Text(context.l10n.homeWidgetSetupFailed(e.toString()))),
       );
     }
   }
@@ -1205,10 +1273,13 @@ class RemoteViewState extends State<RemoteView> {
     final bool isQuickFav = await QuickSettingsPrefs.isFavorite(b.id);
     if (!mounted) return;
 
-    final String typeLine = 'Type: $proto';
-    final String codeLine =
-        isRaw ? 'Code: Raw signal' : 'Code: ${displayHex ?? 'NO CODE'}';
-    final String? freqLine = freq.isEmpty ? null : 'Frequency: $freq';
+    final String typeLine = context.l10n.buttonInfoType(proto);
+    final String codeLine = isRaw
+        ? context.l10n.buttonInfoCodeRaw
+        : context.l10n
+            .buttonInfoCode(displayHex ?? context.l10n.buttonInfoNoCode);
+    final String? freqLine =
+        freq.isEmpty ? null : context.l10n.buttonInfoFrequency(freq);
     IrPreview? preview;
     Object? previewError;
     try {
@@ -1461,9 +1532,8 @@ class RemoteViewState extends State<RemoteView> {
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.widgets_rounded),
-                      title: const Text('Add home widget'),
-                      subtitle:
-                          const Text('Place this button on your home screen.'),
+                      title: Text(context.l10n.addHomeWidget),
+                      subtitle: Text(context.l10n.addHomeWidgetSubtitle),
                       onTap: () {
                         Navigator.of(ctx).pop();
                         Future.microtask(() => _pinHomeWidget(b, label));
@@ -1615,6 +1685,7 @@ class RemoteViewState extends State<RemoteView> {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     final cardColor = cs.primary.withValues(alpha: 0.20);
+    final showMetadata = _display.showButtonMetadata;
 
     return ReorderableGridView.builder(
       controller: _gridScrollController,
@@ -1708,17 +1779,18 @@ class RemoteViewState extends State<RemoteView> {
                           ),
                         ),
                       ),
-                    Positioned(
-                      top: 4,
-                      right: 4,
-                      child: _pill(
-                        context,
-                        proto,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 3),
-                        fontSize: 9,
+                    if (showMetadata)
+                      Positioned(
+                        top: 4,
+                        right: 4,
+                        child: _pill(
+                          context,
+                          proto,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6, vertical: 3),
+                          fontSize: 9,
+                        ),
                       ),
-                    ),
                     if (loopingThis)
                       Positioned(
                         left: 4,
@@ -1762,6 +1834,7 @@ class RemoteViewState extends State<RemoteView> {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
     final cardColor = cs.primary.withValues(alpha: 0.20);
+    final showMetadata = _display.showButtonMetadata;
 
     return ReorderableGridView.builder(
       controller: _gridScrollController,
@@ -1811,7 +1884,8 @@ class RemoteViewState extends State<RemoteView> {
         );
 
         final String? displayHex = _displayHex(button);
-        final String codeText = isRaw ? 'RAW' : (displayHex ?? 'NO CODE');
+        final String codeText =
+            isRaw ? 'RAW' : (displayHex ?? context.l10n.buttonInfoNoCode);
         return AnimatedScale(
           key: ValueKey(button.id),
           scale: pressed ? 0.975 : 1,
@@ -1891,31 +1965,33 @@ class RemoteViewState extends State<RemoteView> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Center(
-                        child: Text(
-                          codeText,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontFamily: isRaw ? null : 'monospace',
-                            fontWeight: FontWeight.w800,
-                            color: fgColor.withValues(alpha: 0.82),
-                            fontSize: 11,
+                      if (showMetadata) ...[
+                        const SizedBox(height: 8),
+                        Center(
+                          child: Text(
+                            codeText,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              fontFamily: isRaw ? null : 'monospace',
+                              fontWeight: FontWeight.w800,
+                              color: fgColor.withValues(alpha: 0.82),
+                              fontSize: 11,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 6,
-                        runSpacing: 6,
-                        children: [
-                          _pill(context, proto, fontSize: 9),
-                          if (freq.isNotEmpty)
-                            _pill(context, freq, fontSize: 9),
-                        ],
-                      ),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 6,
+                          runSpacing: 6,
+                          children: [
+                            _pill(context, proto, fontSize: 9),
+                            if (freq.isNotEmpty)
+                              _pill(context, freq, fontSize: 9),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 ),
