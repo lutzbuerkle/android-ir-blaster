@@ -7,6 +7,7 @@ import 'package:irblaster_controller/ir/ir_protocol_types.dart';
 import 'package:irblaster_controller/ir_finder/ir_finder_models.dart';
 import 'package:irblaster_controller/ir_finder/ir_finder_prefs.dart';
 import 'package:irblaster_controller/ir_finder/ir_finder_run_controller.dart';
+import 'package:irblaster_controller/ir_finder/ir_finder_search.dart';
 import 'package:irblaster_controller/ir_finder/ir_prefix.dart';
 import 'package:irblaster_controller/ir_finder/irblaster_db.dart';
 import 'package:irblaster_controller/l10n/l10n.dart';
@@ -55,6 +56,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
                 'dbModel': h.dbModel,
                 'dbLabel': h.dbLabel,
                 'dbRemoteId': h.dbRemoteId,
+                'protocolParams': h.protocolParams,
               })
           .toList();
       await f.writeAsString(const JsonEncoder.withIndent('  ').convert(payload),
@@ -94,6 +96,9 @@ class _IrFinderScreenState extends State<IrFinderScreen>
           dbRemoteId: (m['dbRemoteId'] is int)
               ? m['dbRemoteId'] as int
               : int.tryParse('${m['dbRemoteId']}'),
+          protocolParams: m['protocolParams'] is Map
+              ? Map<String, dynamic>.from(m['protocolParams'] as Map)
+              : null,
         );
       }).toList();
       if (loaded.isEmpty) return;
@@ -192,6 +197,10 @@ class _IrFinderScreenState extends State<IrFinderScreen>
   Future<bool> _appendHitToRemote(Remote remote, IrFinderHit hit) async {
     try {
       final uuid = const Uuid();
+      final params = IrFinderParams.paramsForHit(
+        hit,
+        kaseikyoVendor: _kaseikyoVendor,
+      );
       final IRButton btn = IRButton(
         id: uuid.v4(),
         code: null,
@@ -200,7 +209,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
         image: hit.dbLabel ?? hit.code,
         isImage: false,
         protocol: hit.protocolId,
-        protocolParams: <String, dynamic>{'hex': hit.code},
+        protocolParams: params,
       );
       remote.buttons.add(btn);
       await writeRemotelist(remotes);
@@ -215,6 +224,10 @@ class _IrFinderScreenState extends State<IrFinderScreen>
       BuildContext context, IrFinderHit hit) async {
     try {
       final uuid = const Uuid();
+      final params = IrFinderParams.paramsForHit(
+        hit,
+        kaseikyoVendor: _kaseikyoVendor,
+      );
       final Remote r = Remote(
         name: hit.dbBrand ?? context.l10n.newRemoteDefaultName,
         buttons: <IRButton>[
@@ -226,7 +239,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
             image: hit.dbLabel ?? hit.code,
             isImage: false,
             protocol: hit.protocolId,
-            protocolParams: <String, dynamic>{'hex': hit.code},
+            protocolParams: params,
           )
         ],
         useNewStyle: true,
@@ -320,6 +333,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
   int _delayMs = 500;
   int _maxAttempts = 200;
   bool _bruteAllCombinations = false;
+  IrFinderSearchStrategy _bruteStrategy = IrFinderSearchStrategy.smart;
   int _maxAttemptsBeforeAll = 200;
 
   final TextEditingController _maxAttemptsCtl = TextEditingController();
@@ -355,7 +369,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
     'nrc17': '5C61',
     'pioneer': '1A2B',
     'proton': '0000',
-    'rc5': '0000',
+    'rc5': '800',
     'rc6': '800F',
     'rca_38': 'F00',
     'rcc0082': '000',
@@ -550,6 +564,8 @@ class _IrFinderScreenState extends State<IrFinderScreen>
   }
 
   int _totalHexDigitsForProtocol(String protocolId) {
+    final profile = IrFinderSearchProfiles.forProtocol(protocolId);
+    if (profile != null) return profile.totalHexDigits;
     final ex = _protocolExampleHex[protocolId];
     if (ex != null && ex.isNotEmpty) return ex.length;
     final spec = _bruteSpecFor(protocolId);
@@ -578,61 +594,22 @@ class _IrFinderScreenState extends State<IrFinderScreen>
       _protocolExampleHex[protocolId];
 
   void _applyPrefixLimitForCurrentProtocol() {
-    final int maxDigits = _maxPrefixHexDigitsEvenForProtocol(_protocolId);
+    final int maxDigits = _mode == IrFinderMode.bruteforce
+        ? _totalHexDigitsForProtocol(_protocolId)
+        : _maxPrefixHexDigitsEvenForProtocol(_protocolId);
     if (maxDigits <= 0) return;
     final String cur = _prefixCtl.text;
-    if (_hexDigitCount(cur) <= maxDigits) return;
-    final String trimmed =
-        _HexDigitLengthLimitingFormatter.trimText(cur, maxDigits);
+    final int count = _mode == IrFinderMode.bruteforce
+        ? _MaskLengthLimitingFormatter.countPatternCharacters(cur)
+        : _hexDigitCount(cur);
+    if (count <= maxDigits) return;
+    final String trimmed = _mode == IrFinderMode.bruteforce
+        ? _MaskLengthLimitingFormatter.trimText(cur, maxDigits)
+        : _HexDigitLengthLimitingFormatter.trimText(cur, maxDigits);
     _prefixCtl.value = TextEditingValue(
       text: trimmed,
       selection: TextSelection.collapsed(offset: trimmed.length),
     );
-  }
-
-  IrPrefixConstraint? _effectivePrefixConstraint({
-    required int totalHexDigits,
-    required String displayName,
-  }) {
-    final parsed = _prefixParsed;
-    if (parsed == null) return null;
-    if (!parsed.ok) return null;
-    if (parsed.bytes.isEmpty) return null;
-
-    final int maxBytesAllowed = (totalHexDigits / 2).floor();
-    if (maxBytesAllowed <= 0) return null;
-
-    final int wanted = parsed.bytes.length;
-    if (wanted > maxBytesAllowed) {
-      return IrPrefixConstraint.invalid(
-        'Prefix is too long for $displayName: max $maxBytesAllowed byte(s) ($totalHexDigits hex digit payload).',
-        parsed.bytes,
-      );
-    }
-
-    final String prefixHex =
-        IrPrefix.formatBytesAsHex(parsed.bytes).replaceAll(' ', '');
-    final int prefixHexDigits = prefixHex.length;
-    if (prefixHexDigits > totalHexDigits) {
-      return IrPrefixConstraint.invalid(
-        'Prefix exceeds the payload length for $displayName.',
-        parsed.bytes,
-      );
-    }
-
-    return IrPrefixConstraint.valid(parsed.bytes);
-  }
-
-  BigInt _bruteTotalSpace({
-    required int totalHexDigits,
-    required IrPrefixConstraint? prefix,
-  }) {
-    final int prefixHexDigits = (prefix?.valid ?? false)
-        ? (prefix!.bytes.length * 2).clamp(0, totalHexDigits)
-        : 0;
-    final int remainingHexDigits =
-        (totalHexDigits - prefixHexDigits).clamp(0, totalHexDigits);
-    return IrBigInt.pow(BigInt.from(16), remainingHexDigits);
   }
 
   BigInt _clampMaxAttempts(BigInt space, int desired) {
@@ -641,35 +618,43 @@ class _IrFinderScreenState extends State<IrFinderScreen>
     return d <= space ? d : space;
   }
 
-  static String _composeHex({
+  IrCodeMaskParseResult _parseCodeMask({
     required int totalHexDigits,
-    required BigInt cursor,
-    required List<int> prefixBytes,
+    String? raw,
   }) {
-    if (totalHexDigits <= 0) return '';
-    final String prefixRaw = IrPrefix.formatBytesAsHex(prefixBytes)
-        .replaceAll(' ', '')
-        .toUpperCase();
-    final int prefixDigits = prefixRaw.length.clamp(0, totalHexDigits);
-    final String prefix = prefixRaw.substring(0, prefixDigits);
+    return IrCodeMask.parse(
+      raw ?? _prefixCtl.text,
+      totalHexDigits: totalHexDigits,
+    );
+  }
 
-    final int remaining =
-        (totalHexDigits - prefixDigits).clamp(0, totalHexDigits);
+  String _maskErrorText(BuildContext context, IrCodeMaskError error) {
+    return switch (error) {
+      IrCodeMaskError.invalidCharacters =>
+        context.l10n.irFinderKnownMaskInvalidCharacters,
+      IrCodeMaskError.tooLong => context.l10n.irFinderKnownMaskTooLong(
+          _totalHexDigitsForProtocol(_protocolId),
+        ),
+    };
+  }
 
-    String tail = remaining <= 0 ? '' : cursor.toRadixString(16).toUpperCase();
-    if (remaining > 0) {
-      if (tail.length > remaining) {
-        tail = tail.substring(tail.length - remaining);
-      }
-      tail = tail.padLeft(remaining, '0');
-    } else {
-      tail = '';
-    }
-
-    final String out = prefix + tail;
-    return out.length >= totalHexDigits
-        ? out
-        : out.padLeft(totalHexDigits, '0');
+  IrFinderSearchPlan? _buildSearchPlan({
+    required String protocolId,
+    required IrFinderSearchStrategy strategy,
+    String? rawMask,
+  }) {
+    final profile = IrFinderSearchProfiles.forProtocol(protocolId);
+    if (profile == null) return null;
+    final parsed = _parseCodeMask(
+      totalHexDigits: profile.totalHexDigits,
+      raw: rawMask,
+    );
+    if (!parsed.ok) return null;
+    return IrFinderSearchPlan(
+      profile: profile,
+      mask: parsed.mask!,
+      strategy: strategy,
+    );
   }
 
   static String _normalizeHexDigitsOnlyUpper(String s) {
@@ -683,14 +668,11 @@ class _IrFinderScreenState extends State<IrFinderScreen>
     return out.toString().toUpperCase();
   }
 
-  static String _bytesToSpacedHex(List<String> bytes2) {
-    return bytes2.map((e) => e.toUpperCase()).join(' ');
-  }
-
   String _fitHexDigitsForProtocol(String protocolId, String codeHexAny) {
     final String pid = protocolId.trim().toLowerCase();
     final int want = _totalHexDigitsForProtocol(pid);
     String s = _normalizeHexDigitsOnlyUpper(codeHexAny);
+    if (pid == 'pioneer' && s.length == 8) return s;
     if (want <= 0) return s;
     if (s.length > want) {
       s = s.substring(s.length - want);
@@ -700,174 +682,17 @@ class _IrFinderScreenState extends State<IrFinderScreen>
     return s;
   }
 
-  static Map<String, dynamic> _buildKaseikyoParams({
-    required String codeHexAny,
-    required String vendorAny,
-  }) {
-    final String vendor =
-        _normalizeHexDigitsOnlyUpper(vendorAny).padLeft(4, '0');
-    if (!RegExp(r'^[0-9A-F]{4}$').hasMatch(vendor)) {
-      throw ArgumentError('Kaseikyo vendor must be 4 hex digits');
-    }
-
-    final String vMsb = vendor.substring(0, 2);
-    final String vLsb = vendor.substring(2, 4);
-
-    final String code = _normalizeHexDigitsOnlyUpper(codeHexAny);
-
-    if (code.length == 16) {
-      final List<String> addr = <String>[
-        code.substring(0, 2),
-        code.substring(2, 4),
-        code.substring(4, 6),
-        code.substring(6, 8),
-      ];
-      final List<String> cmd = <String>[
-        code.substring(8, 10),
-        code.substring(10, 12),
-        code.substring(12, 14),
-        code.substring(14, 16),
-      ];
-      return <String, dynamic>{
-        'address': _bytesToSpacedHex(addr),
-        'command': _bytesToSpacedHex(cmd),
-      };
-    }
-
-    if (code.length == 8) {
-      final String b0 = code.substring(0, 2);
-      final String cmd0 = code.substring(2, 4);
-      final String cmd1 = code.substring(4, 6);
-      final String idByte = code.substring(6, 8);
-      final String addr = _bytesToSpacedHex(<String>[b0, vLsb, vMsb, idByte]);
-      final String cmd = _bytesToSpacedHex(<String>[cmd0, cmd1, '00', '00']);
-      return <String, dynamic>{
-        'address': addr,
-        'command': cmd,
-      };
-    }
-
-    if (code.length == 6) {
-      final String b0 = code.substring(0, 2);
-      final String cmd0 = code.substring(2, 4);
-      final String cmd1 = code.substring(4, 6);
-      final String addr = _bytesToSpacedHex(<String>[b0, vLsb, vMsb, '00']);
-      final String cmd = _bytesToSpacedHex(<String>[cmd0, cmd1, '00', '00']);
-      return <String, dynamic>{
-        'address': addr,
-        'command': cmd,
-      };
-    }
-
-    throw ArgumentError('Kaseikyo brute code must be 6, 8, or 16 hex digits');
-  }
-
   Map<String, dynamic> _buildParamsForProtocol({
     required String protocolId,
     required String codeHex,
   }) {
     final String pid = protocolId.trim().toLowerCase();
     final String fitted = _fitHexDigitsForProtocol(pid, codeHex);
-
-    if (pid == 'kaseikyo') {
-      return _buildKaseikyoParams(
-          codeHexAny: fitted, vendorAny: _kaseikyoVendor);
-    }
-
-    if (pid == 'pioneer') {
-      if (fitted.length != 4) {
-        throw ArgumentError('Pioneer brute code must be 4 hex digits');
-      }
-      return <String, dynamic>{
-        'address': fitted.substring(0, 2),
-        'command': fitted.substring(2, 4),
-      };
-    }
-
-    if (pid == 'rca_38') {
-      if (fitted.length != 3) {
-        throw ArgumentError('RCA brute code must be 3 hex digits');
-      }
-      return <String, dynamic>{
-        'address': fitted.substring(0, 1),
-        'command': fitted.substring(1, 3),
-      };
-    }
-
-    if (pid == 'rc5') {
-      if (fitted.length != 4) {
-        throw ArgumentError('RC5 brute code must be 4 hex digits');
-      }
-      return <String, dynamic>{
-        'address': fitted.substring(0, 2),
-        'command': fitted.substring(2, 4),
-      };
-    }
-
-    if (pid == 'thomson7') {
-      try {
-        final def = _definitionFor(pid);
-        if (def.fields.isNotEmpty) {
-          final f = def.fields.first;
-          if (f.type == IrFieldType.intDecimal) {
-            return <String, dynamic>{
-              f.id: int.parse(fitted.isEmpty ? '0' : fitted, radix: 16),
-            };
-          }
-          if (f.type == IrFieldType.string) {
-            return <String, dynamic>{f.id: fitted};
-          }
-        }
-      } catch (_) {}
-      return <String, dynamic>{
-        'code': int.parse(fitted.isEmpty ? '0' : fitted, radix: 16),
-      };
-    }
-
-    if (pid == 'xsat') {
-      if (fitted.length != 4) {
-        throw ArgumentError('XSAT brute code must be 4 hex digits');
-      }
-      return <String, dynamic>{
-        'address': fitted.substring(0, 2),
-        'command': fitted.substring(2, 4),
-      };
-    }
-
-    try {
-      final def = _definitionFor(pid);
-      if (def.fields.isEmpty) {
-        return <String, dynamic>{'hex': fitted};
-      }
-
-      if (def.fields.length == 1) {
-        final f = def.fields.first;
-        if (f.type == IrFieldType.intDecimal) {
-          return <String, dynamic>{
-            f.id: int.parse(fitted.isEmpty ? '0' : fitted, radix: 16),
-          };
-        }
-        return <String, dynamic>{f.id: fitted};
-      }
-
-      final Map<String, IrFieldDef> byId = <String, IrFieldDef>{
-        for (final f in def.fields) f.id: f,
-      };
-
-      if (byId.containsKey('address') && byId.containsKey('command')) {
-        final int digits = fitted.length;
-        if (digits >= 4) {
-          return <String, dynamic>{
-            'address': fitted.substring(0, 2),
-            'command': fitted.substring(2, 4),
-          };
-        }
-      }
-
-      return <String, dynamic>{def.fields.first.id: fitted};
-    } catch (_) {
-      return <String, dynamic>{'hex': fitted};
-    }
+    return IrFinderParams.buildParamsForProtocol(
+      pid,
+      fitted,
+      kaseikyoVendor: _kaseikyoVendor,
+    );
   }
 
   bool _isValidKaseikyoVendor() {
@@ -883,6 +708,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
       maxKeysToTest: _dbMaxKeysToTest,
       bruteMaxAttempts: _maxAttempts,
       bruteAllCombinations: _bruteAllCombinations,
+      bruteStrategy: _bruteStrategy,
       prefixRaw: _prefixCtl.text,
       kaseikyoVendor: _kaseikyoVendor,
       onlySelectedProtocol: _dbOnlySelectedProtocol,
@@ -896,43 +722,37 @@ class _IrFinderScreenState extends State<IrFinderScreen>
       IrFinderRunController ctl) async {
     if (ctl.mode == IrFinderMode.bruteforce) {
       final String pid = ctl.protocolId;
-      final int totalHexDigits = _totalHexDigitsForProtocol(pid);
-      if (totalHexDigits <= 0) return null;
-
       final def = _definitionFor(pid);
-
-      final prefix = _effectivePrefixConstraint(
-        totalHexDigits: totalHexDigits,
-        displayName: def.displayName,
+      final profile = IrFinderSearchProfiles.forProtocol(pid);
+      if (profile == null) return null;
+      final parsedMask = _parseCodeMask(
+        totalHexDigits: profile.totalHexDigits,
+        raw: ctl.prefixRaw,
       );
-
-      if (prefix != null && !prefix.valid) {
-        ctl.lastError = prefix.errorMessage;
+      if (!parsedMask.ok) {
+        ctl.lastError = parsedMask.error;
         return null;
       }
-
-      final space = _bruteTotalSpace(
-        totalHexDigits: totalHexDigits,
-        prefix: prefix,
+      final plan = IrFinderSearchPlan(
+        profile: profile,
+        mask: parsedMask.mask!,
+        strategy: ctl.bruteStrategy,
       );
+      final space = plan.space;
 
       if (space <= BigInt.zero) return null;
 
-      if (_bruteAllCombinations) {
+      if (ctl.bruteAllCombinations) {
         if (ctl.bruteCursor >= space) return null;
       } else {
-        final BigInt effectiveMax = _clampMaxAttempts(space, _maxAttempts);
+        final BigInt effectiveMax =
+            _clampMaxAttempts(space, ctl.bruteMaxAttempts);
         final int effectiveMaxInt =
             IrBigInt.toIntClamp(effectiveMax, max: 2147483647);
         if (ctl.attempted >= effectiveMaxInt) return null;
       }
 
-      final String codeHex = _composeHex(
-        totalHexDigits: totalHexDigits,
-        cursor: ctl.bruteCursor,
-        prefixBytes:
-            (prefix != null && prefix.valid) ? prefix.bytes : const <int>[],
-      );
+      final String codeHex = plan.codeAt(ctl.bruteCursor);
 
       Map<String, dynamic> params;
       try {
@@ -1060,6 +880,16 @@ class _IrFinderScreenState extends State<IrFinderScreen>
         );
         return;
       }
+      if (_prefixParsed != null && !_prefixParsed!.ok) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              _prefixParsed!.error ?? context.l10n.irFinderInvalidPrefix,
+            ),
+          ),
+        );
+        return;
+      }
       if (_brand == null || _brand!.trim().isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(context.l10n.irFinderSelectBrandFirst)),
@@ -1067,31 +897,29 @@ class _IrFinderScreenState extends State<IrFinderScreen>
         return;
       }
     } else {
-      final int totalHexDigits = _totalHexDigitsForProtocol(_protocolId);
-      if (totalHexDigits <= 0) {
+      final profile = IrFinderSearchProfiles.forProtocol(_protocolId);
+      if (profile == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(context.l10n.irFinderBruteforceUnavailable)),
         );
         return;
       }
-
-      final def = _definitionFor(_protocolId);
-      final prefix = _effectivePrefixConstraint(
-        totalHexDigits: totalHexDigits,
-        displayName: def.displayName,
+      final parsedMask = _parseCodeMask(
+        totalHexDigits: profile.totalHexDigits,
       );
-
-      if (prefix != null && !prefix.valid) {
+      if (!parsedMask.ok) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text(
-                  prefix.errorMessage ?? context.l10n.irFinderInvalidPrefix)),
+            content: Text(_maskErrorText(context, parsedMask.error!)),
+          ),
         );
         return;
       }
-
-      final space =
-          _bruteTotalSpace(totalHexDigits: totalHexDigits, prefix: prefix);
+      final space = IrFinderSearchPlan(
+        profile: profile,
+        mask: parsedMask.mask!,
+        strategy: _bruteStrategy,
+      ).space;
       if (space > (BigInt.from(1) << 40)) {
         final ok = await _confirmBigSearchSpace(context, space);
         if (!ok) return;
@@ -1117,6 +945,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
       _model = s.model;
       _maxAttempts = s.bruteMaxAttempts.clamp(1, 2147483647);
       _bruteAllCombinations = s.bruteAllCombinations;
+      _bruteStrategy = s.bruteStrategy;
       _kaseikyoVendor = s.kaseikyoVendor.toUpperCase();
       _syncingMaxAttemptsText = true;
       _maxAttemptsCtl.text = _maxAttempts.toString();
@@ -1175,6 +1004,8 @@ class _IrFinderScreenState extends State<IrFinderScreen>
       dbModel: c.dbModel,
       dbRemoteId: c.dbRemoteId,
       dbLabel: c.dbLabel,
+      protocolParams:
+          c.params is Map ? Map<String, dynamic>.from(c.params as Map) : null,
     );
 
     setState(() {
@@ -1194,8 +1025,10 @@ class _IrFinderScreenState extends State<IrFinderScreen>
   Future<void> _testHit(IrFinderHit h) async {
     Map<String, dynamic> params;
     try {
-      params =
-          _buildParamsForProtocol(protocolId: h.protocolId, codeHex: h.code);
+      params = IrFinderParams.paramsForHit(
+        h,
+        kaseikyoVendor: _kaseikyoVendor,
+      );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1445,26 +1278,30 @@ class _IrFinderScreenState extends State<IrFinderScreen>
     final theme = Theme.of(context);
 
     final IrProtocolDefinition def = _definitionFor(_protocolId);
-    final IrFinderBruteSpec? bruteSpec = _bruteSpecFor(_protocolId);
-
     final IrPrefixParseResult? parsed = _prefixParsed;
 
     final int totalHexDigits = _totalHexDigitsForProtocol(_protocolId);
 
-    IrPrefixConstraint? prefixConstraint;
+    IrCodeMaskParseResult? maskParsed;
     BigInt? bruteSpace;
     BigInt? effectiveMaxAttempts;
+    int? smartMeaningfulVariableBits;
 
     if (_mode == IrFinderMode.bruteforce && totalHexDigits > 0) {
-      prefixConstraint = _effectivePrefixConstraint(
+      maskParsed = _parseCodeMask(
         totalHexDigits: totalHexDigits,
-        displayName: def.displayName,
       );
-      bruteSpace = _bruteTotalSpace(
-          totalHexDigits: totalHexDigits, prefix: prefixConstraint);
-      effectiveMaxAttempts = _bruteAllCombinations
-          ? bruteSpace
-          : _clampMaxAttempts(bruteSpace, _maxAttempts);
+      final plan = _buildSearchPlan(
+        protocolId: _protocolId,
+        strategy: _bruteStrategy,
+      );
+      if (plan != null) {
+        bruteSpace = plan.space;
+        smartMeaningfulVariableBits = plan.meaningfulVariableBits;
+        effectiveMaxAttempts = _bruteAllCombinations
+            ? bruteSpace
+            : _clampMaxAttempts(bruteSpace, _maxAttempts);
+      }
     }
 
     final int maxAttemptsUi = () {
@@ -1484,91 +1321,95 @@ class _IrFinderScreenState extends State<IrFinderScreen>
         );
       },
       child: Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n.irSignalTester),
-        actions: [
-          IconButton(
-            tooltip: RemoteOrientationController.instance.flipped
-                ? context.l10n.remoteOrientationFlippedTooltip
-                : context.l10n.remoteOrientationNormalTooltip,
-            onPressed: () async {
-              final next = !RemoteOrientationController.instance.flipped;
-              await RemoteOrientationController.instance.setFlipped(next);
-              setState(() {});
-            },
-            icon: const Icon(Icons.screen_rotation_rounded),
-          ),
-          IconButton(
-            tooltip: context.l10n.stop,
-            onPressed: _run.running
-                ? () => unawaited(_run.stop(clearPersistedSession: false))
-                : null,
-            icon: const Icon(Icons.stop_circle_outlined),
-          ),
-        ],
-      ),
-      body: Transform.rotate(
-        angle: RemoteOrientationController.instance.flipped
-            ? 3.1415926535897932
-            : 0.0,
-        child: IndexedStack(
-          index: _pageIndex,
-          children: <Widget>[
-            _buildSetupPage(
-              theme: theme,
-              def: def,
-              bruteSpec: bruteSpec,
-              totalHexDigits: totalHexDigits,
-              parsed: parsed,
-              prefixConstraint: prefixConstraint,
-              bruteSpace: bruteSpace,
-              effectiveMaxAttempts: effectiveMaxAttempts,
+        appBar: AppBar(
+          title: Text(context.l10n.irSignalTester),
+          actions: [
+            IconButton(
+              tooltip: RemoteOrientationController.instance.flipped
+                  ? context.l10n.remoteOrientationFlippedTooltip
+                  : context.l10n.remoteOrientationNormalTooltip,
+              onPressed: () async {
+                final next = !RemoteOrientationController.instance.flipped;
+                await RemoteOrientationController.instance.setFlipped(next);
+                setState(() {});
+              },
+              icon: const Icon(Icons.screen_rotation_rounded),
             ),
-            _buildTestPage(theme: theme, maxAttemptsUi: maxAttemptsUi),
-            _buildResultsPage(theme: theme),
+            IconButton(
+              tooltip: context.l10n.stop,
+              onPressed: _run.running
+                  ? () => unawaited(_run.stop(clearPersistedSession: false))
+                  : null,
+              icon: const Icon(Icons.stop_circle_outlined),
+            ),
+          ],
+        ),
+        body: Transform.rotate(
+          angle: RemoteOrientationController.instance.flipped
+              ? 3.1415926535897932
+              : 0.0,
+          child: IndexedStack(
+            index: _pageIndex,
+            children: <Widget>[
+              _buildSetupPage(
+                theme: theme,
+                def: def,
+                totalHexDigits: totalHexDigits,
+                parsed: parsed,
+                maskParsed: maskParsed,
+                bruteSpace: bruteSpace,
+                effectiveMaxAttempts: effectiveMaxAttempts,
+                smartMeaningfulVariableBits: smartMeaningfulVariableBits,
+              ),
+              _buildTestPage(theme: theme, maxAttemptsUi: maxAttemptsUi),
+              _buildResultsPage(theme: theme),
+            ],
+          ),
+        ),
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _pageIndex,
+          onDestinationSelected: (i) {
+            setState(() => _pageIndex = i);
+          },
+          destinations: <NavigationDestination>[
+            NavigationDestination(
+              icon: const Icon(Icons.tune_rounded),
+              label: context.l10n.irFinderSetupTab,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.play_circle_outline),
+              label: context.l10n.irFinderTestTab,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.bookmarks_outlined),
+              label: context.l10n.irFinderResultsTab,
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _pageIndex,
-        onDestinationSelected: (i) {
-          setState(() => _pageIndex = i);
-        },
-        destinations: <NavigationDestination>[
-          NavigationDestination(
-            icon: const Icon(Icons.tune_rounded),
-            label: context.l10n.irFinderSetupTab,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.play_circle_outline),
-            label: context.l10n.irFinderTestTab,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.bookmarks_outlined),
-            label: context.l10n.irFinderResultsTab,
-          ),
-        ],
-      ),
-    ),
     );
   }
 
   Widget _buildSetupPage({
     required ThemeData theme,
     required IrProtocolDefinition def,
-    required IrFinderBruteSpec? bruteSpec,
     required int totalHexDigits,
     required IrPrefixParseResult? parsed,
-    required IrPrefixConstraint? prefixConstraint,
+    required IrCodeMaskParseResult? maskParsed,
     required BigInt? bruteSpace,
     required BigInt? effectiveMaxAttempts,
+    required int? smartMeaningfulVariableBits,
   }) {
-    final int maxPrefixDigitsEven =
-        _maxPrefixHexDigitsEvenForProtocol(_protocolId);
-    final int usedPrefixDigits = _hexDigitCount(_prefixCtl.text);
+    final bool isBruteforce = _mode == IrFinderMode.bruteforce;
+    final int maxConstraintDigits = isBruteforce
+        ? totalHexDigits
+        : _maxPrefixHexDigitsEvenForProtocol(_protocolId);
+    final int usedConstraintDigits = isBruteforce
+        ? _MaskLengthLimitingFormatter.countPatternCharacters(_prefixCtl.text)
+        : _hexDigitCount(_prefixCtl.text);
     final String? example = _exampleForProtocol(_protocolId);
     final int maxBytes =
-        maxPrefixDigitsEven > 0 ? (maxPrefixDigitsEven ~/ 2) : 0;
+        maxConstraintDigits > 0 ? (maxConstraintDigits ~/ 2) : 0;
 
     return ListView(
       padding: const EdgeInsets.all(16),
@@ -1603,6 +1444,7 @@ class _IrFinderScreenState extends State<IrFinderScreen>
               : (m) {
                   setState(() {
                     _mode = m;
+                    _applyPrefixLimitForCurrentProtocol();
                     if (_mode == IrFinderMode.database) {
                       _brand ??= null;
                       _model ??= null;
@@ -1616,56 +1458,88 @@ class _IrFinderScreenState extends State<IrFinderScreen>
           controller: _prefixCtl,
           enabled: !_run.running,
           inputFormatters: <TextInputFormatter>[
-            if (maxPrefixDigitsEven > 0)
-              _HexDigitLengthLimitingFormatter(maxDigits: maxPrefixDigitsEven),
+            if (maxConstraintDigits > 0)
+              if (isBruteforce)
+                _MaskLengthLimitingFormatter(maxDigits: maxConstraintDigits)
+              else
+                _HexDigitLengthLimitingFormatter(
+                    maxDigits: maxConstraintDigits),
           ],
           decoration: InputDecoration(
-            labelText: context.l10n.irFinderKnownPrefixLabel,
-            hintText: context.l10n.irFinderKnownPrefixHint,
-            helperText: (totalHexDigits > 0)
-                ? (example != null && maxPrefixDigitsEven > 0
-                    ? context.l10n.irFinderKnownPrefixHelperPayloadExampleMax(
-                        totalHexDigits, example, maxBytes)
-                    : example != null
-                        ? context.l10n.irFinderKnownPrefixHelperPayloadExample(
-                            totalHexDigits, example)
-                        : maxPrefixDigitsEven > 0
-                            ? context.l10n.irFinderKnownPrefixHelperPayloadMax(
-                                totalHexDigits, maxBytes)
-                            : context.l10n.irFinderKnownPrefixHelperPayload(
-                                totalHexDigits))
-                : (example != null
-                    ? context.l10n.irFinderKnownPrefixHelperExample(example)
-                    : context.l10n.irFinderKnownPrefixHelperFallback),
-            suffixText: (maxPrefixDigitsEven > 0)
-                ? '$usedPrefixDigits/$maxPrefixDigitsEven'
+            labelText: isBruteforce
+                ? context.l10n.irFinderKnownMaskLabel
+                : context.l10n.irFinderKnownPrefixLabel,
+            hintText: isBruteforce
+                ? context.l10n.irFinderKnownMaskHint
+                : context.l10n.irFinderKnownPrefixHint,
+            helperText: isBruteforce
+                ? context.l10n.irFinderKnownMaskHelper(
+                    totalHexDigits,
+                    example ?? context.l10n.notAvailableSymbol,
+                  )
+                : (totalHexDigits > 0)
+                    ? (example != null && maxConstraintDigits > 0
+                        ? context.l10n
+                            .irFinderKnownPrefixHelperPayloadExampleMax(
+                                totalHexDigits, example, maxBytes)
+                        : example != null
+                            ? context.l10n
+                                .irFinderKnownPrefixHelperPayloadExample(
+                                    totalHexDigits, example)
+                            : maxConstraintDigits > 0
+                                ? context.l10n
+                                    .irFinderKnownPrefixHelperPayloadMax(
+                                        totalHexDigits, maxBytes)
+                                : context.l10n.irFinderKnownPrefixHelperPayload(
+                                    totalHexDigits))
+                    : (example != null
+                        ? context.l10n.irFinderKnownPrefixHelperExample(example)
+                        : context.l10n.irFinderKnownPrefixHelperFallback),
+            suffixText: (maxConstraintDigits > 0)
+                ? '$usedConstraintDigits/$maxConstraintDigits'
                 : null,
-            prefixIcon: const Icon(Icons.key_outlined),
-            errorText: (parsed != null &&
-                    !parsed.ok &&
-                    _prefixCtl.text.trim().isNotEmpty)
-                ? parsed.error
-                : (prefixConstraint != null && !prefixConstraint.valid)
-                    ? prefixConstraint.errorMessage
+            prefixIcon: Icon(
+                isBruteforce ? Icons.grid_4x4_rounded : Icons.key_outlined),
+            errorText: isBruteforce
+                ? (maskParsed != null && !maskParsed.ok
+                    ? _maskErrorText(context, maskParsed.error!)
+                    : null)
+                : (parsed != null &&
+                        !parsed.ok &&
+                        _prefixCtl.text.trim().isNotEmpty)
+                    ? parsed.error
                     : null,
             border: const OutlineInputBorder(),
           ),
         ),
         const SizedBox(height: 8),
-        _PrefixParsedRow(parsed: parsed),
+        if (isBruteforce)
+          _MaskParsedRow(
+            parsed: maskParsed,
+            hasInput: _prefixCtl.text.trim().isNotEmpty,
+          )
+        else
+          _PrefixParsedRow(parsed: parsed),
         const SizedBox(height: 14),
         if (_mode == IrFinderMode.bruteforce)
           _BruteForceSetupCard(
             theme: theme,
             totalHexDigits: totalHexDigits,
-            bruteSpec: bruteSpec,
             bruteSpace: bruteSpace,
             effectiveMaxAttempts: effectiveMaxAttempts,
+            smartMeaningfulVariableBits: smartMeaningfulVariableBits,
+            strategy: _bruteStrategy,
             delayMs: _delayMs,
             maxAttempts: _maxAttempts,
             maxAttemptsAll: _bruteAllCombinations,
             maxAttemptsController: _maxAttemptsCtl,
             onMaxAttemptsAllChanged: _run.running ? null : _toggleBruteAll,
+            onStrategyChanged: _run.running
+                ? null
+                : (strategy) {
+                    setState(() => _bruteStrategy = strategy);
+                    _syncRunConfigToController();
+                  },
             onDelayChanged: _run.running
                 ? null
                 : (v) {
@@ -1954,6 +1828,11 @@ class _ResumeBannerCard extends StatelessWidget {
         ? context.l10n.irFinderDatabaseSession
         : context.l10n.irFinderBruteforceSession;
     final String titleProto = snapshot.protocolId.toUpperCase();
+    final String? strategyLabel = snapshot.mode == IrFinderMode.bruteforce
+        ? (snapshot.bruteStrategy == IrFinderSearchStrategy.smart
+            ? context.l10n.irFinderSmartOrder
+            : context.l10n.irFinderSequentialOrder)
+        : null;
     final String brand = snapshot.brand ?? context.l10n.notAvailableSymbol;
     final String model =
         (snapshot.model != null && snapshot.model!.trim().isNotEmpty)
@@ -1991,7 +1870,11 @@ class _ResumeBannerCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              '$titleMode · $titleProto',
+              <String>[
+                titleMode,
+                titleProto,
+                if (strategyLabel != null) strategyLabel
+              ].join(' · '),
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w800,
               ),
@@ -2000,7 +1883,7 @@ class _ResumeBannerCard extends StatelessWidget {
             Text(
               snapshot.mode == IrFinderMode.database
                   ? context.l10n.irFinderResumeBrandModel(brand, model)
-                  : context.l10n.irFinderResumePrefix(
+                  : context.l10n.irFinderResumeMask(
                       snapshot.prefixRaw.trim().isEmpty
                           ? context.l10n.notAvailableSymbol
                           : snapshot.prefixRaw.trim(),
@@ -2115,42 +1998,12 @@ class _ProtocolPicker extends StatelessWidget {
     required this.onChanged,
   });
 
-  static const List<String> _knownProtocolIds = <String>[
-    'nec',
-    'nec2',
-    'necx1',
-    'necx2',
-    'nrc17',
-    'denon',
-    'f12_relaxed',
-    'jvc',
-    'kaseikyo',
-    'pioneer',
-    'proton',
-    'rc5',
-    'rc6',
-    'rca_38',
-    'rcc0082',
-    'rcc2026',
-    'rec80',
-    'recs80',
-    'recs80_l',
-    'samsung32',
-    'samsung36',
-    'sharp',
-    'sony12',
-    'sony15',
-    'sony20',
-    'thomson7',
-    'xsat',
-  ];
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final items = <DropdownMenuItem<String>>[];
 
-    for (final id in _knownProtocolIds) {
+    for (final id in IrFinderSearchProfiles.protocolIds) {
       try {
         final def = IrProtocolRegistry.encoderFor(id).definition;
         items.add(
@@ -2286,31 +2139,95 @@ class _PrefixParsedRow extends StatelessWidget {
   }
 }
 
+class _MaskParsedRow extends StatelessWidget {
+  final IrCodeMaskParseResult? parsed;
+  final bool hasInput;
+
+  const _MaskParsedRow({required this.parsed, required this.hasInput});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final mask = parsed?.mask;
+    if (mask == null) {
+      return Text(
+        context.l10n.irFinderNormalizedMaskValue(
+          context.l10n.notAvailableSymbol,
+        ),
+        style: theme.textTheme.bodySmall?.copyWith(
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.65),
+        ),
+      );
+    }
+
+    return Row(
+      children: [
+        Text(
+          hasInput
+              ? context.l10n.irFinderNormalizedMask
+              : context.l10n.irFinderNormalizedMaskAllUnknown,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.65),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceContainerHighest
+                  .withValues(alpha: 0.55),
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(
+                color: theme.colorScheme.outlineVariant.withValues(alpha: 0.35),
+              ),
+            ),
+            child: Text(
+              mask.grouped,
+              maxLines: 1,
+              overflow: TextOverflow.fade,
+              softWrap: false,
+              style: theme.textTheme.labelMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontFeatures: const <FontFeature>[FontFeature.tabularFigures()],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _BruteForceSetupCard extends StatelessWidget {
   final ThemeData theme;
   final int totalHexDigits;
-  final IrFinderBruteSpec? bruteSpec;
   final BigInt? bruteSpace;
   final BigInt? effectiveMaxAttempts;
+  final int? smartMeaningfulVariableBits;
+  final IrFinderSearchStrategy strategy;
   final int delayMs;
   final int maxAttempts;
   final bool maxAttemptsAll;
   final TextEditingController maxAttemptsController;
   final ValueChanged<bool>? onMaxAttemptsAllChanged;
+  final ValueChanged<IrFinderSearchStrategy>? onStrategyChanged;
   final ValueChanged<int>? onDelayChanged;
   final ValueChanged<int>? onMaxAttemptsChanged;
 
   const _BruteForceSetupCard({
     required this.theme,
     required this.totalHexDigits,
-    required this.bruteSpec,
     required this.bruteSpace,
     required this.effectiveMaxAttempts,
+    required this.smartMeaningfulVariableBits,
+    required this.strategy,
     required this.delayMs,
     required this.maxAttempts,
     required this.maxAttemptsAll,
     required this.maxAttemptsController,
     required this.onMaxAttemptsAllChanged,
+    required this.onStrategyChanged,
     required this.onDelayChanged,
     required this.onMaxAttemptsChanged,
   });
@@ -2387,6 +2304,66 @@ class _BruteForceSetupCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
+            Text(
+              context.l10n.irFinderSearchOrder,
+              style: theme.textTheme.labelLarge
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: <Widget>[
+                ChoiceChip(
+                  avatar: const Icon(Icons.auto_awesome_rounded, size: 18),
+                  label: Text(context.l10n.irFinderSmartOrder),
+                  selected: strategy == IrFinderSearchStrategy.smart,
+                  onSelected: onStrategyChanged == null
+                      ? null
+                      : (_) => onStrategyChanged!(
+                            IrFinderSearchStrategy.smart,
+                          ),
+                ),
+                ChoiceChip(
+                  avatar:
+                      const Icon(Icons.format_list_numbered_rounded, size: 18),
+                  label: Text(context.l10n.irFinderSequentialOrder),
+                  selected: strategy == IrFinderSearchStrategy.sequential,
+                  onSelected: onStrategyChanged == null
+                      ? null
+                      : (_) => onStrategyChanged!(
+                            IrFinderSearchStrategy.sequential,
+                          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 180),
+              child: Text(
+                strategy == IrFinderSearchStrategy.smart
+                    ? context.l10n.irFinderSmartOrderHint
+                    : context.l10n.irFinderSequentialOrderHint,
+                key: ValueKey<IrFinderSearchStrategy>(strategy),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                ),
+              ),
+            ),
+            if (strategy == IrFinderSearchStrategy.smart &&
+                smartMeaningfulVariableBits != null) ...[
+              const SizedBox(height: 6),
+              Text(
+                context.l10n.irFinderSmartMeaningfulBits(
+                  smartMeaningfulVariableBits!,
+                ),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+            const SizedBox(height: 16),
             Text(
               context.l10n.irFinderCooldownMs,
               style: theme.textTheme.labelLarge
@@ -2486,7 +2463,7 @@ class _BruteForceSetupCard extends StatelessWidget {
             ],
             const SizedBox(height: 6),
             Text(
-              context.l10n.irFinderBruteforceTip,
+              context.l10n.irFinderBruteforceMaskTip,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
@@ -3522,6 +3499,77 @@ class _HexDigitLengthLimitingFormatter extends TextInputFormatter {
     if (maxDigits <= 0) return newValue;
     final int digits = _countDigits(newValue.text);
     if (digits <= maxDigits) return newValue;
+    final String trimmed = trimText(newValue.text, maxDigits);
+    return TextEditingValue(
+      text: trimmed,
+      selection: TextSelection.collapsed(offset: trimmed.length),
+    );
+  }
+}
+
+class _MaskLengthLimitingFormatter extends TextInputFormatter {
+  final int maxDigits;
+
+  _MaskLengthLimitingFormatter({required this.maxDigits});
+
+  static bool _isHexChar(int u) {
+    return (u >= 48 && u <= 57) ||
+        (u >= 65 && u <= 70) ||
+        (u >= 97 && u <= 102);
+  }
+
+  static bool _isWildcard(int u) => u == 88 || u == 120 || u == 63;
+
+  static bool _startsHexPrefix(String input, int index) {
+    if (index + 2 >= input.length || input.codeUnitAt(index) != 48) {
+      return false;
+    }
+    final int x = input.codeUnitAt(index + 1);
+    return (x == 88 || x == 120) && _isHexChar(input.codeUnitAt(index + 2));
+  }
+
+  static int countPatternCharacters(String input) {
+    int count = 0;
+    for (int i = 0; i < input.length; i++) {
+      if (_startsHexPrefix(input, i)) {
+        i++;
+        continue;
+      }
+      final int u = input.codeUnitAt(i);
+      if (_isHexChar(u) || _isWildcard(u)) count++;
+    }
+    return count;
+  }
+
+  static String trimText(String input, int maxDigits) {
+    if (maxDigits <= 0) return input;
+    int count = 0;
+    final StringBuffer out = StringBuffer();
+    for (int i = 0; i < input.length; i++) {
+      if (_startsHexPrefix(input, i)) {
+        if (count >= maxDigits) break;
+        out.write(input.substring(i, i + 2));
+        i++;
+        continue;
+      }
+      final int u = input.codeUnitAt(i);
+      if (_isHexChar(u) || _isWildcard(u)) {
+        if (count >= maxDigits) break;
+        count++;
+      }
+      out.writeCharCode(u);
+    }
+    return out.toString();
+  }
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (maxDigits <= 0 || countPatternCharacters(newValue.text) <= maxDigits) {
+      return newValue;
+    }
     final String trimmed = trimText(newValue.text, maxDigits);
     return TextEditingValue(
       text: trimmed,

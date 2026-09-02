@@ -5,6 +5,7 @@ const IrProtocolDefinition sony12ProtocolDefinition = IrProtocolDefinition(
   displayName: 'SONY12',
   description:
       'Sony SIRC 12-bit.\n'
+      'The complete packed frame is 3 hex digits.\n'
       'Packed as cmd(7 LSB) + addr(5) << 7. Bit order: LSB-first.\n'
       'Timings: 2400/600 header, 0=600/600, 1=1200/600.\n'
       'Frame padded to 45000us.',
@@ -18,7 +19,7 @@ const IrProtocolDefinition sony12ProtocolDefinition = IrProtocolDefinition(
       required: true,
       maxLength: 2,
       hint: 'e.g., 1A',
-      helperText: 'Address, only low 5 bits used.',
+      helperText: 'Address portion (00-1F) of the packed 12-bit code.',
       maxLines: 1,
     ),
     IrFieldDef(
@@ -28,7 +29,7 @@ const IrProtocolDefinition sony12ProtocolDefinition = IrProtocolDefinition(
       required: true,
       maxLength: 2,
       hint: 'e.g., 15',
-      helperText: 'Command, only low 7 bits used.',
+      helperText: 'Command portion (00-7F), not the full 3-digit code.',
       maxLines: 1,
     ),
   ],
@@ -56,8 +57,10 @@ class Sony12ProtocolEncoder implements IrProtocolEncoder {
 
   @override
   IrEncodeResult encode(Map<String, dynamic> params) {
-    final int addr = _readHexInt(params['address'], name: 'SONY12 address') & 0x1F;
-    final int cmd = _readHexInt(params['command'], name: 'SONY12 command') & 0x7F;
+    final int addr =
+        _readHexInt(params['address'], name: 'SONY12 address', max: 0x1F);
+    final int cmd =
+        _readHexInt(params['command'], name: 'SONY12 command', max: 0x7F);
 
     final int data = (cmd & 0x7F) | ((addr & 0x1F) << 7);
     const int bits = 12;
@@ -93,11 +96,13 @@ class Sony12ProtocolEncoder implements IrProtocolEncoder {
   }
 }
 
-int _readHexInt(dynamic v, {required String name}) {
+int _readHexInt(dynamic v, {required String name, required int max}) {
   if (v is! String) throw ArgumentError('$name must be a hex string');
   final String s = v.trim();
   if (s.isEmpty || s.length > 8) throw ArgumentError('$name invalid hex');
-  return int.parse(s, radix: 16);
+  final int value = int.parse(s, radix: 16);
+  if (value > max) throw ArgumentError('$name out of range');
+  return value;
 }
 
 int _sum(List<int> xs) {

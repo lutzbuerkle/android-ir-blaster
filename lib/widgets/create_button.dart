@@ -21,7 +21,40 @@ enum _LabelType { image, text, icon }
 
 enum _SignalType { hex, raw, protocol }
 
-enum _NecBitOrder { msb, lsb }
+enum _NecBitOrder { msb, byteSwap, trueLsb }
+
+_NecBitOrder _decodeNecBitOrder(String? value) {
+  switch (value?.trim().toLowerCase()) {
+    case 'lsb':
+      return _NecBitOrder.byteSwap;
+    case 'true_lsb':
+      return _NecBitOrder.trueLsb;
+    default:
+      return _NecBitOrder.msb;
+  }
+}
+
+String _encodeNecBitOrder(_NecBitOrder value) {
+  switch (value) {
+    case _NecBitOrder.byteSwap:
+      return 'lsb';
+    case _NecBitOrder.trueLsb:
+      return 'true_lsb';
+    case _NecBitOrder.msb:
+      return 'msb';
+  }
+}
+
+String _necBitOrderLabel(_NecBitOrder value) {
+  switch (value) {
+    case _NecBitOrder.byteSwap:
+      return 'Byte Swap';
+    case _NecBitOrder.trueLsb:
+      return 'True LSB (Bit Reversal)';
+    case _NecBitOrder.msb:
+      return 'MSB (compat)';
+  }
+}
 
 enum _DbPreset { power, volume, channel, navigation, all }
 
@@ -208,9 +241,7 @@ class _CreateButtonState extends State<CreateButton> {
         zeroSpaceCtrl.text = params.zeroSpace.toString();
         oneSpaceCtrl.text = params.oneSpace.toString();
         trailerMarkCtrl.text = params.trailerMark.toString();
-        _necBitOrder = ((b.necBitOrder ?? 'msb').toLowerCase() == 'lsb')
-            ? _NecBitOrder.lsb
-            : _NecBitOrder.msb;
+        _necBitOrder = _decodeNecBitOrder(b.necBitOrder);
       } else if (hasRaw) {
         _signalType = _SignalType.raw;
         rawDataController.text = b.rawData!;
@@ -361,16 +392,27 @@ class _CreateButtonState extends State<CreateButton> {
     if (def == null) return false;
 
     for (final field in def.fields) {
-      if (!field.required) continue;
       final c = _protoControllers[field.id];
-      if (c == null) return false;
+      if (c == null) {
+        if (field.required) return false;
+        continue;
+      }
       final t = c.text.trim();
-      if (t.isEmpty) return false;
+      if (t.isEmpty) {
+        if (field.required) return false;
+        continue;
+      }
 
       if (field.type == IrFieldType.intDecimal) {
-        if (int.tryParse(t) == null) return false;
+        final int? value = int.tryParse(t);
+        if (value == null) return false;
+        if (field.min != null && value < field.min!) return false;
+        if (field.max != null && value > field.max!) return false;
       } else if (field.type == IrFieldType.intHex) {
-        if (int.tryParse(t, radix: 16) == null) return false;
+        final int? value = int.tryParse(t, radix: 16);
+        if (value == null) return false;
+        if (field.min != null && value < field.min!) return false;
+        if (field.max != null && value > field.max!) return false;
       } else if (field.type == IrFieldType.choice) {
         if (!field.options.contains(t)) return false;
       }
@@ -568,9 +610,10 @@ class _CreateButtonState extends State<CreateButton> {
     }
 
     if (protocolId == IrProtocolIds.rc5 && addrId != null && cmdId != null) {
-      final int packed = int.parse(hex, radix: 16) & 0x7FF;
+      final int packed = int.parse(hex, radix: 16) & 0xFFF;
       final int addr = (packed >> 6) & 0x1F;
-      final int cmd = packed & 0x3F;
+      final int fieldBit = (packed >> 11) & 1;
+      final int cmd = (packed & 0x3F) | (fieldBit == 0 ? 0x40 : 0);
       return <String, String>{
         addrId: addr.toRadixString(16).toUpperCase().padLeft(2, '0'),
         cmdId: cmd.toRadixString(16).toUpperCase().padLeft(2, '0'),
@@ -1218,8 +1261,9 @@ class _CreateButtonState extends State<CreateButton> {
       chips.add(_chip('HEX / NEC', icon: Icons.numbers));
       if (useCustomNec) {
         chips.add(_chip('Custom timings', icon: Icons.tune));
-        chips.add(_chip(_necBitOrder == _NecBitOrder.lsb ? 'LSB' : 'MSB',
-            icon: Icons.swap_horiz));
+        chips.add(
+          _chip(_necBitOrderLabel(_necBitOrder), icon: Icons.swap_horiz),
+        );
         final f = int.tryParse(hexFreqController.text.trim());
         if (f != null && f > 0) {
           chips.add(_chip('${(f / 1000).round()} kHz', icon: Icons.waves));
@@ -1282,7 +1326,7 @@ class _CreateButtonState extends State<CreateButton> {
             "NEC:h=$hMark,$hSpace;b=$bMark,$zSpace,$oSpace;t=$tMark";
         freqForNec = int.tryParse(hexFreqController.text.trim()) ??
             kDefaultNecFrequencyHz;
-        bitOrder = (_necBitOrder == _NecBitOrder.lsb) ? 'lsb' : 'msb';
+        bitOrder = _encodeNecBitOrder(_necBitOrder);
       }
 
       return IRButton(
@@ -2624,19 +2668,6 @@ class _CreateButtonState extends State<CreateButton> {
   Widget _buildNecAdvancedSection() {
     final theme = Theme.of(context);
 
-    final bitOrderSegments = <ButtonSegment<_NecBitOrder>>[
-      const ButtonSegment(
-        value: _NecBitOrder.msb,
-        label: Text('MSB'),
-        icon: Icon(Icons.check_circle_outline),
-      ),
-      const ButtonSegment(
-        value: _NecBitOrder.lsb,
-        label: Text('LSB'),
-        icon: Icon(Icons.swap_horiz),
-      ),
-    ];
-
     return ExpansionTile(
       initiallyExpanded: useCustomNec,
       title: const Text('Advanced (optional)'),
@@ -2683,10 +2714,18 @@ class _CreateButtonState extends State<CreateButton> {
           const SizedBox(height: 6),
           Align(
             alignment: Alignment.centerLeft,
-            child: SegmentedButton<_NecBitOrder>(
-              segments: bitOrderSegments,
-              selected: {_necBitOrder},
-              onSelectionChanged: (s) => setState(() => _necBitOrder = s.first),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: _NecBitOrder.values.map((value) {
+                return ChoiceChip(
+                  label: Text(_necBitOrderLabel(value)),
+                  selected: _necBitOrder == value,
+                  onSelected: (selected) {
+                    if (selected) setState(() => _necBitOrder = value);
+                  },
+                );
+              }).toList(growable: false),
             ),
           ),
           const SizedBox(height: 12),
@@ -2717,7 +2756,7 @@ class _CreateButtonState extends State<CreateButton> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "MSB mode is kept for compatibility with existing stored codes. Switch to LSB if your stored hex is in natural order for your device.",
+              'MSB keeps existing behavior. Byte Swap preserves the previous LSB option. True LSB reverses bits within each byte for standard NEC receivers.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
               ),
@@ -2909,6 +2948,17 @@ class _CreateButtonState extends State<CreateButton> {
           ),
           const SizedBox(height: 12),
         ],
+        if (_selectedProtocolId == IrProtocolIds.sony12) ...[
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: _enterPackedSony12Code,
+              icon: const Icon(Icons.input_rounded),
+              label: Text(context.l10n.editButtonCodeTitle),
+            ),
+          ),
+          const SizedBox(height: 12),
+        ],
         if (def != null) ...[
           for (final field in def.fields) ...[
             _buildProtocolField(field),
@@ -2917,6 +2967,79 @@ class _CreateButtonState extends State<CreateButton> {
         ],
       ],
     );
+  }
+
+  Future<void> _enterPackedSony12Code() async {
+    final address = int.tryParse(
+      _protoControllers['address']?.text.trim() ?? '',
+      radix: 16,
+    );
+    final command = int.tryParse(
+      _protoControllers['command']?.text.trim() ?? '',
+      radix: 16,
+    );
+    final initialCode = address == null || command == null
+        ? ''
+        : (((address & 0x1F) << 7) | (command & 0x7F))
+            .toRadixString(16)
+            .toUpperCase()
+            .padLeft(3, '0');
+    final controller = TextEditingController(text: initialCode);
+    final formKey = GlobalKey<FormState>();
+
+    final packedCode = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(context.l10n.editButtonCodeTitle),
+        content: Form(
+          key: formKey,
+          child: TextFormField(
+            controller: controller,
+            autofocus: true,
+            maxLength: 3,
+            textCapitalization: TextCapitalization.characters,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9a-fA-F]')),
+            ],
+            decoration: const InputDecoration(
+              labelText: 'SONY12',
+              hintText: 'A90',
+            ),
+            validator: (value) {
+              final text = value?.trim() ?? '';
+              final parsed = int.tryParse(text, radix: 16);
+              if (text.isEmpty || parsed == null || parsed > 0xFFF) {
+                return context.l10n.invalidCodeForProtocol('SONY12');
+              }
+              return null;
+            },
+            onFieldSubmitted: (_) {
+              if (formKey.currentState?.validate() ?? false) {
+                Navigator.pop(dialogContext, controller.text.trim());
+              }
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(context.l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () {
+              if (formKey.currentState?.validate() ?? false) {
+                Navigator.pop(dialogContext, controller.text.trim());
+              }
+            },
+            child: Text(context.l10n.saveAction),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+
+    if (!mounted || packedCode == null) return;
+    setState(() => _fillProtocolFieldsFromDbHex(packedCode));
   }
 
   Widget _buildProtocolField(IrFieldDef field) {
@@ -3148,7 +3271,7 @@ class _CreateButtonState extends State<CreateButton> {
             "NEC:h=$hMark,$hSpace;b=$bMark,$zSpace,$oSpace;t=$tMark";
         freqForNec = int.tryParse(hexFreqController.text.trim()) ??
             kDefaultNecFrequencyHz;
-        bitOrder = (_necBitOrder == _NecBitOrder.lsb) ? 'lsb' : 'msb';
+        bitOrder = _encodeNecBitOrder(_necBitOrder);
       }
 
       final button = IRButton(

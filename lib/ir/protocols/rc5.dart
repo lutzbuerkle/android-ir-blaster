@@ -3,9 +3,8 @@ import '../ir_protocol_types.dart';
 const IrProtocolDefinition rc5ProtocolDefinition = IrProtocolDefinition(
   id: 'rc5',
   displayName: 'RC5',
-  description:
-      'RC5: bi-phase coding, unit=889us, carrier=36kHz. '
-      'Input: address(5 bits) + command(6 bits). Builds fixed start bits, toggle bit, and the 11-bit payload (MSB-first). '
+  description: 'RC5: bi-phase coding, unit=889us, carrier=36kHz. '
+      'Input: address(5 bits) + command(7 bits). Builds the start/field bits, toggle bit, and payload (MSB-first). '
       'Frame gap padded to 114000us.',
   implemented: true,
   defaultFrequencyHz: 36000,
@@ -24,14 +23,14 @@ const IrProtocolDefinition rc5ProtocolDefinition = IrProtocolDefinition(
     ),
     IrFieldDef(
       id: 'command',
-      label: 'Command (6 bits)',
+      label: 'Command (7 bits)',
       type: IrFieldType.intHex,
       required: true,
       min: 0x00,
-      max: 0x3F,
+      max: 0x7F,
       maxLength: 2,
       hint: 'e.g., 0C',
-      helperText: 'RC5 command (00..3F).',
+      helperText: 'RC5 command (00..7F).',
       maxLines: 1,
     ),
   ],
@@ -52,26 +51,20 @@ class Rc5ProtocolEncoder implements IrProtocolEncoder {
   // Timings
   static const int unit = 0x379; // 889us
   static const int frameTargetUs = 0x1BD50; // 114000us
-  static const int repeatWindowMs = 180;
-
   // RC5 toggle changes on a new press, but stays constant while the same key is
-  // repeating. The app-level encoder is stateless, so we approximate that
-  // behavior here by keeping the same toggle for rapid repeats of the same
-  // payload and flipping it for a new press.
+  // repeating.
   static bool _toggleFlag = false;
   static int? _lastPayload;
-  static DateTime? _lastEncodeAt;
 
   @override
   IrEncodeResult encode(Map<String, dynamic> params) {
-    final int payload = _readPackedPayload(params);
-    final bool toggle = _resolveToggle(params, payload);
+    final int packed = _readPackedFrameData(params);
+    final bool toggle = _resolveToggle(params, packed);
 
-    final String leader = '11';
+    final String fieldAndPayload = packed.toRadixString(2).padLeft(12, '0');
     final String toggleBit = toggle ? '1' : '0';
-    final String payload11 = payload.toRadixString(2).padLeft(11, '0');
-
-    final String bits = leader + toggleBit + payload11; // 14 bits total
+    final String bits =
+        '1${fieldAndPayload[0]}$toggleBit${fieldAndPayload.substring(1)}';
 
     final List<bool> halfLevels = <bool>[];
     for (int i = 0; i < bits.length; i++) {
@@ -121,48 +114,56 @@ class Rc5ProtocolEncoder implements IrProtocolEncoder {
   bool _resolveToggle(Map<String, dynamic> params, int payload) {
     final dynamic rawToggle = params['toggle'];
     if (rawToggle is bool) {
-      _rememberToggleState(rawToggle, payload);
+      if (params['_preview'] != true) {
+        _rememberToggleState(rawToggle, payload);
+      }
       return rawToggle;
     }
     if (rawToggle is String) {
       final String s = rawToggle.trim().toLowerCase();
       if (s == '0' || s == 'false') {
-        _rememberToggleState(false, payload);
+        if (params['_preview'] != true) {
+          _rememberToggleState(false, payload);
+        }
         return false;
       }
       if (s == '1' || s == 'true') {
-        _rememberToggleState(true, payload);
+        if (params['_preview'] != true) {
+          _rememberToggleState(true, payload);
+        }
         return true;
       }
       throw ArgumentError('RC5 toggle must be 0/1 or true/false');
     }
 
-    final DateTime now = DateTime.now();
-    final bool isRepeat = Rc5ProtocolEncoder._lastPayload == payload &&
-        Rc5ProtocolEncoder._lastEncodeAt != null &&
-        now.difference(Rc5ProtocolEncoder._lastEncodeAt!).inMilliseconds <=
-            Rc5ProtocolEncoder.repeatWindowMs;
-    if (!isRepeat) {
-      Rc5ProtocolEncoder._toggleFlag = !Rc5ProtocolEncoder._toggleFlag;
+    final bool isRepeat = params['_repeat'] == true &&
+        Rc5ProtocolEncoder._lastPayload == payload;
+    final bool resolved = isRepeat
+        ? Rc5ProtocolEncoder._toggleFlag
+        : !Rc5ProtocolEncoder._toggleFlag;
+    if (params['_preview'] == true) {
+      return resolved;
     }
-    _rememberToggleState(Rc5ProtocolEncoder._toggleFlag, payload, now: now);
-    return Rc5ProtocolEncoder._toggleFlag;
+    _rememberToggleState(resolved, payload);
+    return resolved;
   }
 
-  void _rememberToggleState(bool toggle, int payload, {DateTime? now}) {
+  void _rememberToggleState(bool toggle, int payload) {
     Rc5ProtocolEncoder._toggleFlag = toggle;
     Rc5ProtocolEncoder._lastPayload = payload;
-    Rc5ProtocolEncoder._lastEncodeAt = now ?? DateTime.now();
   }
 }
 
-int _readPackedPayload(Map<String, dynamic> params) {
+int _readPackedFrameData(Map<String, dynamic> params) {
   final dynamic addressRaw = params['address'];
   final dynamic commandRaw = params['command'];
   if (addressRaw != null || commandRaw != null) {
-    final int address = _readHexField(addressRaw, max: 0x1F, name: 'RC5 address');
-    final int command = _readHexField(commandRaw, max: 0x3F, name: 'RC5 command');
-    return ((address & 0x1F) << 6) | (command & 0x3F);
+    final int address =
+        _readHexField(addressRaw, max: 0x1F, name: 'RC5 address');
+    final int command =
+        _readHexField(commandRaw, max: 0x7F, name: 'RC5 command');
+    final int fieldBit = command < 0x40 ? 1 : 0;
+    return (fieldBit << 11) | ((address & 0x1F) << 6) | (command & 0x3F);
   }
 
   final dynamic h = params['hex'];
@@ -171,7 +172,9 @@ int _readPackedPayload(Map<String, dynamic> params) {
   }
   final String hex = h.trim();
   _validateHexMaxLen(hex, 3, protocolName: 'RC5');
-  return (hex.isEmpty ? 0 : int.parse(hex, radix: 16)) & 0x7FF;
+  // Legacy payloads contain only address(5) + command(6). Preserve their
+  // historical RC5 field bit so existing saved buttons emit unchanged frames.
+  return 0x800 | ((hex.isEmpty ? 0 : int.parse(hex, radix: 16)) & 0x7FF);
 }
 
 int _readHexField(dynamic raw, {required int max, required String name}) {
@@ -189,7 +192,8 @@ int _readHexField(dynamic raw, {required int max, required String name}) {
   throw ArgumentError('$name must be hex');
 }
 
-void _validateHexMaxLen(String hex, int maxLen, {required String protocolName}) {
+void _validateHexMaxLen(String hex, int maxLen,
+    {required String protocolName}) {
   if (hex.length > maxLen) {
     // matches Kotlin message for RC5 specifically
     if (protocolName == 'RC5') {

@@ -157,6 +157,36 @@ List<int> buildNecPatternLSBFirst(int code32,
   return pattern;
 }
 
+List<int> buildNecPatternLsbPerByte(int code32,
+    {NECParams params = NECParams.defaults}) {
+  final int nec = code32 & 0xFFFFFFFF;
+  final List<int> pattern = [params.headerMark, params.headerSpace];
+  for (int byteShift = 24; byteShift >= 0; byteShift -= 8) {
+    for (int bitIndex = 0; bitIndex < 8; bitIndex++) {
+      final int bit = (nec >> (byteShift + bitIndex)) & 0x1;
+      pattern.add(params.bitMark);
+      pattern.add(bit == 0 ? params.zeroSpace : params.oneSpace);
+    }
+  }
+  pattern.add(params.trailerMark);
+  return pattern;
+}
+
+List<int> _buildCustomNecPattern(
+  int code32, {
+  required String? bitOrder,
+  required NECParams params,
+}) {
+  switch (bitOrder?.trim().toLowerCase()) {
+    case 'lsb':
+      return buildNecPatternLSBFirst(code32, params: params);
+    case 'true_lsb':
+      return buildNecPatternLsbPerByte(code32, params: params);
+    default:
+      return buildNecPatternFromStoredCodeMSBFirst(code32, params: params);
+  }
+}
+
 void _reportFlutterError(String where, Object error, StackTrace stack) {
   FlutterError.reportError(
     FlutterErrorDetails(
@@ -311,12 +341,11 @@ IrPreview previewIRButton(IRButton button) {
     if (isNecConfigString(button.rawData)) {
       if (button.code != null) {
         final params = parseNecParamsFromString(button.rawData!);
-        final useLsb =
-            (button.necBitOrder ?? 'msb').toLowerCase().trim() == 'lsb';
-        final pattern = useLsb
-            ? buildNecPatternLSBFirst(button.code!, params: params)
-            : buildNecPatternFromStoredCodeMSBFirst(button.code!,
-                params: params);
+        final pattern = _buildCustomNecPattern(
+          button.code!,
+          bitOrder: button.necBitOrder,
+          params: params,
+        );
         _validatePattern(pattern, where: 'previewNecCustom');
         _validateFrequency(button.frequency!);
         return IrPreview(
@@ -341,7 +370,10 @@ IrPreview previewIRButton(IRButton button) {
   if (button.protocol != null && button.protocol!.trim().isNotEmpty) {
     final id = button.protocol!.trim();
     final enc = IrProtocolRegistry.encoderFor(id);
-    final params = button.protocolParams ?? <String, dynamic>{};
+    final params = <String, dynamic>{
+      ...?button.protocolParams,
+      '_preview': true,
+    };
     final res = enc.encode(params);
     final int freq = (button.frequency != null && button.frequency! > 0)
         ? button.frequency!
@@ -368,7 +400,7 @@ IrPreview previewIRButton(IRButton button) {
   throw StateError('IRButton has neither raw data nor hex code to preview');
 }
 
-Future<void> sendIR(IRButton button) async {
+Future<void> sendIR(IRButton button, {bool repeat = false}) async {
   if (button.protocol != null && button.protocol!.trim().isNotEmpty) {
     final id = button.protocol!.trim();
     if (id == IrProtocolIds.tiqiaaLearned ||
@@ -421,12 +453,11 @@ Future<void> sendIR(IRButton button) async {
     if (isNecConfigString(button.rawData)) {
       if (button.code != null) {
         final params = parseNecParamsFromString(button.rawData!);
-        final useLsb =
-            (button.necBitOrder ?? 'msb').toLowerCase().trim() == 'lsb';
-        final pattern = useLsb
-            ? buildNecPatternLSBFirst(button.code!, params: params)
-            : buildNecPatternFromStoredCodeMSBFirst(button.code!,
-                params: params);
+        final pattern = _buildCustomNecPattern(
+          button.code!,
+          bitOrder: button.necBitOrder,
+          params: params,
+        );
         await transmitRaw(button.frequency ?? kDefaultNecFrequencyHz, pattern);
         return;
       } else {
@@ -448,7 +479,10 @@ Future<void> sendIR(IRButton button) async {
   if (button.protocol != null && button.protocol!.trim().isNotEmpty) {
     final id = button.protocol!.trim();
     final enc = IrProtocolRegistry.encoderFor(id);
-    final params = button.protocolParams ?? <String, dynamic>{};
+    final params = <String, dynamic>{
+      ...?button.protocolParams,
+      if (repeat) '_repeat': true,
+    };
     final res = enc.encode(params);
     final int freq = (button.frequency != null && button.frequency! > 0)
         ? button.frequency!

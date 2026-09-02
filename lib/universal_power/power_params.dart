@@ -11,9 +11,9 @@ const Map<String, String> _protocolExampleHex = <String, String>{
   'necx1': '000008F7',
   'necx2': '000C08F7',
   'nrc17': '5C61',
-  'pioneer': '1A2B',
+  'pioneer': '1A2B3C4D',
   'proton': '0000',
-  'rc5': '0000',
+  'rc5': '800',
   'rc6': '800F',
   'rca_38': 'F00',
   'rcc0082': '000',
@@ -21,7 +21,7 @@ const Map<String, String> _protocolExampleHex = <String, String>{
   'rec80': '28C600212100',
   'recs80': '000',
   'recs80_l': '000',
-  'samsung32': '00000000',
+  'samsung32': '0000',
   'samsung36': '00C0001',
   'sharp': '2024',
   'sony12': '000',
@@ -83,13 +83,30 @@ Map<String, dynamic> buildParamsForProtocol({
     return _buildKaseikyoParams(codeHexAny: fitted, vendorAny: kaseikyoVendor);
   }
 
+  if (pid == 'sony12' || pid == 'sony15' || pid == 'sony20') {
+    final int bits = pid == 'sony12' ? 12 : (pid == 'sony15' ? 15 : 20);
+    final int addressBits = pid == 'sony12' ? 5 : (pid == 'sony15' ? 8 : 13);
+    final int data = int.parse(fitted, radix: 16) & ((1 << bits) - 1);
+    final int command = data & 0x7F;
+    final int address = (data >> 7) & ((1 << addressBits) - 1);
+    return <String, dynamic>{
+      'address': address
+          .toRadixString(16)
+          .toUpperCase()
+          .padLeft((addressBits + 3) ~/ 4, '0'),
+      'command': command.toRadixString(16).toUpperCase().padLeft(2, '0'),
+    };
+  }
+
   if (pid == 'pioneer') {
-    if (fitted.length != 4) {
-      throw ArgumentError('Pioneer code must be 4 hex digits');
+    if (fitted.length != 8) {
+      throw ArgumentError('Pioneer code must be 8 hex digits');
     }
     return <String, dynamic>{
       'address': fitted.substring(0, 2),
       'command': fitted.substring(2, 4),
+      'secondaryAddress': fitted.substring(4, 6),
+      'secondaryCommand': fitted.substring(6, 8),
     };
   }
 
@@ -104,12 +121,12 @@ Map<String, dynamic> buildParamsForProtocol({
   }
 
   if (pid == 'rc5') {
-    if (fitted.length != 4) {
-      throw ArgumentError('RC5 code must be 4 hex digits');
-    }
+    final int data = int.parse(fitted, radix: 16) & 0xFFF;
+    final int command = (data & 0x3F) | (((data >> 11) & 1) == 0 ? 0x40 : 0);
     return <String, dynamic>{
-      'address': fitted.substring(0, 2),
-      'command': fitted.substring(2, 4),
+      'address':
+          ((data >> 6) & 0x1F).toRadixString(16).toUpperCase().padLeft(2, '0'),
+      'command': command.toRadixString(16).toUpperCase().padLeft(2, '0'),
     };
   }
 
